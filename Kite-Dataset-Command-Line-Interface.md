@@ -1,11 +1,14 @@
 ---
 layout: page
 ---
+## Kite Dataset Command Line Interface
 
-<a name="top" />
-The Kite Dataset command line interface (CLI) provides utility commands that let you quickly create a schema and dataset, import data from a CSV file, then view the results.
+
+The Kite Dataset command line interface (CLI) provides utility commands that let you perform essential tasks such as creating a schema and dataset, importing data from a CSV file, and viewing the results.
 
 Each command is described below. See [Using the Kite CLI to Create a Dataset](https://github.com/kite-sdk/kite/wiki/2.1-Using-the-Kite-CLI-to-Create-a-Dataset) for a practical example of the CLI in use.
+
+<a name="top" />
 
 ----
 * [csv-schema](#csvSchema) (create a schema from a CSV data file)
@@ -14,6 +17,7 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](ht
 * [schema](#schema) (view the schema for an existing dataset)
 * [csv-import](#csvImport) (import a CSV data file)
 * [show](#show) (show the first _n_ records of a dataset)
+* [copy](#copy) (copy one dataset to another dataset)
 * [delete](#delete) (delete a dataset)
 * [partition-config](#partition-config) (create a partition strategy for a schema)
 * [help](#help) (get help for the dataset command in general or a specific command)
@@ -61,7 +65,7 @@ Use this option when the CSV data file does not have header information in the f
 
 Minimize schema file size by eliminating white space.
 
-##Examples
+### Examples
 
 Print the schema to standard out: `dataset csv-schema sample.csv --class Sample`
 
@@ -69,7 +73,7 @@ Write the schema to sample.avsc: `dataset csv-schema sample.csv --class Sample -
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -113,7 +117,7 @@ Save the schema for the example User class to user.avsc:
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -147,7 +151,7 @@ By default, the dataset is created in Avro format. Use this switch to set the fo
 The file containing a JSON-formatted partition strategy.
 
 
-###Examples:
+### Examples:
 
 Create dataset "users" in Hive:
 
@@ -164,7 +168,7 @@ Create dataset "users" partitioned by JSON configuration:
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -204,7 +208,7 @@ Save the schema for dataset "users" to user.avsc: `dataset schema users -o user.
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -254,7 +258,7 @@ Copy the records from `sample.csv` to a dataset named "sample": `dataset csv-imp
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -289,9 +293,47 @@ Show the first 50 records in dataset "users": `dataset show users -n 50`
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
+
+<a name="copy" />
+
+## copy
+
+Copy records from one dataset to another.
+
+### Syntax
+`dataset [general options] copy <source dataset> <destination dataset> [command options]`
+
+### Options
+
+`--no-compaction`
+
+Copy to output directly, without compacting the data.
+
+`--num-writers`
+
+The number of writer processes to use.
+
+
+
+### Examples
+
+Copy the contents of movies_avro to movies_parquet:
+
+ `dataset copy movies_avro movies_parquet`
+ 
+Copy the movies dataset into HBase in a map-only job:
+ 
+`dataset copy movies dataset:hbase:zk-host/movies --no-compaction`
+
+----
+
+[Back to the Top](#top)
+
+----
+
 
 <a name="delete" />
 
@@ -299,7 +341,7 @@ Show the first 50 records in dataset "users": `dataset show users -n 50`
 
 Delete one or more datasets and related metadata.
 
-###Syntax
+### Syntax
 
 `dataset [general options] delete <dataset names> [command options]`
 
@@ -319,7 +361,7 @@ Delete all data and metadata for the dataset "users": `dataset delete users`
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -355,7 +397,7 @@ Partition by created_at time's year, month, and day
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partitionConfig)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
 
@@ -375,6 +417,6 @@ Retrieve details for the create, show, and delete commands. `dataset help create
 
 ----
 
-[Top](#top)&nbsp;&nbsp;[csv-schema](#csvSchema)&nbsp;&nbsp;[obj-schema](#objSchema)&nbsp;&nbsp;[create](#create)&nbsp;&nbsp;[schema](#schema)&nbsp;&nbsp;[csv-import](#csvImport)&nbsp;&nbsp;[show](#show)&nbsp;&nbsp;[delete](#delete)&nbsp;&nbsp;[partition-config](#partition-config)&nbsp;&nbsp;[help](#help)
+[Back to the Top](#top)
 
 ----
