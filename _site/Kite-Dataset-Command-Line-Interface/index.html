@@ -80,10 +80,13 @@
   </header>
 
   <article class="post-content">
-  <p><a name="top"></a><br />
-The Kite Dataset command line interface (CLI) provides utility commands that let you quickly create a schema and dataset, import data from a CSV file, then view the results.</p>
+  <h2 id="kite-dataset-command-line-interface">Kite Dataset Command Line Interface</h2>
+
+<p>The Kite Dataset command line interface (CLI) provides utility commands that let you perform essential tasks such as creating a schema and dataset, importing data from a CSV file, and viewing the results.</p>
 
 <p>Each command is described below. See <a href="https://github.com/kite-sdk/kite/wiki/2.1-Using-the-Kite-CLI-to-Create-a-Dataset">Using the Kite CLI to Create a Dataset</a> for a practical example of the CLI in use.</p>
+
+<p><a name="top"></a></p>
 
 <hr />
 <ul>
@@ -93,6 +96,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
   <li><a href="#schema">schema</a> (view the schema for an existing dataset)</li>
   <li><a href="#csvImport">csv-import</a> (import a CSV data file)</li>
   <li><a href="#show">show</a> (show the first <em>n</em> records of a dataset)</li>
+  <li><a href="#copy">copy</a> (copy one dataset to another dataset)</li>
   <li><a href="#delete">delete</a> (delete a dataset)</li>
   <li><a href="#partition-config">partition-config</a> (create a partition strategy for a schema)</li>
   <li><a href="#help">help</a> (get help for the dataset command in general or a specific command)</li>
@@ -141,7 +145,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>Minimize schema file size by eliminating white space.</p>
 
-<p>##Examples</p>
+<h3 id="examples">Examples</h3>
 
 <p>Print the schema to standard out: <code>dataset csv-schema sample.csv --class Sample</code></p>
 
@@ -149,7 +153,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -180,7 +184,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>Minimize schema file size by eliminating white space.</p>
 
-<h3 id="examples">Examples</h3>
+<h3 id="examples-1">Examples</h3>
 
 <p>Create a schema for an example User class:
 <code>dataset obj-schema org.kitesdk.cli.example.User</code></p>
@@ -193,7 +197,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -226,7 +230,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>The file containing a JSON-formatted partition strategy.</p>
 
-<p>###Examples:</p>
+<h3 id="examples-2">Examples:</h3>
 
 <p>Create dataset “users” in Hive:</p>
 
@@ -242,7 +246,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -274,7 +278,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>Save schema in Avro format to a given path.</p>
 
-<h3 id="examples-1">Examples:</h3>
+<h3 id="examples-3">Examples:</h3>
 
 <p>Print the schema for dataset “users” to standard out: <code>dataset schema users</code></p>
 
@@ -282,7 +286,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -325,13 +329,13 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>Use this option when the CSV data file does not have header information in the first line. Fields are given the default names <em>field_0</em>, <em>field_1,…field_n</em>.</p>
 
-<h3 id="examples-2">Examples</h3>
+<h3 id="examples-4">Examples</h3>
 
 <p>Copy the records from <code>sample.csv</code> to a dataset named “sample”: <code>dataset csv-import csv-import path/to/sample.csv sample</code></p>
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -358,7 +362,7 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>The number of records to print. The default number is 10.</p>
 
-<h3 id="examples-3">Examples</h3>
+<h3 id="examples-5">Examples</h3>
 
 <p>Show the first 10 records in dataset “users”: <code>dataset show users</code></p>
 
@@ -366,7 +370,42 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
+
+<hr />
+
+<p><a name="copy"></a></p>
+
+<h2 id="copy">copy</h2>
+
+<p>Copy records from one dataset to another.</p>
+
+<h3 id="syntax-5">Syntax</h3>
+<p><code>dataset [general options] copy &lt;source dataset&gt; &lt;destination dataset&gt; [command options]</code></p>
+
+<h3 id="options-6">Options</h3>
+
+<p><code>--no-compaction</code></p>
+
+<p>Copy to output directly, without compacting the data.</p>
+
+<p><code>--num-writers</code></p>
+
+<p>The number of writer processes to use.</p>
+
+<h3 id="examples-6">Examples</h3>
+
+<p>Copy the contents of movies_avro to movies_parquet:</p>
+
+<p><code>dataset copy movies_avro movies_parquet</code></p>
+
+<p>Copy the movies dataset into HBase in a map-only job:</p>
+
+<p><code>dataset copy movies dataset:hbase:zk-host/movies --no-compaction</code></p>
+
+<hr />
+
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -376,11 +415,11 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>Delete one or more datasets and related metadata.</p>
 
-<p>###Syntax</p>
+<h3 id="syntax-6">Syntax</h3>
 
 <p><code>dataset [general options] delete &lt;dataset names&gt; [command options]</code></p>
 
-<h3 id="options-6">Options</h3>
+<h3 id="options-7">Options</h3>
 
 <p><code>-d, --directory</code></p>
 
@@ -390,13 +429,13 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>By default, metadata is stored in Hive. Set this value to false to store the metadata in the file system (<code>--use-hive false</code>).</p>
 
-<h3 id="examples-4">Examples</h3>
+<h3 id="examples-7">Examples</h3>
 
 <p>Delete all data and metadata for the dataset “users”: <code>dataset delete users</code></p>
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -406,11 +445,11 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 <p>Builds a partition strategy for a schema.</p>
 
-<h3 id="syntax-5">Syntax</h3>
+<h3 id="syntax-7">Syntax</h3>
 
 <p>dataset [general options] partition-config <field:type pairs=""> [command options]</field:type></p>
 
-<h3 id="options-7">Options:</h3>
+<h3 id="options-8">Options:</h3>
 
 <p><code>-s, --schema</code><br />
 The file containing the Avro schema. <strong>This value is required</strong>.</p>
@@ -421,7 +460,7 @@ Save partition JSON file to path</p>
 <p><code>--minimize</code><br />
 Minimize output size by eliminating white space</p>
 
-<h3 id="examples-5">Examples</h3>
+<h3 id="examples-8">Examples</h3>
 
 <p>Partition by email address, balanced across 16 hash partitions and save as a JSON file.</p>
 
@@ -432,7 +471,7 @@ Minimize output size by eliminating white space</p>
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partitionConfig">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
@@ -442,17 +481,17 @@ Minimize output size by eliminating white space</p>
 
 <p>Retrieves details on the functions of one or more dataset commands.</p>
 
-<h3 id="syntax-6">Syntax</h3>
+<h3 id="syntax-8">Syntax</h3>
 
 <p><code>dataset [general options] help &lt;commands&gt; [command options]</code></p>
 
-<h3 id="examples-6">Examples</h3>
+<h3 id="examples-9">Examples</h3>
 
 <p>Retrieve details for the create, show, and delete commands. <code>dataset help create show delete</code></p>
 
 <hr />
 
-<p><a href="#top">Top</a>  <a href="#csvSchema">csv-schema</a>  <a href="#objSchema">obj-schema</a>  <a href="#create">create</a>  <a href="#schema">schema</a>  <a href="#csvImport">csv-import</a>  <a href="#show">show</a>  <a href="#delete">delete</a>  <a href="#partition-config">partition-config</a>  <a href="#help">help</a></p>
+<p><a href="#top">Back to the Top</a></p>
 
 <hr />
 
