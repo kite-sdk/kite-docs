@@ -426,7 +426,8 @@ Partition by email address, balanced across 16 hash partitions and save as a JSO
 
 `dataset partition-config email:hash[16] email:copy -s user.avsc -o part.json`
 
-Partition by created_at time's year, month, and day
+Partition by created_at time's year, month, and day:
+
 `dataset partition-config created_at:year created_at:month created_at:day -s event.avsc`
 
 ----
@@ -439,7 +440,15 @@ Partition by created_at time's year, month, and day
 
 ## mapping-config
 
-Builds a partition strategy for a schema, based on a key value, version, or column.
+Builds a partition strategy for a schema, based on a key value, version, or column. The mapping definition is a JSON object with required "type" and "source" attributes.
+
+Types:
+
+`column`: requires _family_ and _qualifier_, regular storage.
+`counter`: requires _family_ and _qualifier_, incrementable storage, must be int or long.
+`keyAsColumn`: requires _family_, optional _prefix_, must be record or map type. Maps each value to a separate qualifier in the same family.
+`key`: gets value from storage in the key. Primitive types only.
+`occVersion`: occ version, must be an int or long. Conflicts with counter types.
 
 ### Syntax
 `dataset [general options] create-column-mapping <field:type pairs> [command options]`
