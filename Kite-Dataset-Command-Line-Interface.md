@@ -6,21 +6,23 @@ layout: page
 
 The Kite Dataset command line interface (CLI) provides utility commands that let you perform essential tasks such as creating a schema and dataset, importing data from a CSV file, and viewing the results.
 
-Each command is described below. See [Using the Kite CLI to Create a Dataset](https://github.com/kite-sdk/kite/wiki/2.1-Using-the-Kite-CLI-to-Create-a-Dataset) for a practical example of the CLI in use.
+Each command is described below. See [Using the Kite CLI to Create a Dataset](/Using-the-Kite-CLI-to-Create-a-Dataset/) for a practical example of the CLI in use.
 
-<a name="top" />
+<a name="top" /> 
 
 ----
-* [csv-schema](#csvSchema) (create a schema from a CSV data file)
-* [obj-schema](#objSchema) (create a schema from a Java object)
-* [create](#create) (create a dataset based on an existing schema)
-* [schema](#schema) (view the schema for an existing dataset)
-* [csv-import](#csvImport) (import a CSV data file)
-* [show](#show) (show the first _n_ records of a dataset)
-* [copy](#copy) (copy one dataset to another dataset)
-* [delete](#delete) (delete a dataset)
-* [partition-config](#partition-config) (create a partition strategy for a schema)
-* [help](#help) (get help for the dataset command in general or a specific command)
+* [csv-schema](#csvSchema): create a schema from a CSV data file.
+* [obj-schema](#objSchema): create a schema from a Java object.
+* [create](#create): create a dataset based on an existing schema.
+* [update](#update): update the metadata descriptor for a dataset.
+* [schema](#schema) : view the schema for an existing dataset.
+* [csv-import](#csvImport): import a CSV data file.
+* [show](#show): show the first _n_ records of a dataset.
+* [copy](#copy): copy one dataset to another dataset.
+* [delete](#delete): delete a dataset.
+* [partition-config](#partition-config): create a partition strategy for a schema.
+* [mapping-config](#mapping-config): create a partition strategy for a schema.
+* [help](#help): get help for the dataset command in general or a specific command.
 
 ----
 <a name="csvSchema" />
@@ -165,6 +167,38 @@ Create dataset "users" partitioned by JSON configuration:
 
 `dataset create users --schema user.avsc --partition-by user_part.json`
 
+
+----
+
+[Back to the Top](#top)
+
+----
+
+<a name="update" />
+
+## update
+
+Update the metadata descriptor for a dataset.
+
+### Syntax
+
+`dataset [general options] update-dataset <dataset name> [command options]`
+
+### Options
+
+`-s, --schema`
+The file containing the Avro schema.
+
+`--set, --property`
+
+Add a property pair: `prop.name=value`.
+
+
+### Examples:
+
+Update schema for dataset "users" in Hive:": `dataset update users --schema user.avsc`
+
+Update HDFS dataset by URI, add property: `dataset update dataset:hdfs:/user/me/datasets/users --set kite.write.cache-size=20`
 
 ----
 
@@ -394,6 +428,49 @@ Partition by email address, balanced across 16 hash partitions and save as a JSO
 
 Partition by created_at time's year, month, and day
 `dataset partition-config created_at:year created_at:month created_at:day -s event.avsc`
+
+----
+
+[Back to the Top](#top)
+
+----
+
+<a name="mapping-config" />
+
+## mapping-config
+
+Builds a partition strategy for a schema, based on a key value, version, or column.
+
+### Syntax
+`dataset [general options] create-column-mapping <field:type pairs> [command options]`
+
+### Options
+
+`-s, --schema`
+
+The file containing the Avro schema.
+
+`-p, --partition-by`
+
+The file containing the JSON partition strategy.
+
+`--minimize`
+
+Minimize output size by eliminating white space.
+
+### Examples
+
+Store email in the key, other fields in column family _u_:
+
+`dataset mapping-config email:key username:u id:u --schema user.avsc -o user-cols.json`
+
+Store preferences hash-map in column family _prefs_:
+
+`dataset mapping-config preferences:prefs --schema user.avsc`
+
+Use the _version_ field as an OCC version:
+
+`dataset mapping-config version:version --schema user.avsc`
 
 ----
 
