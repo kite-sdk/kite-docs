@@ -14,7 +14,7 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](/U
 * [csv-schema](#csvSchema): create a schema from a CSV data file.
 * [obj-schema](#objSchema): create a schema from a Java object.
 * [create](#create): create a dataset based on an existing schema.
-* [update](#update): update the metadata descriptor for a dataset.
+* [update](#update): update the metadata descriptor for a dataset. 
 * [schema](#schema) : view the schema for an existing dataset.
 * [csv-import](#csvImport): import a CSV data file.
 * [show](#show): show the first _n_ records of a dataset.
