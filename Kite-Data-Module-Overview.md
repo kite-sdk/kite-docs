@@ -15,7 +15,7 @@ The data module contains APIs and utilities for defining and performing actions 
 * <a href="#entities">entities</a>
 * <a href="#schemas">schemas</a>
 * <a href="#datasets">datasets</a>
-* <a href="#repository">repositories</a>
+* <a href="#repositories">repositories</a>
 * <a href="#loading">loading data</a>
 * <a href="#viewing">viewing data</a>
 
@@ -69,6 +69,7 @@ Performance can be enhanced by defining a <a href="https://github.com/kite-sdk/k
 
 You can work with a subset of dataset entities using the Views API.
 
+<a name="repositories" />
 
 ### Dataset Repository
 
@@ -80,9 +81,13 @@ A dataset repository is represented by instances of the `org.kitesdk.data.Datase
 
 Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provide built-in support for moving or copying datasets between repositories. MapReduce and other execution engines provide copy functionality, if you need it.
 
+<a name="loading" />
+
 ### Loading data from CSV
 
 You can load comma separated value data into a dataset repository using the command line interface function [csv-import](Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
+
+<a name="viewing" />
 
 ### Viewing Your Data
 

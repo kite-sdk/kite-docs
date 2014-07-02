@@ -23,17 +23,22 @@ Partition strategies configure how kite will logically divide your dataset. Good
 A partition strategy is defined using JSON notation.
 
 Partition strategies have the following traits:
-* Each must be defined in a valid JSON file.
-* Each is created from a list of partition definitions.
-* Each partition must define a source and a type, but the name is optional (if you do not define a name explicitly, it is given a generic name at configuration time).
-* Valid types are
-  * `year`
-  * `month`
-  * `day`
-  * `hour`
-  * `minute`
-  * `identity`
-  * `hash`
+<ul>
+<li>Each must be defined in a valid JSON file.</li>
+<li>Each is created from a list of partition definitions.</li>
+<li>Each partition must define a source and a type, but the name is optional (if you do not define a name explicitly, it is given a generic name at configuration time).</li>
+<li>Valid types are</li>
+<ul>
+<li>`year`</li>
+<li>month`</li>
+<li>`day`</li>
+<li>`hour`</li>
+<li>`minute`</li>
+<li>`identity`</li>
+<li>`hash`</li>
+</ul>
+</ul>
+
 
 <blockquote>
 *Hash also requires an integer, representing the number of partitions into which the field entries should be distributed.
@@ -93,7 +98,7 @@ Since the most common query against this data is time-based, you can define a pa
 } ]
 ```
 
-You can also use the command line interface command `partition-config` to generate the JSON file. See [partition-config](kitedatasetcli.html#partition-config).
+You can also use the command line interface command `partition-config` to generate the JSON file. See [partition-config](/Kite-Dataset-Command-Line-Interface/index.html#partition-config).
 
 ### Creating a Dataset That Uses a Partition Strategy
 
@@ -105,5 +110,5 @@ For example, you can create a dataset for our HighRollers club using this comman
 dataset create HighRollersClub -s HighRollers.avsc -p HighRollers.json 
 ```
 
-See [create](kitedatasetcli.html#create) for more options when creating a dataset.
+See [create](/Kite-Dataset-Command-Line-Interface/index.html#create) for more options when creating a dataset.
 You can also use Kite to manage datasets in HBase, using the same tools and APIs. HBase datasets work differently than datasets backed by files in HDFS in two ways. First, dataset partitioning is handled by HBase and configuring it is a little different. Second, HBase stores data as a group of values, or cells, so you will need to configure how Kite divides your records into separate cells.

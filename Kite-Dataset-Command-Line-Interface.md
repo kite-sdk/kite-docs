@@ -8,9 +8,12 @@ The Kite Dataset command line interface (CLI) provides utility commands that let
 
 Each command is described below. See [Using the Kite CLI to Create a Dataset](/Using-the-Kite-CLI-to-Create-a-Dataset/) for a practical example of the CLI in use.
 
+
+
 <a name="top" /> 
 
 ----
+* [general options](#general): options for all commands.
 * [csv-schema](#csvSchema): create a schema from a CSV data file.
 * [obj-schema](#objSchema): create a schema from a Java object.
 * [create](#create): create a dataset based on an existing schema.
@@ -23,6 +26,16 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](/U
 * [partition-config](#partition-config): create a partition strategy for a schema.
 * [mapping-config](#mapping-config): create a partition strategy for a schema.
 * [help](#help): get help for the dataset command in general or a specific command.
+
+----
+<a name="general" />
+
+## general options
+
+Every command begins with `dataset`, followed by `[general options]`. Currently, the only general options are `-v`, `--verbose`, and `--debug`, all three of which show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
+
+----
+[Back to the Top](#top)
 
 ----
 <a name="csvSchema" />
@@ -407,7 +420,7 @@ Builds a partition strategy for a schema.
 
 ### Syntax
 
-dataset [general options] partition-config <field:type pairs> [command options]
+`dataset [general options] partition-config <field:type pairs> [command options]`
 
 ### Options:
 
@@ -445,9 +458,13 @@ Builds a partition strategy for a schema, based on a key value, version, or colu
 Types:
 
 `column`: requires _family_ and _qualifier_, regular storage.
+
 `counter`: requires _family_ and _qualifier_, incrementable storage, must be int or long.
+
 `keyAsColumn`: requires _family_, optional _prefix_, must be record or map type. Maps each value to a separate qualifier in the same family.
+
 `key`: gets value from storage in the key. Primitive types only.
+
 `occVersion`: occ version, must be an int or long. Conflicts with counter types.
 
 ### Syntax
