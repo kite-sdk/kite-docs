@@ -55,8 +55,8 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 
 | Java API | Command Line Interface |
 | --------- | ----------------------- |
-| <a href="/Inferring-a-Schema-from-a-Java-Class/">Inferring a schema from a Java Class</a> | <a href="/Kite-Dataset-Command-Line-Interface/index.html#objSchema">Inferring a schema from a Java class</a> |
-| <a href="/Inferring-a-Schema-from-an-Avro-Data-File">Inferring a schema from an Avro data file</a> | <a href="/Kite-Dataset-Command-Line-Interface/index.html#csvSchema">Inferring a schema from a CSV file</a> |
+| <a href="Inferring-a-Schema-from-a-Java-Class/">Inferring a schema from a Java Class</a> | <a href="Kite-Dataset-Command-Line-Interface/index.html#objSchema">Inferring a schema from a Java class</a> |
+| <a href="Inferring-a-Schema-from-an-Avro-Data-File">Inferring a schema from an Avro data file</a> | <a href="Kite-Dataset-Command-Line-Interface/index.html#csvSchema">Inferring a schema from a CSV file</a> |
 
 
 
@@ -82,13 +82,13 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 ### Loading data from CSV
 
-You can load comma separated value data into a dataset repository using the command line interface function [csv-import](/Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
+You can load comma separated value data into a dataset repository using the command line interface function [csv-import](Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
 
 ### Viewing Your Data
 
 Datasets you create Kite are no different than any other Hadoop dataset in your system, once created. You can query the data with Hive or view it using Impala.
 
-For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](/Kite-Dataset-Command-Line-Interface/index.html#show).
+For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](Kite-Dataset-Command-Line-Interface/index.html#show).
 
 ---
 *The MovieLens data set was created by the GroupLens Research Group at the University of Minnesota and is available at <a href="http://grouplens.org/datasets/movielens/">http://grouplens.org/datasets/movielens/</a> .

@@ -1,9 +1,9 @@
 # Site settings
 title: Kite SDK Development Guide
-email: ddawson@cloudera.com
+email: cdk-dev@cloudera.org
 description: "Documentation for the Kite open source project on GitHub."
-baseurl: ""
-url: "http://cloudera.com"
+baseurl: "/docs/current/guide"
+url: "http://kitesdk.org"
 
 # Build settings
 markdown: kramdown
