@@ -9,16 +9,20 @@ alt="Partitioning Video" width="240" height="180" border="10" align="right" titl
 
 You can partition your dataset on one or more attributes of an entity. Proper partitioning helps Hadoop store information for improved performance. You can partition your records using hash, identity, or date (year, month, day, hour) strategies.
 
-Imagine that you are working the registration desk at a conference. There are 100 attendees. You might decide you can hand out the name badges more efficiently if you have two lines that distribute the badges alphabetically, from A-M and N-Z. The attendee knows to go to one line or the other. The conference worker at the N-Z station doesn&apos;t bother looking through the badges A-M, because she knows that the attendee is going to be in her set of badges. It&apos;s more efficient, because she only has to search half of the items to find the right one.
+Imagine that you are working the registration desk at a conference. There are 100 attendees. You might decide you can hand out the name badges more efficiently if you have two lines: A-M and N-Z. The attendee knows to go to one line or the other. The conference worker at the N-Z station doesn't have to look through badges A-M; she knows that the attendee is going to be in her set of badges. It's more efficient, because she only has to search half of the badges to find the right one.
 
-However, that assumes that there is an equal distribution of names across all letters of the alphabet. It could be that there just happen to be an unusually high number of attendees whose names start with &quot;B,&quot; resulting in long waits in the first line and little activity in the second line. Breaking out into three tables, A-I, J-S, T-Z might provide greater efficiency, sharing the workload and reducing the search time at any one table.
+However, that assumes that there is an equal distribution of names across all letters of the alphabet. There might be an unusually high number of attendees whose names start with "B." That would result in long waits in the first line, and little activity in the second line. Breaking out into three tables, A-I, J-S, T-Z might provide greater efficiency. They would share the workload and reduce the search time at any one table.
 
-Fastest of all might be to have 100 stations where each individual could pick up her badge, but that would be a waste of time and effort for most of the staff. There is a &quot;sweet spot&quot; that maximizes efficiency with minimal resources.
+Fastest of all might be to have 100 stations where each individual could pick up her badge. But that would be a waste of time and effort for most of the staff. There is a "sweet spot" that maximizes efficiency using minimal resources.
 
-When you store records in HDFS, the data is stored in &quot;partitions&quot; that provide coarse-grained organization. You can improve performance by providing hints to the system using a partitioning strategy. For example, if you most often retrieve your data using time-based queries, you can define the partitioning strategy by year, month, day, and hour, depending on the frequency with which you&apos;re capturing data. Your queries will run more quickly if the buckets used to organize your data correspond with the types of queries you make most often.
+When you store records in HDFS, the data is stored in partitions. Partitions provide coarse-grained organization. You can improve performance by giving hints to the system in the form of a partition strategy.
+
+For example, you might most often retrieve your data using time-based queries. You can define your partitioning strategy by year, month, day, or hour. Your queries run more quickly if the columns used to partition your data correspond with your most common type of query.
 
 ## Partition Strategies
-Partition strategies configure how kite will logically divide your dataset. Good partitioning enhances performance by making it easier to look in the correct places (and more importantly, to avoid looking in places where the data is not likely to be found). For example, if you partition a database by Year and Month, then send a query to locate data from February 2012, the system knows to only search for records in the partition for February in the year 2012: it doesn't have to search any other year, or any other month in the same year. This can lead to great improvements in performance.
+Partition strategies configure how Kite logically divides your dataset. Good partitions enhance performance by making it easier for your system to look in the correct place. More importantly, they help to avoid looking in places where the data is not likely to be found.
+
+For example, you might partition a database by Year and Month. You can send a query to locate data from February 2012. The system knows to only search for records in the partition for February in the year 2012. It doesn't have to search any other year or any other month in the same year. This can lead to great improvement in performance.
 
 A partition strategy is defined using JSON notation.
 
@@ -44,15 +48,15 @@ Partition strategies have the following traits:
 *Hash also requires an integer, representing the number of partitions into which the field entries should be distributed.
 </blockquote>
 
-You can create a partition strategy by hand, but it's usually easier to use the CLI to create the definition in valid JSON format and check it against your schema, then edit it if needed.
+You can create a partition strategy by hand. However, it's usually easier to use the CLI to create the definition in JSON format and check it against your schema. Then you can edit it, if needed.
 
-If you write your own field definition with _source_ and _type_, the system fills in the _name_ automatically. If you change the default name, the system internally still uses the original name of the field when the partition strategy was created to maintain consistency.
+If you write your own field definition with _source_ and _type_, the system fills in the _name_ automatically. If you change the default name, the system still uses the original name of the field internally. This helps to maintain consistency.
 
 ### Defining a Partitioning Strategy
 
-Partitioning strategies are described in JSON format. You have the option of providing a partitioning strategy when you first create a dataset (you cannot apply a partitioning strategy to an existing dataset after you create it).
+You describe partition strategies in JSON format. You can provide a partition strategy when you first create a dataset. You cannot apply a partition strategy to an existing dataset after you create it.
 
-For example, here is a schema for a dataset that keeps track of visitors to a casino who belong to a loyalty club called the &quot;High Rollers.&quot; The dataset stores information about their activity them UserID, recording when they enter the casino and how long they stay each time they visit.
+For example, here is a schema for a dataset that keeps track of visitors to a casino. These visitors belong to a loyalty club called the &quot;High Rollers.&quot; The dataset stores information about their activity by UserID.  It records when they enter the casino, and how long they stay each time they visit.
 
 #### HighRollers.avsc
 
@@ -78,7 +82,7 @@ For example, here is a schema for a dataset that keeps track of visitors to a ca
 ```
 
 
-Since the most common query against this data is time-based, you can define a partitioning strategy that gives Hadoop a hint that it should partition the information by year, month, and day. The partitioning strategy looks like this.
+Since the most common query against this data is time-based, you can define a partition strategy that gives Hadoop a hint that it should partition the information by year, month, and day. The partition strategy looks like this.
 
 #### HighRollers.json
 
@@ -98,17 +102,18 @@ Since the most common query against this data is time-based, you can define a pa
 } ]
 ```
 
-You can also use the command line interface command `partition-config` to generate the JSON file. See [partition-config](/Kite-Dataset-Command-Line-Interface/index.html#partition-config).
+You can also use the command `partition-config` from the command line interface to generate the JSON file. See [partition-config](kitedatasetcli.html#partition-config).
 
 ### Creating a Dataset That Uses a Partition Strategy
 
 When you create a new dataset, you can specify the partition strategy along with the schema in the command line arguments. You can apply a partition strategy only when creating the dataset. You cannot apply a partition strategy to an existing dataset.
 
-For example, you can create a dataset for our HighRollers club using this command.
+For example, you can create a dataset for our High Rollers club using this command.
 
 ```
 dataset create HighRollersClub -s HighRollers.avsc -p HighRollers.json 
 ```
 
-See [create](/Kite-Dataset-Command-Line-Interface/index.html#create) for more options when creating a dataset.
-You can also use Kite to manage datasets in HBase, using the same tools and APIs. HBase datasets work differently than datasets backed by files in HDFS in two ways. First, dataset partitioning is handled by HBase and configuring it is a little different. Second, HBase stores data as a group of values, or cells, so you will need to configure how Kite divides your records into separate cells.
+See [create](kitedatasetcli.html#create) for more options when creating a dataset.
+
+You can also use Kite to manage datasets in HBase, using the same tools and APIs. HBase datasets work differently than datasets stored in HDFS in two ways. First, HBase handles its own dataset partitions, and configures them differently. Second, HBase stores data as a group of values, or cells; you need to configure how Kite will divide your records into separate cells.
