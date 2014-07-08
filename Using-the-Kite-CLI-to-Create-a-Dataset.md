@@ -4,6 +4,10 @@ layout: page
 
 ## Using the Kite Command Line Interface to Create a Dataset
 
+<a href="https://www.youtube.com/watch?v=li3erFGiEw8&list=PLGzsQf6UXBR-BJz5BGzJb2mMulWTfTu99&index=2">
+<img src="https://raw.githubusercontent.com/DennisDawson/KiteImages/master/CLItitle.jpg" 
+alt="Kite CLI Video" width="240" height="180" border="10" align="right" title="Link to Kite CLI Video"/></a>
+
 Kite provides a set of tools that handle the basic legwork for creating a dataset, allowing you to focus on the specifics of the business problem you want to solve. This short tutorial walks you through the process of creating a dataset and viewing the results using the command line interface (CLI).
 
 ### Preparation
