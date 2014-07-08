@@ -10,3 +10,4 @@ markdown: kramdown
 permalink: pretty
 kramdown:
   input: GFM
+  coderay_line_numbers: table
