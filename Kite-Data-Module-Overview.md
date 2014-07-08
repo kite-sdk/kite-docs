@@ -4,7 +4,7 @@ layout: page
 
 ## Kite Data Module Overview
 
-The Kite Data module is a set of APIs for interacting with data in Hadoop, specifically direct reading and writing of datasets in storage subsystems such as the Hadoop Distributed FileSystem (HDFS).
+The Kite Data module is a set of APIs for interacting with data in Hadoop; specifically, direct reading and writing of datasets in storage subsystems such as the Hadoop Distributed FileSystem (HDFS).
 
 These APIs do not replace or supersede any of the existing Hadoop APIs. Instead, the Data module streamlines application of those APIs. You still use HDFS and Avro APIs directly, when necessary. The Kite Data module reflects best practices for default choices, data organization, and metadata system integration.
 
@@ -55,8 +55,8 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 
 | Java API | Command Line Interface |
 | --------- | ----------------------- |
-| <a href="Inferring-a-Schema-from-a-Java-Class/">Inferring a schema from a Java Class</a> | <a href="Kite-Dataset-Command-Line-Interface/index.html#objSchema">Inferring a schema from a Java class</a> |
-| <a href="Inferring-a-Schema-from-an-Avro-Data-File">Inferring a schema from an Avro data file</a> | <a href="Kite-Dataset-Command-Line-Interface/index.html#csvSchema">Inferring a schema from a CSV file</a> |
+| [Inferring a schema from a Java Class](../Inferring-a-Schema-from-a-Java-Class/)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Inferring a schema from a Java class](../Kite-Dataset-Command-Line-Interface/index.html#objSchema)|
+| [Inferring a schema from an Avro data file](../Inferring-a-Schema-from-an-Avro-Data-File)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Inferring a schema from a CSV file](../Kite-Dataset-Command-Line-Interface/index.html#csvSchema)|
 
 
 
@@ -65,7 +65,7 @@ A dataset is a collection of zero or more entities, represented by the interface
 
 The HDFS implementation of a dataset is stored as Snappy-compressed Avro data files by default. The HDFS implementation is made up of zero or more files in a directory. You also have the option of storing your dataset in the column-oriented Parquet file format.
 
-Performance can be enhanced by defining a <a href="https://github.com/kite-sdk/kite/wiki/Partitioned-Datasets">partition strategy</a> for your dataset.
+Performance can be enhanced by defining a [partition strategy](../Partitioned-Datasets) for your dataset.
 
 You can work with a subset of dataset entities using the Views API.
 
@@ -85,7 +85,7 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 ### Loading data from CSV
 
-You can load comma separated value data into a dataset repository using the command line interface function [csv-import](Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
+You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
 
 <a name="viewing" />
 
@@ -93,7 +93,7 @@ You can load comma separated value data into a dataset repository using the comm
 
 Datasets you create Kite are no different than any other Hadoop dataset in your system, once created. You can query the data with Hive or view it using Impala.
 
-For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](Kite-Dataset-Command-Line-Interface/index.html#show).
+For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](../Kite-Dataset-Command-Line-Interface/index.html#show).
 
 ---
 *The MovieLens data set was created by the GroupLens Research Group at the University of Minnesota and is available at <a href="http://grouplens.org/datasets/movielens/">http://grouplens.org/datasets/movielens/</a> .
