@@ -4,9 +4,9 @@ layout: page
 
 ## What Is Kite, and Why Is It Awesome?
 
-You can learn about why Kite is awesome by watching this <a href="http://www.youtube.com/watch?feature=player_embedded&v=JXAm3aasI6c" target="_blank">Kite Overview video</a>.
+You can learn about why Kite is awesome by watching this <a href="http://www.youtube.com/watch?feature=player_embedded&v=JXAm3aasI6c">Kite Overview video</a>.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=JXAm3aasI6c" target="_blank"><img src="https://raw.githubusercontent.com/DennisDawson/KiteImages/master/kiteOverviewStillImage.png" 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=JXAm3aasI6c"><img src="https://raw.githubusercontent.com/DennisDawson/KiteImages/master/kiteOverviewStillImage.png" 
 alt="Kite Overview Video" width="240" height="180" border="10" align="right" title="Link to Kite Overview Video"/></a>
 
 Kite is an open source set of libraries, references, tutorials, and code samples for building data-oriented systems and applications. 
