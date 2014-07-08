@@ -3,7 +3,7 @@ layout: page
 ---
 ## Partitioned Datasets
 
-<a href="https://www.youtube.com/watch?v=rU1YAvmU6mY&index=3&list=PLGzsQf6UXBR-BJz5BGzJb2mMulWTfTu99" target = "_blank">
+<a href="https://www.youtube.com/watch?v=rU1YAvmU6mY&index=3&list=PLGzsQf6UXBR-BJz5BGzJb2mMulWTfTu99">
 <img src="https://raw.githubusercontent.com/DennisDawson/KiteImages/master/partitionTitleSlide.png" 
 alt="Partitioning Video" width="240" height="180" border="10" align="right" title="Link to Partitioning Video"/></a>
 
@@ -24,39 +24,15 @@ Partition strategies configure how Kite logically divides your dataset. Good par
 
 For example, you might partition a database by Year and Month. You can send a query to locate data from February 2012. The system knows to only search for records in the partition for February in the year 2012. It doesn't have to search any other year or any other month in the same year. This can lead to great improvement in performance.
 
-A partition strategy is defined using JSON notation.
+A partition strategy is configured with a [JSON-based format][partition-format]. You can create a partition strategy by hand. However, it's usually easier to use the CLI to create the definition in JSON format and check it against your schema. Then you can edit it, if needed.
 
-Partition strategies have the following traits:
-<ul>
-<li>Each must be defined in a valid JSON file.</li>
-<li>Each is created from a list of partition definitions.</li>
-<li>Each partition must define a source and a type, but the name is optional (if you do not define a name explicitly, it is given a generic name at configuration time).</li>
-<li>Valid types are</li>
-<ul>
-<li>`year`</li>
-<li>month`</li>
-<li>`day`</li>
-<li>`hour`</li>
-<li>`minute`</li>
-<li>`identity`</li>
-<li>`hash`</li>
-</ul>
-</ul>
-
-
-<blockquote>
-*Hash also requires an integer, representing the number of partitions into which the field entries should be distributed.
-</blockquote>
-
-You can create a partition strategy by hand. However, it's usually easier to use the CLI to create the definition in JSON format and check it against your schema. Then you can edit it, if needed.
-
-If you write your own field definition with _source_ and _type_, the system fills in the _name_ automatically. If you change the default name, the system still uses the original name of the field internally. This helps to maintain consistency.
+[partition-format]: ../Partition-Strategy-Format
 
 ### Defining a Partitioning Strategy
 
 You describe partition strategies in JSON format. You can provide a partition strategy when you first create a dataset. You cannot apply a partition strategy to an existing dataset after you create it.
 
-For example, here is a schema for a dataset that keeps track of visitors to a casino. These visitors belong to a loyalty club called the &quot;High Rollers.&quot; The dataset stores information about their activity by UserID.  It records when they enter the casino, and how long they stay each time they visit.
+For example, here is a schema for a dataset that keeps track of visitors to a casino. These visitors belong to a loyalty club called the "High Rollers". The dataset stores information about their activity by UserID.  It records when they enter the casino, and how long they stay each time they visit.
 
 #### HighRollers.avsc
 
