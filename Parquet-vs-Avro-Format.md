@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Parquet vs Avro
+title: Parquet vs Avro Format
 ---
-## Parquet versus Avro Format
 
 Avro is a row-based storage format for Hadoop.
 

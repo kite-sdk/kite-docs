@@ -3,13 +3,17 @@ layout: page
 title: Schema URL Warning
 ---
 This page explains the schema URL warning:
+
+```bash
 > The Dataset is using a schema literal rather than a URL which will be attached to every message.
+```
 
-This warning means that the Dataset is configured using an Avro schema string, a schema object, or by reflection. Configuring with an HDFS URL where the schema can be found, instead of the other options, allows certain components to pass the schema URL rather than the schema's string literal. This cuts down on the size of headers that must be sent with each message.
+This warning means that the dataset is configured using an Avro schema string, a schema object, or by reflection. Configuring with an HDFS URL where the schema can be found, instead of the other options, allows certain components to pass the schema URL rather than the schema's string literal. This cuts down on the size of headers that must be sent with each message.
 
-### Fixing the problem
+## Fixing the problem
 
-The following java code demonstrates how to change the descriptor to use a schema URL instead of a schema literal:
+The following Java code demonstrates how to change the descriptor to use a schema URL instead of a schema literal:
+
 ```java
 // a path in HDFS where schemas should be stored
 Path schemaFolder = new Path("hdfs:/data/schemas");

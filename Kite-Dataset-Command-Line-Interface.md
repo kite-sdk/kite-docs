@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Kite CLI
+title: Kite Dataset Command Line Interface
 ---
-## Kite Dataset Command Line Interface
-
 
 The Kite Dataset command line interface (CLI) provides utility commands that let you perform essential tasks such as creating a schema and dataset, importing data from a CSV file, and viewing the results.
 

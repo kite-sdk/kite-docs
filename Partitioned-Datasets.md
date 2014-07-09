@@ -2,7 +2,6 @@
 layout: page
 title: Partitioned Datasets
 ---
-## Partitioned Datasets
 
 <a href="https://www.youtube.com/watch?v=rU1YAvmU6mY&index=3&list=PLGzsQf6UXBR-BJz5BGzJb2mMulWTfTu99">
 <img src="https://raw.githubusercontent.com/DennisDawson/KiteImages/master/partitionTitleSlide.png" 

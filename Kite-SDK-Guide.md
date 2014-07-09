@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Kite SDK Guide
+title: What is Kite?
 ---
 
-## What Is Kite, and Why Is It Awesome?
+## (and What Makes It So Awesome?)
 
 You can learn about why Kite is awesome by watching this <a href="http://www.youtube.com/watch?feature=player_embedded&v=JXAm3aasI6c">Kite Overview video</a>.
 
@@ -27,7 +27,7 @@ Things should just work together. Hadoop forces you to spend more time thinking 
 Hadoop is not difficult to use. The complexity comes from the many parts that comprise a very large animal. Each piece, in isolation, is straightforward and easy to understand.
 
 
-### Enter Kite
+## Enter Kite
 
 This is where Kite comes in. Kite provides additional support for this infrastructure one level up in the stack so that they are codified in APIs that make sense to developers. 
 

@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Kite Data Overview
+title: Kite Data Module Overview
 ---
-
-## Kite Data Module Overview
 
 The Kite Data module is a set of APIs for interacting with data in Hadoop; specifically, direct reading and writing of datasets in storage subsystems such as the Hadoop Distributed FileSystem (HDFS).
 
@@ -16,7 +14,7 @@ The data module contains APIs and utilities for defining and performing actions 
 * <a href="#entities">entities</a>
 * <a href="#schemas">schemas</a>
 * <a href="#datasets">datasets</a>
-* <a href="#repositories">repositories</a>
+* <a href="#repositories">dataset repositories</a>
 * <a href="#loading">loading data</a>
 * <a href="#viewing">viewing data</a>
 
@@ -25,7 +23,7 @@ Many of these objects are interfaces, permitting multiple implementations, each 
 While, in theory, any implementation of Hadoop’s `FileSystem` abstract class is supported by the Kite Data module, only the local and HDFS filesystem implementations are tested and officially supported.
 
 
-### Entities
+## Entities
 
 An entity is a single record in a dataset. The name _entity_ is a better term than _record_, because _record_ sounds as if it is a simple list of primitives, while _entity_ sounds more like a Plain Old Java Object you would find in a JPA class (see [JPA Entity](https://en.wikipedia.org/wiki/Java_Persistence_API#Entities) in Wikipedia.org). That said, _entity_ and _record_ are often used interchangeably when talking about datasets. 
 
@@ -34,7 +32,7 @@ Entities can be simple types, representing data structures with a few string att
 Best practices are to define the output for your system, identifying all of the field values required to produce the report or analytics results you need. Once you identify your required fields, you define one or more related entities where you store the information you need to create your output. Define the format and structure for your entities using a schema.
 
 
-### Schemas
+## Schemas
 
 A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. For example, this is the schema definition for a table listing movies from the `movies.csv` dataset.
 
@@ -61,7 +59,7 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 
 
 
-### Datasets
+## Datasets
 A dataset is a collection of zero or more entities, represented by the interface `Dataset`. The relational database analog of a dataset is a table.
 
 The HDFS implementation of a dataset is stored as Snappy-compressed Avro data files by default. The HDFS implementation is made up of zero or more files in a directory. You also have the option of storing your dataset in the column-oriented Parquet file format.
@@ -72,7 +70,7 @@ You can work with a subset of dataset entities using the Views API.
 
 <a name="repositories" />
 
-### Dataset Repository
+## Dataset Repositories
 
 A _dataset repository_ is a physical storage location for datasets. Keeping with the relational database analogy, a dataset repository is the equivalent of a database of tables.
 
@@ -84,13 +82,13 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 <a name="loading" />
 
-### Loading data from CSV
+## Loading Data from CSV
 
 You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
 
 <a name="viewing" />
 
-### Viewing Your Data
+## Viewing Your Data
 
 Datasets you create Kite are no different than any other Hadoop dataset in your system, once created. You can query the data with Hive or view it using Impala.
 
