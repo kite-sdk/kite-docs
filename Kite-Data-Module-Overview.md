@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Kite Data Overview
 ---
 
 ## Kite Data Module Overview

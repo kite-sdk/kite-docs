@@ -1,5 +1,6 @@
 ---
 layout: page
+title: HBase Storage Cells
 ---
 ## HBase Storage Cells
 
