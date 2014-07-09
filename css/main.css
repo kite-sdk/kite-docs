@@ -252,10 +252,11 @@ table td {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  font-size: 15px;
+  font-size: 14px;
+  overflow: auto;
 }
 
-.post code { padding: 1px 5px; }
+.post code {padding: 0px 0px;  }
 
 .post ul,
 .post ol { margin-left: 1.35em; }
