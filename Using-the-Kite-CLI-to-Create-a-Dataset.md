@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Using Kite CLI
 ---
 
 ## Using the Kite Command Line Interface to Create a Dataset

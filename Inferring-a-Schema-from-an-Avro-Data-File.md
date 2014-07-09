@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Infer a Schema from Avro
 ---
 ## Inferring a Schema from an Avro Data File
 

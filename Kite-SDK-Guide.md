@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Kite SDK Guide
 ---
 
 ## What Is Kite, and Why Is It Awesome?

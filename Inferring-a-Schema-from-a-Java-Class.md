@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Infer a Schema from Java
 ---
 
 ## Inferring a Schema from a Java Class

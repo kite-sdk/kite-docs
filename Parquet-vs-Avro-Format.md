@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Parquet vs Avro
 ---
 ## Parquet versus Avro Format
 

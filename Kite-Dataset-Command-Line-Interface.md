@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Kite CLI
 ---
 ## Kite Dataset Command Line Interface
 

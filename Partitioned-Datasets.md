@@ -1,5 +1,6 @@
 ---
 layout: page
+title: Partitioned Datasets
 ---
 ## Partitioned Datasets
 

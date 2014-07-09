@@ -1,14 +1,15 @@
 ---
 layout: page
+title: Partition Strategy Format
 ---
 ## Partition Strategy JSON Format
 
-A partition strategy is made of a list of partition fields. Each field defines how to take source data from an entity and produce a value that will be used to store the entity. For example, a field may produce the year an event happened from its timestamp. Another field in the strategy may be the month from the timestamp.
+A partition strategy is made up of a list of partition fields. Each field defines how to take source data from an entity and produce a value that is used to store the entity. For example, a field can produce the year an event happened from its timestamp. Another field in the strategy can be the month from the timestamp.
 
-Partition strategies are defined in [JSON][json] format. The strategy must be a list of objects---name/value pairs---each of which define a field in the partition strategy. All field definitions require at least two attributes:
+Partition strategies are defined in [JSON][json] format. The strategy must be a list of objects---name/value pairs---each of which defines a field in the partition strategy. All field definitions require at least two attributes:
 
-* `source` -- a source field on the entity, like "created_at"
-* `type` -- the type of partition derived from the source data, like "year"
+* `source` -- a source field on the entity, such as "created_at"
+* `type` -- the type of partition derived from the source data, such as "year"
 
 Each definition can be thought of as a function run on the entity's source to produce the partition field's data. The order of the partition fields is preserved and used when the strategy is applied.
 
@@ -24,7 +25,7 @@ The available types are:
 | `identity` | any string or number | the source value, unchanged | must be a string or numeric |
 | `hash`     | any object           | int hash of the value, 0-B  | requires B, `buckets` integer attribute[<sup>2</sup>](#notes) |
 
-A field definition may optionally provide a `name` attribute, which is used to reference the partition field. HDFS datasets use this name when creating partition paths. If the name attribute is missing, it will be defaulted based on the partition type and source field name.
+A field definition can optionally provide a `name` attribute, which is used to reference the partition field. HDFS datasets use this name when creating partition paths. If the name attribute is missing, it is defaulted based on the partition type and source field name.
 
 Requirements for the source data are validated when schemas and partition strategies are used together. 
 

@@ -1,7 +1,11 @@
+---
+layout: page
+title: Schema URL Warning
+---
 This page explains the schema URL warning:
 > The Dataset is using a schema literal rather than a URL which will be attached to every message.
 
-This warning means that the Dataset has been configured using an avro schema string, schema object, or by reflection. Configuring with a HDFS URL where the schema can be found instead of the other options allows certain components to pass the schema URL rather than the schema's string literal, which cuts down on the size of headers that must be sent with each message.
+This warning means that the Dataset is configured using an Avro schema string, a schema object, or by reflection. Configuring with an HDFS URL where the schema can be found, instead of the other options, allows certain components to pass the schema URL rather than the schema's string literal. This cuts down on the size of headers that must be sent with each message.
 
 ### Fixing the problem
 
