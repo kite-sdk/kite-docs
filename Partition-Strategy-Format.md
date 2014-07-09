@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Partition Strategy Format
+title: Partition Strategy JSON Format
 ---
-## Partition Strategy JSON Format
 
 A partition strategy is made up of a list of partition fields. Each field defines how to take source data from an entity and produce a value that is used to store the entity. For example, a field can produce the year an event happened from its timestamp. Another field in the strategy can be the month from the timestamp.
 
@@ -29,7 +28,7 @@ A field definition can optionally provide a `name` attribute, which is used to r
 
 Requirements for the source data are validated when schemas and partition strategies are used together. 
 
-### Examples
+## Examples
 
 This strategy uses the year, month, and day from the "received_at" timestamp field on an event.
 
@@ -50,7 +49,7 @@ This strategy hashes and embeds the "email" field from a user record.
 ]
 ```
 
-#### Notes:
+### Notes:
 1. Source timestamps must be [long][avro-types] fields. The value encodes the number of milliseconds since unix epoch, as in Joda Time's [Instant][timestamp] and Java's Date.
 2. The `buckets` attribute is required for `hash` partitions and controls the number of partitions into which the entities should be pseudo-randomly distributed.
 

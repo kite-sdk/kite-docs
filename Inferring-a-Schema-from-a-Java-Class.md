@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Infer a Schema from Java
+title: Inferring a Schema from a Java Class
 ---
-
-## Inferring a Schema from a Java Class
 
 You can use the `DatasetDescriptor.Builder#schema(Class<?> type)` method to infer a dataset schema from the instance variable fields of a Java class.
 
@@ -79,7 +77,7 @@ DatasetDescriptor movieDesc = new DatasetDescriptor.Builder()
 
 The Builder uses the field names and data types to construct an Avro schema definition, which for the `Movie` class looks like this.
 
-```
+```json
 {
   "type":"record",
   "name":"Movie",

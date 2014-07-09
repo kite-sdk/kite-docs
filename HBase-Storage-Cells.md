@@ -2,7 +2,6 @@
 layout: page
 title: HBase Storage Cells
 ---
-## HBase Storage Cells
 
 HBase stores data as a group of values, or cells. HBase uniquely identifies each cell by a key. Using a key, you can look up the data for records stored in HBase very quickly. You can also insert, modify, or delete records in the middle of a dataset. HBase makes this possible by organizing data by storage key.
 

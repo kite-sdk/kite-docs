@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Using Kite CLI
+title: Using the Kite Command Line Interface to Create a Dataset
 ---
-
-## Using the Kite Command Line Interface to Create a Dataset
 
 <a href="https://www.youtube.com/watch?v=li3erFGiEw8&list=PLGzsQf6UXBR-BJz5BGzJb2mMulWTfTu99&index=2">
 <img src="https://raw.githubusercontent.com/DennisDawson/KiteImages/master/CLItitle.jpg" 
@@ -11,7 +9,7 @@ alt="Kite CLI Video" width="240" height="180" border="10" align="right" title="L
 
 Kite provides a set of tools that handle the basic legwork for creating a dataset, allowing you to focus on the specifics of the business problem you want to solve. This short tutorial walks you through the process of creating a dataset and viewing the results using the command line interface (CLI).
 
-### Preparation
+## Preparation
 
 If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
 
@@ -20,7 +18,7 @@ curl https://repository.cloudera.com/artifactory/libs-release-local/org/kitesdk/
 chmod +x dataset
 ```
 
-### Create a CSV Data File
+## Create a CSV Data File
 
 If you have a CSV file sitting around waiting to be used, you can substitute your file for the one that follows. The truth is, it doesn't matter if you have 100 columns or 2 columns, the process is the same. Larger datasets are only larger, not more complex.
 
@@ -33,7 +31,7 @@ Reuben, Pastrami and sauerkraut on toasted rye with Russian dressing.
 PBJ, Peanut butter and grape jelly on white bread.
 ```
 
-### Infer the Schema
+## Infer the Schema
 
 All right. Now we get to use the CLI. Start by inferring an Avro schema file from the *sandwiches.csv* file you just created. Enter the following command to create an Avro schema file named *sandwich.avsc* with the class name *Sandwich*. The schema details are based on the headings and data in *sandwiches.csv*.
 
@@ -58,7 +56,7 @@ If you open *sandwich.avsc* in a text editor, it looks something like the code b
 }
 ```
 
-### Create the Dataset
+## Create the Dataset
 
 With a schema, you can create a new dataset. Enter the following command.
 
@@ -89,7 +87,7 @@ You'll get the same schema back, but this time, trust me, it's coming from the H
 }
 ```
 
-### Import the CSV Data
+## Import the CSV Data
 You've created a dataset in the Hive repository, which is the container, but not the information itself. Next, you might want to add some data so that you can run some queries. Use the following command to import the sandwiches in your CSV file.
 
 `dataset csv-import sandwiches.csv sandwiches`

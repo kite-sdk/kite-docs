@@ -3,8 +3,6 @@ layout: page
 title: Column Mapping
 ---
 
-## Column Mapping
-
 Column mapping allows you to configure how your records should be stored in HBase for maximum performance and efficiency. You define the column mapping in JSON format in a data-centric way. Kite stores and retrieves the data correctly.
 
 A column mapping is a JSON list of definitions that specify how to store each field in the record. Each definition is a JSON object with a `source`, a `type`, and any additional properties required by the type. The `source` property specifies which field in the source record the definition applies to. The `type` property controls where the source field's data is stored.

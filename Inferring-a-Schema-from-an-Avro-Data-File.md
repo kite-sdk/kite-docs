@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Infer a Schema from Avro
+title: Inferring a Schema from an Avro Data File
 ---
-## Inferring a Schema from an Avro Data File
 
 You can use the `DatasetDescriptor.Builder.schemaFromAvroDataFile` method to use the schema of an existing data file in Avro format. The source can be a local file, an InputStream, or a URI.
 
