@@ -19,9 +19,9 @@ The data module contains APIs and utilities for defining and performing actions 
 * <a href="#loading">loading data</a>
 * <a href="#viewing">viewing data</a>
 
-Many of these objects are interfaces, permitting multiple implementations, each with different functionality. The current release contains an implementation of each of these components for the Hadoop FileSystem abstraction (found in the org.kitesdk.data.filesystem package), for Hive (found in the org.kitesdk.data.hcatalog package), and for HBase.
+Many of these objects are interfaces, permitting multiple implementations, each with different functionality. The current release contains an implementation of each of these components for the Hadoop `FileSystem` abstraction, for Hive, and for HBase.
 
-While, in theory, any implementation of Hadoop’s FileSystem abstract class is supported by the Kite Data module, only the local and HDFS filesystem implementations are tested and officially supported.
+While, in theory, any implementation of Hadoop’s `FileSystem` abstract class is supported by the Kite Data module, only the local and HDFS filesystem implementations are tested and officially supported.
 
 
 ### Entities
@@ -35,7 +35,7 @@ Best practices are to define the output for your system, identifying all of the 
 
 ### Schemas
 
-A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. For example, this is the schema definition for a table listing movies from the `movies.csv` dataset.&asterisk;
+A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. For example, this is the schema definition for a table listing movies from the `movies.csv` dataset.
 
 ```json
 {
@@ -61,7 +61,7 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 
 
 ### Datasets
-A dataset is a collection of zero or more entities, represented by the interface Dataset. The relational database analog of a dataset is a table.
+A dataset is a collection of zero or more entities, represented by the interface `Dataset`. The relational database analog of a dataset is a table.
 
 The HDFS implementation of a dataset is stored as Snappy-compressed Avro data files by default. The HDFS implementation is made up of zero or more files in a directory. You also have the option of storing your dataset in the column-oriented Parquet file format.
 
