@@ -9,7 +9,7 @@ HDFS writes files into statically configured partitions. HBase, on the other han
 
 Data cells are organized first by column family, then by column qualifier. The cells form columns and groups of columns in a table structure. For example, a user's data can be stored using the e-mail address for a key, then as a &quot;name&quot; column family with &quot;first&quot; and &quot;last&quot; qualifiers. We end up with a view that looks like this:
 
-```
+```bash
 
 |  key           | name family      |
 | (e-mail)       | first|   last    |
@@ -17,13 +17,13 @@ Data cells are organized first by column family, then by column qualifier. The c
 | buzz@pixar.com | Buzz | Lightyear |
 ```
 
-### HBase partitioning
+## HBase partitioning
 
 Kite uses a dataset&apos;s partitioning strategy to make storage keys for records. In HDFS, the key identifies a directory where the record is stored along with others with the same key. For example, HDFS might use the same key for events that occur on the same day. In HBase, keys are unique, making it very fast to find a particular record. A key in HBase might be an ID number or an e-mail address, as in the example above.
 
 When configuring a partitioning strategy for HBase, always include a field that uniquely identifies the record.
 
-### Organizing data
+## Organizing data
 
 Good performance comes from being able to ignore as much of a dataset as possible. HBase partitioning works just like HDFS, even though you don&apos;t know where the partition boundaries are. The same guidelines for performance still apply: your partitioning strategy should start with information that helps eliminate the most data.
 
