@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Welcome to the Kite Wiki!
+title: Kite SDK Documentation
 ---
 
 This is the default landing page for Kite SDK documentation.
@@ -26,8 +26,4 @@ This is the default landing page for Kite SDK documentation.
 * [Partitioned Datasets](Partitioned-Datasets/)
 * [Column Mapping](Column-Mapping/)
 * [HBase Storage Cells](HBase-Storage-Cells/)
-
-## Miscellaneous
-
-* [Schema URL Warning](Schema-URL-Warning/)
 
