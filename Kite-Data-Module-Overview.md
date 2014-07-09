@@ -25,16 +25,17 @@ While, in theory, any implementation of Hadoop’s `FileSystem` abstract class i
 
 ## Entities
 
-An entity is a single record in a dataset. The name _entity_ is a better term than _record_, because _record_ sounds as if it is a simple list of primitives, while _entity_ sounds more like a Plain Old Java Object you would find in a JPA class (see [JPA Entity](https://en.wikipedia.org/wiki/Java_Persistence_API#Entities) in Wikipedia.org). That said, _entity_ and _record_ are often used interchangeably when talking about datasets. 
+An entity is a single record in a dataset. The name _entity_ is a better term than _record_, because _record_ sounds as if it is a simple list of primitives, while _entity_ sounds more like a Plain Old Java Object, or POJO, (see [POJO][pojo] in Wikipedia) that could contain maps, lists, or other POJOs. That said, _entity_ and _record_ are often used interchangeably when talking about datasets. 
 
 Entities can be simple types, representing data structures with a few string attributes, or as complex as required.
 
 Best practices are to define the output for your system, identifying all of the field values required to produce the report or analytics results you need. Once you identify your required fields, you define one or more related entities where you store the information you need to create your output. Define the format and structure for your entities using a schema.
 
+[pojo]: http://en.wikipedia.org/wiki/Plain_Old_Java_Object
 
 ## Schemas
 
-A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. For example, this is the schema definition for a table listing movies from the `movies.csv` dataset.
+A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. For example, this is the schema definition for a table listing movies from the `movies.csv` dataset.[<sup>1</sup>](#notes)
 
 ```json
 {
@@ -54,8 +55,8 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 
 | Java API | Command Line Interface |
 | --------- | ----------------------- |
-| [Inferring a schema from a Java Class](../Inferring-a-Schema-from-a-Java-Class/)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Inferring a schema from a Java class](../Kite-Dataset-Command-Line-Interface/index.html#objSchema)|
-| [Inferring a schema from an Avro data file](../Inferring-a-Schema-from-an-Avro-Data-File)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;[Inferring a schema from a CSV file](../Kite-Dataset-Command-Line-Interface/index.html#csvSchema)|
+| [Inferring a schema from a Java Class](../Inferring-a-Schema-from-a-Java-Class/) | [Inferring a schema from a Java class](../Kite-Dataset-Command-Line-Interface#objSchema) |
+| [Inferring a schema from an Avro data file](../Inferring-a-Schema-from-an-Avro-Data-File) | [Inferring a schema from a CSV file](../Kite-Dataset-Command-Line-Interface#csvSchema) |
 
 
 
@@ -95,4 +96,6 @@ Datasets you create Kite are no different than any other Hadoop dataset in your 
 For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](../Kite-Dataset-Command-Line-Interface/index.html#show).
 
 ---
-*The MovieLens data set was created by the GroupLens Research Group at the University of Minnesota and is available at <a href="http://grouplens.org/datasets/movielens/">http://grouplens.org/datasets/movielens/</a> .
+
+#### Notes:
+1. The MovieLens data set was created by the GroupLens Research Group at the University of Minnesota and is available at [http://grouplens.org/datasets/movielens/](http://grouplens.org/datasets/movielens/).
