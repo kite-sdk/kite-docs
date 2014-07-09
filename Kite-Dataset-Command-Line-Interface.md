@@ -11,6 +11,8 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 
 <a name="top" /> 
 
+## Commands
+
 ----
 * [general options](#general): options for all commands.
 * [csv-schema](#csvSchema): create a schema from a CSV data file.
@@ -29,9 +31,11 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 ----
 <a name="general" />
 
-## general options
+## General options
 
-Every command begins with `dataset`, followed by `[general options]`. Currently, the only general options are `-v`, `--verbose`, and `--debug`, all three of which show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
+Every command begins with `dataset`, followed by general options. Currently, the only general option turns on debugging, which will show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
+
+| `-v`<br />`--verbose`<br />`--debug` | Turn on debug logging and show stack traces. |
 
 ----
 [Back to the Top](#top)
@@ -40,50 +44,39 @@ Every command begins with `dataset`, followed by `[general options]`. Currently,
 <a name="csvSchema" />
 
 ## csv-schema
+
 Use `csv-schema` to generate an Avro schema from a comma separated value (CSV) file.
 
 ### Syntax
 
-`dataset [general options] csv-schema <sample csv path> [command options]`
+```
+dataset [-v] csv-schema <sample csv path> [command options]
+```
 
 ### Options
-`--skip-lines`
 
-The number of lines to skip before the start of the CSV data. Default is 0.
-
-`--quote`
-
-Quote character in the CSV data file. Default is the double-quote (").
-
-`--delimiter`
-
-Delimiter character in the CSV data file. Default is the comma (,).
-
-`--escape`
-
-Escape character in the CSV data file. Default is the backslash (\\).
-
-`--class, --record-name`
-
-A class name or record name for the schema result. This value is **required**.
-
-`-o, --output`
-
-Save schema avsc to path.
-
-`--no-header`
-
-Use this option when the CSV data file does not have header information in the first line. Fields are given the default names *field_0*, *field_1,...field_n*.
-
-`--minimize`
-
-Minimize schema file size by eliminating white space.
+| `--skip-lines`           | The number of lines to skip before the start of the CSV data. Default is 0. |
+| `--quote`                | Quote character in the CSV data file. Default is the double-quote ("). |
+| `--delimiter`            | Delimiter character in the CSV data file. Default is the comma (,). |
+| `--escape`               | Escape character in the CSV data file. Default is the backslash (\\). |
+| `--class,`<br />`--record-name` | A class name or record name for the schema result. This value is **required**. |
+| `-o, --output`           | Save schema avsc to path. |
+| `--no-header`            | Use this option when the CSV data file does not have header information in the first line.<br />Fields are given the default names *field_0*, *field_1,...field_n*. |
+| `--minimize`             | Minimize schema file size by eliminating white space. |
 
 ### Examples
 
-Print the schema to standard out: `dataset csv-schema sample.csv --class Sample`
+Print the schema to standard out:
 
-Write the schema to sample.avsc: `dataset csv-schema sample.csv --class Sample -o sample.avsc`
+```
+dataset csv-schema sample.csv --class Sample
+```
+
+Write the schema to sample.avsc:
+
+```
+dataset csv-schema sample.csv --class Sample -o sample.avsc
+```
 
 ----
 
@@ -98,36 +91,36 @@ Build a schema from a Java class.
 
 ### Syntax
 
-`dataset [general options] obj-schema <class name> [command options]`
+```
+dataset [-v] obj-schema <class name> [command options]
+```
 
 ### Options
 
-`-o, --output`
-
-Save schema in Avro format to a given path.
-
-`--jar`
-
-Add a jar to the classpath used when loading the Java class.
-
-`--lib-dir`
-
-Add a directory to the classpath used when loading the Java class.
-
-`--minimize`
-
-Minimize schema file size by eliminating white space.
+| `-o, --output` | Save schema in Avro format to a given path. |
+| `--jar`        | Add a jar to the classpath used when loading the Java class. |
+| `--lib-dir`    | Add a directory to the classpath used when loading the Java class. |
+| `--minimize`   | Minimize schema file size by eliminating white space. |
 
 ### Examples
 
 Create a schema for an example User class:
-`dataset obj-schema org.kitesdk.cli.example.User`
+
+```
+dataset obj-schema org.kitesdk.cli.example.User
+```
 
 Create a schema for a class in a jar:
-`dataset obj-schema com.example.MyRecord --jar my-application.jar`
+
+```
+dataset obj-schema com.example.MyRecord --jar my-application.jar
+```
 
 Save the schema for the example User class to user.avsc:
-`dataset obj-schema org.kitesdk.cli.example.User -o user.avsc`
+
+```
+dataset obj-schema org.kitesdk.cli.example.User -o user.avsc
+```
 
 ----
 
@@ -136,48 +129,41 @@ Save the schema for the example User class to user.avsc:
 ----
 
 ## create
+
 After you have generated an Avro schema, you can use `create` to make an empty dataset.
 
 ### Usage
 
-`dataset [general options] create <dataset name> [command options]`
+```
+dataset [-v] create <dataset> [command options]
+```
 
 ### Options
 
-`-d, --directory`
-
-The root directory of the dataset repository. Optional if using Hive for metadata storage.
-
-`--use-hive`
-
-The dataset is stored in the filesystem by default. Set this switch to false to store the dataset in the file system.
-
-`-s, --schema`
-
-The file containing the Avro schema. This value is **required**.
-
-`-f, --format`
-
-By default, the dataset is created in Avro format. Use this switch to set the format to Parquet (`-f parquet`).
-
-`-p, --partition-by`
-
-The file containing a JSON-formatted partition strategy.
-
+| `-s, --schema`       | A file containing the Avro schema. This value is **required**. |
+| `-f, --format`       | By default, the dataset is created in Avro format.<br />Use this switch to set the format to Parquet `-f parquet` |
+| `-p, --partition-by` | A file containing a JSON-formatted partition strategy. |
+| `-m, --mapping`      | A file containing a JSON-formatted column mapping. |
 
 ### Examples:
 
 Create dataset "users" in Hive:
 
-`dataset create users --schema user.avsc`
+```
+dataset create users --schema user.avsc
+```
 
 Create dataset "users" using Parquet:
 
-`dataset create users --schema user.avsc --format parquet`
+```
+dataset create users --schema user.avsc --format parquet
+```
 
 Create dataset "users" partitioned by JSON configuration:
 
-`dataset create users --schema user.avsc --partition-by user_part.json`
+```
+dataset create users --schema user.avsc --partition-by user_part.json
+```
 
 
 ----
@@ -194,23 +180,29 @@ Update the metadata descriptor for a dataset.
 
 ### Syntax
 
-`dataset [general options] update-dataset <dataset name> [command options]`
+```
+dataset [-v] update-dataset <dataset> [command options]
+```
 
 ### Options
 
-`-s, --schema`
-The file containing the Avro schema.
-
-`--set, --property`
-
-Add a property pair: `prop.name=value`.
+| `-s, --schema` | The file containing the Avro schema. |
+| `--set, --property` | Add a property pair: `prop.name=value`. |
 
 
 ### Examples:
 
-Update schema for dataset "users" in Hive:": `dataset update users --schema user.avsc`
+Update schema for dataset "users" in Hive:
 
-Update HDFS dataset by URI, add property: `dataset update dataset:hdfs:/user/me/datasets/users --set kite.write.cache-size=20`
+```
+dataset update users --schema user.avsc
+```
+
+Update HDFS dataset by URI, add property:
+
+```
+dataset update dataset:hdfs:/user/me/datasets/users --set kite.write.cache-size=20
+```
 
 ----
 
@@ -226,31 +218,28 @@ Show the schema for a dataset.
 
 ### Syntax
 
-`dataset [general options] schema <dataset name> [command options]`
+```
+dataset [-v] schema <dataset> [command options]
+```
 
 ### Options
 
-`-d, --directory`
-
-The root directory of the dataset repository. Optional if you are using Hive for metadata storage.
-
-`--use-hive`
-
-By default, dataset metadata is stored in the file system. Use this switch to store dataset metadata in Hive.
-
-`--minimize`
-
-Minimize schema file size by eliminating white space.
-
-`-o, --output`
-
-Save schema in Avro format to a given path.
+| `-o, --output` | Save schema in Avro format to a given path. |
+| `--minimize` | Minimize schema file size by eliminating white space. |
 
 ### Examples:
 
-Print the schema for dataset "users" to standard out: `dataset schema users`
+Print the schema for dataset "users" to standard out:
 
-Save the schema for dataset "users" to user.avsc: `dataset schema users -o user.avsc`
+```
+dataset schema users
+```
+
+Save the schema for dataset "users" to user.avsc:
+
+```
+dataset schema users -o user.avsc
+```
 
 ----
 
@@ -265,42 +254,26 @@ Save the schema for dataset "users" to user.avsc: `dataset schema users -o user.
 Copy CSV records into a dataset.
 
 ### Syntax
-`dataset [general options] csv-import <csv path> <dataset name> [command options]`
+
+```
+dataset [-v] csv-import <csv path> <dataset> [command options]
+```
 
 ### Options
 
-`-d, --directory`
-
-The root directory of the dataset repository. Optional if using Hive for metadata storage.
-
-`--use-hive`
-
-By default, dataset metadata is stored in Hive. Use this switch to store the dataset metadata in the file system.
-
-`--escape`
-
-Escape character. Default is backslash (\\).
-
-`--delimiter`
-
-Delimiter character. Default is comma (,).
-
-`--quote`
-
-Quote character. Default is double quote (").
-
-`--skip-lines`
-
-
-Lines to skip before CSV start (default: 0)
-
-`--no-header`
-
-Use this option when the CSV data file does not have header information in the first line. Fields are given the default names *field_0*, *field_1,...field_n*.
+| `--escape` | Escape character. Default is backslash (\\). |
+| `--delimiter` | Delimiter character. Default is comma (,). |
+| `--quote` | Quote character. Default is double quote ("). |
+| `--skip-lines` | Lines to skip before CSV start (default: 0) |
+| `--no-header` | Use this option when the CSV data file does not have header information in the first line.<br />Fields are given the default names *field_0*, *field_1,...field_n*. |
 
 ### Examples
 
-Copy the records from `sample.csv` to a dataset named "sample": `dataset csv-import csv-import path/to/sample.csv sample`
+Copy the records from `sample.csv` to a Hive dataset named "sample":
+
+```
+dataset csv-import csv-import path/to/sample.csv sample
+```
 
 ----
 
@@ -315,27 +288,28 @@ Copy the records from `sample.csv` to a dataset named "sample": `dataset csv-imp
 Print the first *n* records in a dataset.
 
 ### Syntax
-`dataset [general options] show <dataset name> [command options]`
+
+```
+dataset [-v] show <dataset> [command options]
+```
 
 ### Options
 
-`-d, --directory`
-
-The root directory of the dataset repository. Optional if using Hive for metadata storage.
-
-`--use-hive`
-
-By default, dataset metadata is stored in Hive. Set this switch to false to use the file system (`--use-hive false`).
-
-`-n, --num-records`
-
-The number of records to print. The default number is 10.
+| `-n, --num-records` | The number of records to print. The default number is 10. |
 
 ### Examples
 
-Show the first 10 records in dataset "users": `dataset show users`
+Show the first 10 records in dataset "users":
 
-Show the first 50 records in dataset "users": `dataset show users -n 50`
+```
+dataset show users
+```
+
+Show the first 50 records in dataset "users":
+
+```
+dataset show users -n 50
+```
 
 ----
 
@@ -350,29 +324,29 @@ Show the first 50 records in dataset "users": `dataset show users -n 50`
 Copy records from one dataset to another.
 
 ### Syntax
-`dataset [general options] copy <source dataset> <destination dataset> [command options]`
+
+```
+dataset [-v] copy <source dataset> <destination dataset> [command options]
+```
 
 ### Options
 
-`--no-compaction`
-
-Copy to output directly, without compacting the data.
-
-`--num-writers`
-
-The number of writer processes to use.
-
-
+| `--no-compaction` | Copy to output directly, without compacting the data. |
+| `--num-writers` | The number of writer processes to use. |
 
 ### Examples
 
-Copy the contents of movies_avro to movies_parquet:
+Copy the contents of `movies_avro` to `movies_parquet`:
 
- `dataset copy movies_avro movies_parquet`
+```
+dataset copy movies_avro movies_parquet
+```
  
 Copy the movies dataset into HBase in a map-only job:
  
-`dataset copy movies dataset:hbase:zk-host/movies --no-compaction`
+```
+dataset copy movies dataset:hbase:zk-host/movies --no-compaction
+```
 
 ----
 
@@ -389,21 +363,17 @@ Delete one or more datasets and related metadata.
 
 ### Syntax
 
-`dataset [general options] delete <dataset names> [command options]`
-
-### Options
-
-`-d, --directory`
-
-The root directory of the dataset repository. Optional if using Hive for metadata storage.
-
-`--use-hive`
-
-By default, metadata is stored in Hive. Set this value to false to store the metadata in the file system (`--use-hive false`).
+```
+dataset [-v] delete <datasets> [command options]
+```
 
 ### Examples
 
-Delete all data and metadata for the dataset "users": `dataset delete users`
+Delete all data and metadata for the dataset "users":
+
+```
+dataset delete users
+```
 
 ----
 
@@ -419,28 +389,29 @@ Builds a partition strategy for a schema.
 
 ### Syntax
 
-`dataset [general options] partition-config <field:type pairs> [command options]`
+```
+dataset [-v] partition-config <field:type pairs> [command options]
+```
 
 ### Options:
 
-`-s, --schema`
-The file containing the Avro schema. **This value is required**.
-
-`-o, --output`
-Save partition JSON file to path
-
-`--minimize`
-Minimize output size by eliminating white space
+| `-s, --schema` | The file containing the Avro schema. **This value is required** |
+| `-o, --output` | Save partition JSON file to path |
+| `--minimize`   | Minimize output size by eliminating white space |
 
 ### Examples
 
-Partition by email address, balanced across 16 hash partitions and save as a JSON file.
+Partition by email address, balanced across 16 hash partitions and save to a file.
 
-`dataset partition-config email:hash[16] email:copy -s user.avsc -o part.json`
+```
+dataset partition-config email:hash[16] email:copy -s user.avsc -o part.json
+```
 
-Partition by created_at time's year, month, and day:
+Partition by `created_at` time's year, month, and day:
 
-`dataset partition-config created_at:year created_at:month created_at:day -s event.avsc`
+```
+dataset partition-config created_at:year created_at:month created_at:day -s event.avsc
+```
 
 ----
 
@@ -452,50 +423,49 @@ Partition by created_at time's year, month, and day:
 
 ## mapping-config
 
-Builds a partition strategy for a schema, based on a key value, version, or column. The mapping definition is a JSON object with required "type" and "source" attributes.
+Builds a column mapping for a schema, required for HBase. The resulting mapping definition is a valid [JSON mapping file][mapping-format].
 
-Types:
+Mappings are specified by `field:type` pairs, where `field` is a source field from the given schema and `type` can be:
 
-`column`: requires _family_ and _qualifier_, regular storage.
+| `key`      | Uses a key mapping |
+| `version`  | Uses a version mapping (for optimistic concurrency) |
+| any string | The given string is used as the family in a column mapping |
 
-`counter`: requires _family_ and _qualifier_, incrementable storage, must be int or long.
+If the last option is used, the mapping type will determined by the source field type. Numbers will use `counter`, hash maps and records will use `keyAsColumn`, and all others will use `column`.
 
-`keyAsColumn`: requires _family_, optional _prefix_, must be record or map type. Maps each value to a separate qualifier in the same family.
-
-`key`: gets value from storage in the key. Primitive types only.
-
-`occVersion`: occ version, must be an int or long. Conflicts with counter types.
+[mapping-format]: ../Column-Mapping
 
 ### Syntax
-`dataset [general options] create-column-mapping <field:type pairs> [command options]`
+
+```
+dataset [-v] create-column-mapping <field:type pairs> [command options]
+```
 
 ### Options
 
-`-s, --schema`
-
-The file containing the Avro schema.
-
-`-p, --partition-by`
-
-The file containing the JSON partition strategy.
-
-`--minimize`
-
-Minimize output size by eliminating white space.
+| `-s, --schema` | The file containing the Avro schema. |
+| `-p, --partition-by` | The file containing the JSON partition strategy. |
+| `--minimize` | Minimize output size by eliminating white space. |
 
 ### Examples
 
-Store email in the key, other fields in column family _u_:
+Store email in the key, other fields in column family `u`:
 
-`dataset mapping-config email:key username:u id:u --schema user.avsc -o user-cols.json`
+```
+dataset mapping-config email:key username:u id:u --schema user.avsc -o user-cols.json
+```
 
-Store preferences hash-map in column family _prefs_:
+Store preferences hash-map in column family `prefs`:
 
-`dataset mapping-config preferences:prefs --schema user.avsc`
+```
+dataset mapping-config preferences:prefs --schema user.avsc
+```
 
-Use the _version_ field as an OCC version:
+Use the `version` field as an OCC version:
 
-`dataset mapping-config version:version --schema user.avsc`
+```
+dataset mapping-config version:version --schema user.avsc
+```
 
 ----
 
@@ -511,11 +481,17 @@ Retrieves details on the functions of one or more dataset commands.
 
 ### Syntax
 
-`dataset [general options] help <commands> [command options]`
+```
+dataset [-v] help <commands> [command options]
+```
 
 ### Examples
 
-Retrieve details for the create, show, and delete commands. `dataset help create show delete`
+Retrieve details for the create, show, and delete commands.
+
+```
+dataset help create show delete
+```
 
 ----
 
