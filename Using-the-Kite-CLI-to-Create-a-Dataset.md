@@ -13,7 +13,7 @@ Kite provides a set of tools that handle the basic legwork for creating a datase
 
 If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
 
-```bash
+```
 curl https://repository.cloudera.com/artifactory/libs-release-local/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
 chmod +x dataset
 ```
@@ -24,7 +24,7 @@ If you have a CSV file sitting around waiting to be used, you can substitute you
 
 If you don't have a CSV file handy, you can copy the next code snippet and save it as a plain text file named *sandwiches.csv*.
 
-```bash
+```
 name, description
 Reuben, Pastrami and sauerkraut on toasted rye with Russian dressing.
 PBJ, Peanut butter and grape jelly on white bread.
@@ -34,7 +34,7 @@ PBJ, Peanut butter and grape jelly on white bread.
 
 All right. Now we get to use the CLI. Start by inferring an Avro schema file from the *sandwiches.csv* file you just created. Enter the following command to create an Avro schema file named *sandwich.avsc* with the class name *Sandwich*. The schema details are based on the headings and data in *sandwiches.csv*.
 
-```bash
+```
 dataset csv-schema sandwiches.csv --class Sandwich -o sandwich.avsc
 ```
 
@@ -61,13 +61,15 @@ If you open *sandwich.avsc* in a text editor, it looks something like the code b
 
 With a schema, you can create a new dataset. Enter the following command.
 
-`dataset create sandwiches -s sandwich.avsc`
+```
+dataset create sandwiches -s sandwich.avsc
+```
 
 While it does not create actual sandwiches, it does create an empty dataset in which you can store sandwich descriptions, which is the next best thing. Probably.
 
 Just for giggles, you can reverse the process you just completed and look at the underlying schema of your dataset using the following command.
 
-`dataset schema sandwiches`
+```dataset schema sandwiches```
 
 You'll get the same schema back, but this time, trust me, it's coming from the Hive repository. Honest.
 
@@ -91,12 +93,13 @@ You'll get the same schema back, but this time, trust me, it's coming from the H
 ## Import the CSV Data
 You've created a dataset in the Hive repository, which is the container, but not the information itself. Next, you might want to add some data so that you can run some queries. Use the following command to import the sandwiches in your CSV file.
 
-```bash
+```
 dataset csv-import sandwiches.csv sandwiches
 ```
 
 The method returns a record count. 
-```bash
+
+```
 Added 2 records to dataset "sandwiches"
 ```
 
@@ -106,26 +109,26 @@ But can you believe that? Inquiring minds want to verify that the information is
 
 You can list records from your newly created dataset using the `show` command.
 
-```bash
+```
 dataset show sandwiches
 ```
 
 By default, CLI retrieves up to the first 10 records from your dataset.
 
-```bash
+```
 {"name": "Reuben", "description": " Pastrami and sauerkraut on toasted rye with Russian dressing."}
 {"name": "PBJ", "description": " Peanut butter and grape jelly on white bread."}
 ```
 
 If you find that number of sandwiches overwhelming, you can change the number of records the query returns.
 
-```bash
+```
 dataset show sandwiches -n 1
 ```
 
 This time only the first record prints to screen.
 
-```bash
+```
 {"name": "Reuben", "description": " Pastrami and sauerkraut on toasted rye with Russian dressing."}
 ```
 
@@ -135,7 +138,7 @@ You can import additional records to the database and use Hive or Impala to quer
 
 Given the ease with which you just created the sandwiches dataset, it seems a shame to destroy it out of hand. Keep in mind that this was only an example, and not something you were meant to treasure. I suppose you don't have to delete it, you might want to keep it around as a souvenir, like the first dollar earned or something like that. If so, create a dataset you hate, and prepare to annihilate it using this unassuming command.
 
-```bash
+```
 dataset delete sandwiches
 ```
 
