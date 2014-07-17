@@ -18,6 +18,7 @@ This is the default landing page for Kite SDK documentation.
 
 * [Kite SDK Dataset CLI](Kite-Dataset-Command-Line-Interface/)
 * [Using the Kite Dataset CLI to Create a Dataset](Using-the-Kite-CLI-to-Create-a-Dataset/)
+* [Viewing the Kite Dataset Using Impala](Viewing-with-Impala/)
 
 
 ## Conceptual Topics
