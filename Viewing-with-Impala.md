@@ -4,9 +4,25 @@ title: Viewing a Kite CLI Dataset with Impala
 ---
 You can create datasets using the Kite CLI, then view the data in a variety of ways using Impala.
 
-This example uses datasets based on the MovieLens dataset provided by the GroupLens Research Group at the University of Minnesota. You can get a copy of the original dataset at the [Grouplens site](http://grouplens.org/datasets/movielens/). The _movies.csv_ and _ratings.csv_ data files were converted from the original plain text dataset to CSV format. The Release field, which is stored in string format, has been formatted as yyyy-mm-dd so that the dates sort properly. You can download the files from [https://github.com/DennisDawson/KiteImages/raw/master/ImpalaExample.tar.gz](https://github.com/DennisDawson/KiteImages/raw/master/ImpalaExample.tar.gz).
+This example uses datasets based on the MovieLens dataset provided by the GroupLens Research Group at the University of Minnesota. You can get a copy of the original dataset at the [Grouplens site](http://grouplens.org/datasets/movielens/). The _movies.csv_ and _ratings.csv_ data files were converted from the original plain text dataset to CSV format. The Release field, which is stored in string format, has been formatted as yyyy-mm-dd so that the dates sort properly. 
 
-## Infer schemas from CSV files
+## Preparation
+
+If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
+
+```
+$ curl https://repository.cloudera.com/artifactory/libs-release-local/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
+$ chmod +x dataset
+```
+
+You can download the modified example CSV files from [https://github.com/DennisDawson/KiteImages/raw/master/ImpalaExample.tar.gz](https://github.com/DennisDawson/KiteImages/raw/master/ImpalaExample.tar.gz).
+
+Expand _movies.csv_ and _ratings.csv_ to a directory containing dataset.jar.
+
+If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
+
+## Infer Schemas CSV Files
+
 
 Use the `csv-schema` CLI command to infer the schemas for both files.
 
@@ -15,7 +31,7 @@ $ dataset csv-schema movies.csv -o movies.avsc --record-name movies
 $ dataset csv-schema ratings.csv -o ratings.avsc --record-name ratings 
 ```
 
-## Create the datasets
+## Create Datasets
 
 Now that you have the schema, you can create the metadata for your tables in Hadoop. Use the `create` CLI command to add the metadata to Hadoop.
 
@@ -24,29 +40,51 @@ $ dataset create "movies" --schema movies.avsc
 $ dataset create "ratings" --schema ratings.avsc
 ```
 
-## Import the data
+## Import Data
 
-## Open impala-shell in another terminal
-
-### Invoke the  most intuitive command ever conceived. Ever.
-
-Impala maintains a separate copy of the metadata for your dataset to improve performance. When you create a table outside of Impala, you need to flag the metadata as out of date, so that Impala knows it needs to refresh the metadata. After you create your table using the CLI, you must run the following command.
+Hadoop is now prepared with empty tables, ready to import your CSV data.
 
 ```
-invalidate metadata;
+$ dataset csv-import movies.csv movies
+$ dataset csv-import ratings.csv ratings
 ```
 
-### Verify that the tables were created properly
+## View Datasets with Impala
+
+In a new terminal window, begin an Impala shell session.
 
 ```
-show tables;
+$ impala-shell
 ```
 
-The movies dataset is broad, with many columns.
+### Invoke the Most Intuitive Command Ever Conceived. Ever.
+
+Impala maintains its own copy of  your dataset metadata to enhance performance. When you create a table outside of Impala, you need to flag the existing metadata as out of date, so that Impala knows it needs to refresh the metadata. After you create your table using the CLI, you must run the following command. See? The following command is completely intuitive, now that it has been explained. Probably.
+
+```
+> invalidate metadata;
+```
+
+### Verify That Tables Are Created Properly
+
+```
+> show tables;
+Query: show tables
++-----------+
+| name      |
++-----------+
+| movies    |
+| ratings   |
+| sample_07 |
+| sample_08 |
++-----------+
+
+```
+
+The movies dataset is broad, with many columns. Use the desc[ribe] query to view the metadata for the table.
 
 ```
 > desc movies;
-
 Query: describe movies
 +-------------+--------+-------------------+
 | name        | type   | comment           |
@@ -82,8 +120,7 @@ Ratings, on the other hand, is narrow. It has only 4 columns, but over a
 million records.
 
 ```
->desc ratings;
-
+> desc ratings;
 Query: describe ratings
 +-----------+--------+-------------------+
 | name      | type   | comment           |
@@ -95,9 +132,7 @@ Query: describe ratings
 +-----------+--------+-------------------+
 ```
 
-## Import data from the CSV files
-
-### Verify that the data arrived safe and sound
+### Verify Data
 
 The *movies* dataset is broad, but short, with only about 2,000 records. You can select the first 10 records, just to see that they loaded properly.
 
@@ -143,8 +178,7 @@ Returned 10 row(s) in 0.16s
 
 ```
 
-
-### Take a peek at the data
+### Peek at the Data
 
 Now that there is data in the datasets, you can view the results in a variety of ways.
 
@@ -197,7 +231,6 @@ Query: select * from movies where animation=1
 | 1412 | Land Before Time III: The Time of the Great Giving | 1995-01-01 | http://us.imdb.com/M/title-exact?Land%20Before%20Time%20III%3A%20The%20Time%20of%20the%20Great%20Giving%20%281995%29%20%28V%29 | 0       | 0      | 0         | 1         | 1        | 0      | 0     | 0           | 0     | 0       | 0        | 0      | 0       | 0       | 0       | 0     | 0        | 0   | 0       |
 | 1470 | Gumby: The Movie                                   | 1995-01-01 | http://us.imdb.com/M/title-exact?Gumby:%20The%20Movie%20(1995)                                                                 | 0      http://www.cloudera.com/content/support/en/documentation.html | 0      | 0         | 1         | 1        | 0      | 0     | 0           | 0     | 0       | 0        | 0      | 0       | 0       | 0       | 0     | 0        | 0   | 0       |
 +------+----------------------------------------------------+------------+--------------------------------------------------------------------------------------------------------------------------------+---------+--------+-----------+-----------+----------+--------+-------+-------------+-------+---------+----------+--------+---------+---------+---------+-------+----------+-----+---------+
-Returned 42 row(s) in 0.22s
 
 ```
 
@@ -270,9 +303,9 @@ Query: select title, release from movies where animation=1 and scifi=1
 Returned 4 row(s) in 0.17s
 ```
 
-### Let's Get More Specific
+### Get More Specific
 
-The movies are in no particular order in the dataset. It can be helpful to sort the results. You can use *order by* to choose the sort criterion.  Impala requires any query including an `ORDER BY` clause to also use a `LIMIT` clause. Sorting a huge result set can require a lot of memory. "Top-N" queries are  common for Impala use cases. By limiting the returned results, you avoid overwhelming your memory capacity on the query's coordinator node.
+The movies are in no particular order in the dataset. It can be helpful to sort the results. You can use `ORDER BY` to choose sort criteria.  Impala requires any query including an `ORDER BY` clause to also use a `LIMIT` clause. Sorting a huge result set can require a lot of memory. "Top-N" queries are common Impala use cases. By limiting the returned results, you avoid overwhelming memory capacity on the query's coordinator node.
 
 ```
 > select title, release from movies where animation=1 and scifi=1 order by title asc limit 1000;
@@ -285,11 +318,10 @@ Query: select title, release from movies where animation=1 and scifi=1 order by 
 | Heavy Metal                  | 1981-03-08 |
 | Transformers: The Movie, The | 1986-01-01 |
 +------------------------------+------------+
-Returned 4 row(s) in 0.24s
 ```
 ### In the real world, this is the sort of thing you would do with a dataset like this one
 
-Show me Westerns from most newest to oldest release dates.
+Show Westerns from newest to oldest release dates.
 
 ```
 > select title, release from movies where western=1 order by release desc limit 2000;
@@ -326,7 +358,7 @@ Show me Westerns from most newest to oldest release dates.
 +----------------------------------------------+------------+
 
 ```
-Show me movies with titles that start with _Ha_ sorted by title.
+Show movies with titles that start with _Ha_ sorted by title.
 
 ```
 > select title, avg(ratings.rating) 
@@ -353,7 +385,7 @@ limit 5000;
 | Hate                                  | 3.834340991535671   |
 +---------------------------------------+---------------------+
 ```
-Show me crime movies, sorted by highest to lowest rating.
+Show crime movies, sorted by highest to lowest rating.
 
 ```
 > select title, avg(ratings.rating) 
@@ -471,7 +503,7 @@ limit 5000;
 You might find it surprising that a movie like "The Godfather" received an average rating of "1," despite its iconic status. It might be helpful to know how many reviews were received for each of the films. You can use the `COUNT` function to see how many people actually voted for each film. Doing so casts an entirely different light on that rating. You can use the `ROUND` function to make the ratings column easier to read. Sorting by title makes it easier to find a specific movie.
 
 ```
- > select title, round(avg(ratings.rating), 2), count(ratings.id)
+> select title, round(avg(ratings.rating), 2), count(ratings.id)
 from movies join ratings on movies.id=ratings.id 
 where crime=1
 group by title, ratings.id
@@ -625,8 +657,6 @@ Query: select * from crime where _c1 > 3.99
 | Donnie Brasco                  | 4.00 |
 | Devil's Advocate, The          | 4.00 |
 +--------------------------------+------+
-
-
 ```
 
 Beyond that, it's all Impala. See the [Impala documentation](http://www.cloudera.com/content/support/en/documentation.html) for more detail on your available SQL options.
