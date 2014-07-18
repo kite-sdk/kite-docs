@@ -4,7 +4,7 @@ title: Viewing a Kite CLI Dataset with Impala
 ---
 You can create datasets using the Kite CLI, then view the data in a variety of ways using Impala.
 
-This example uses datasets based on the MovieLens dataset provided by the GroupLens Research Group at the University of Minnesota. You can get a copy of the original dataset at the [Grouplens site](http://grouplens.org/datasets/movielens/). The _movies.csv_ and _ratings.csv_ data files were converted from the original plain text dataset to CSV format. The Release field, which is stored in string format, has been formatted as yyyy-mm-dd so that the dates sort properly. 
+This example uses datasets based on the MovieLens dataset provided by the GroupLens Research Group at the University of Minnesota. You can get a copy of the original dataset at the [Grouplens site](http://grouplens.org/datasets/movielens/). For this example, the _movies.csv_ and _ratings.csv_ data files are converted from the original plain text dataset to CSV format. The Release field, which is stored in string format, has been formatted as yyyy-mm-dd so that the dates sort properly. You can either modify the Grouplens files yourself as a starting point, or create your own sample CSV files based on the table descriptions below.
 
 ## Preparation
 
@@ -14,10 +14,6 @@ If you have not done so already, download the Kite command-line interface jar. T
 $ curl https://repository.cloudera.com/artifactory/libs-release-local/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
 $ chmod +x dataset
 ```
-
-You can download the modified example CSV files from [https://github.com/DennisDawson/KiteImages/raw/master/ImpalaExample.tar.gz](https://github.com/DennisDawson/KiteImages/raw/master/ImpalaExample.tar.gz).
-
-Expand _movies.csv_ and _ratings.csv_ to a directory containing dataset.jar.
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
 
