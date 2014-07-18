@@ -319,7 +319,10 @@ Query: select title, release from movies where animation=1 and scifi=1 order by 
 | Transformers: The Movie, The | 1986-01-01 |
 +------------------------------+------------+
 ```
-### In the real world, this is the sort of thing you would do with a dataset like this one
+
+### Realistic Examples
+
+These are the types of queries you might use with datasets of this type.
 
 Show Westerns from newest to oldest release dates.
 
@@ -358,7 +361,7 @@ Show Westerns from newest to oldest release dates.
 +----------------------------------------------+------------+
 
 ```
-Show movies with titles that start with _Ha_ sorted by title.
+Show movies with titles that start with _Ha_, sorted by title.
 
 ```
 > select title, avg(ratings.rating) 
