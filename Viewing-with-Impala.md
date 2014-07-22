@@ -156,16 +156,16 @@ Query: select * from ratings limit 10
 +----+--------+--------+
 | id | critic | rating |
 +----+--------+--------+
-| 1  | 1      | 3      |
+| 1  | 1      | 1      |
 | 1  | 2      | 2      |
-| 1  | 3      | 3      |
-| 1  | 4      | 3      |
-| 1  | 5      | 3      |
-| 1  | 6      | 5      |
-| 1  | 7      | 3      |
-| 1  | 8      | 2      |
-| 1  | 9      | 4      |
-| 1  | 10     | 3      |
+| 1  | 3      | 1      |
+| 1  | 4      | 1      |
+| 1  | 5      | 1      |
+| 1  | 6      | 1      |
+| 1  | 7      | 1      |
+| 1  | 8      | 1      |
+| 1  | 9      | 1      |
+| 1  | 10     | 2      |
 +----+--------+--------+
 
 ```
@@ -246,7 +246,7 @@ Query: select title, release from movies where western=1 order by release desc l
 Show movies with titles that start with _S_, sorted by title.
 
 ```
-> select title, avg(ratings.rating) 
+ > select title, avg(ratings.rating) 
 from movies join ratings on movies.id=ratings.id
 where title like "S%"
 group by title
@@ -256,13 +256,13 @@ Query: select title, avg(ratings.rating) from movies join ratings on movies.id=r
 +----------------------+---------------------+
 | title                | avg(ratings.rating) |
 +----------------------+---------------------+
-| Simple Pleasures     | 2.92                |
-| Something Shapely    | 2.78                |
-| Sometimes It's a Boy | 2.82                |
-| Space Dentist        | 2.98                |
-| Spaetzle             | 2.92                |
-| Spaetzle 2           | 3.1                 |
-| Stegoceratops!       | 3.18                |
+| Simple Pleasures     | 4.28                |
+| Something Shapely    | 1.34                |
+| Sometimes It's a Boy | 2.24                |
+| Space Dentist        | 2.22                |
+| Spaetzle             | 3.22                |
+| Spaetzle 2           | 2.24                |
+| Stegoceratops!       | 1.26                |
 +----------------------+---------------------+
 
 ```
@@ -281,8 +281,8 @@ Query: select title, avg(ratings.rating) from movies join ratings on movies.id=r
 +--------------------+---------------------+
 | title              | avg(ratings.rating) |
 +--------------------+---------------------+
-| Dancing in Detroit | 2.86                |
-| Embryoglio         | 2.84                |
+| Embryoglio         | 4.12                |
+| Dancing in Detroit | 1.22                |
 | Tattlers           | 1                   |
 +--------------------+---------------------+
 
@@ -291,7 +291,7 @@ Query: select title, avg(ratings.rating) from movies join ratings on movies.id=r
 You might find it surprising that a modern classic like "Tattlers" received an average rating of "1," despite its iconic status. It might be helpful to know how many reviews were received for each of the films. You can use the `COUNT` function to see how many critics actually ranked for each film. Doing so casts an entirely different light on that rating. You can use the `ROUND` function to make the ratings column easier to read. Sorting by title makes it easier to find a specific movie.
 
 ```
-> select title, round(avg(ratings.rating), 2), count(ratings.id)
+>  > select title, round(avg(ratings.rating), 2), count(ratings.id)
 from movies join ratings on movies.id=ratings.id 
 where crime=1
 group by title, ratings.id
@@ -301,11 +301,10 @@ Query: select title, round(avg(ratings.rating), 2), count(ratings.id) from movie
 +--------------------+-------------------------------+-------------------+
 | title              | round(avg(ratings.rating), 2) | count(ratings.id) |
 +--------------------+-------------------------------+-------------------+
-| Dancing in Detroit | 2.86                          | 50                |
-| Embryoglio         | 2.84                          | 50                |
+| Dancing in Detroit | 1.22                          | 50                |
+| Embryoglio         | 4.12                          | 50                |
 | Tattlers           | 1.00                          | 1                 |
 +--------------------+-------------------------------+-------------------+
-
 
 ```
 
@@ -322,28 +321,24 @@ Query: create view children as select title, round(avg(ratings.rating),2) from m
 
 Returned 0 row(s) in 0.04s
 
-
 ```
+
 No rows are returned as a result of the query, but Impala creates a new view.
 
 One advantage of working with a view is that you can use the aggregate column (rating, named _c1 in the view) in a WHERE clause. If you only want to see the highest rated movies for children, you can run an additional query on the view.
 
 ```
-> select * from children where _c1> 2.5;
+> > select * from children where _c1> 2.5;
 Query: select * from children where _c1> 2.5
-+------------------------+------+
-| title                  | _c1  |
-+------------------------+------+
-| Stegoceratops!         | 3.18 |
-| Wrastlin'!             | 3.04 |
-| Space Dentist          | 2.98 |
-| Simple Pleasures       | 2.92 |
-| Tell 'Em Mikey's Back  | 2.90 |
-| Cock Crows Thrice, The | 2.90 |
-| Fledgling              | 2.84 |
-| Return from Mars       | 2.82 |
-| Boy and His Cattle, A  | 2.74 |
-+------------------------+------+
++-----------------------+------+
+| title                 | _c1  |
++-----------------------+------+
+| Simple Pleasures      | 4.28 |
+| Return from Mars      | 4.24 |
+| Tell 'Em Mikey's Back | 4.12 |
+| Fledgling             | 3.30 |
+| Boy and His Cattle, A | 3.24 |
++-----------------------+------+
 
 ```
 
