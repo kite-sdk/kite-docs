@@ -11,8 +11,8 @@ This example uses datasets based on the MovieLens dataset provided by the GroupL
 If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
 
 ```
-$ curl https://repository.cloudera.com/artifactory/libs-release-local/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
-$ chmod +x dataset
+curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
+chmod +x dataset
 ```
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
