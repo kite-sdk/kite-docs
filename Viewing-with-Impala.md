@@ -53,9 +53,9 @@ In a new terminal window, begin an Impala shell session.
 $ impala-shell
 ```
 
-### Invoke the Most Intuitive Command Ever Conceived. Ever.
+### Invalidate Your Metadata
 
-Impala maintains its own copy of  your dataset metadata to enhance performance. When you create a table outside of Impala, you need to flag the existing metadata as out of date, so that Impala knows it needs to refresh the metadata. After you create your table using the CLI, you must run the following command. See? The following command is completely intuitive, now that it has been explained. Probably.
+Impala maintains its own copy of  your dataset metadata to enhance performance. When you create a table outside of Impala, you need to flag the existing metadata as out of date, so that Impala knows it needs to refresh the metadata. After you create your table using the CLI, you must run the following command to see your changes in Impala.
 
 ```
 > invalidate metadata;
