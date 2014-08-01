@@ -15,7 +15,6 @@ You can use schema resolution to change the type used to store a value. For exam
 
 ## Removing Fields from a Dataset
 
-You can have a schema that reads fewer fields than are defined by the schema used to write a dataset, provided that the field definitions in the reader schema are compatible with the chosen fields in the writer schema. This is useful when the writer schema provides more fields than are needed for the business case supported by the reader schema.
 
 When you remove fields from a dataset schema, the data already written remains unchanged. The fields you remove are not required when records are written going forward. The field must not be added back, unless it is identical to the existing field (since the data isn't actually removed from the dataset).
 
@@ -23,9 +22,12 @@ Removing unnecessary fields allows Kite to read data more efficiently. The perfo
 
 ## Adding Fields to a Dataset
 
-You can add fields to a dataset's schema, provided the the schema is compatible with the existing data. If you do so, you must define a default value for the fields you add to the dataset schema. As records are added to the datastore, Kite inserts the default values in the extended fields.
+You can add fields to a dataset's schema, provided the the schema is compatible with the existing data. If you do so, you must define a default value for the fields you add to the dataset schema. New data that includes the field will be populated normally. Records that do not include the field are populated with the default you provide.
 
-## Maintaining Compatibility
+
+## Reading with Different Schemas
+
+You can have a schema that reads fewer fields than are defined by the schema used to write a dataset, provided that the field definitions in the reader schema are compatible with the chosen fields in the writer schema. This is useful when the writer schema provides more fields than are needed for the business case supported by the reader schema.
 
 Kite ensures that each change to a schema is compatible with the last version of the schema. Older data can always be read by the current schema.
 
