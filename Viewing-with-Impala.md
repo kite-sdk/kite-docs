@@ -17,7 +17,7 @@ chmod +x dataset
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
 
-## Infer Schemas CSV Files
+## Infer Schemas from CSV Files
 
 
 Use the `csv-schema` CLI command to infer the schemas for both files.
@@ -53,9 +53,9 @@ In a new terminal window, begin an Impala shell session.
 $ impala-shell
 ```
 
-### Invalidate Your Metadata
+### Invalidate Metadata
 
-Impala maintains its own copy of  your dataset metadata to enhance performance. When you create a table outside of Impala, you need to flag the existing metadata as out of date, so that Impala knows it needs to refresh the metadata. After you create your table using the CLI, you must run the following command to see your changes in Impala.
+Impala maintains its own copy of your dataset metadata to enhance performance. When you create a table outside of Impala, you need to flag the existing metadata as out of date, so that Impala knows it needs to refresh the metadata. After you create your table using the CLI, you must run the following command.
 
 ```
 > invalidate metadata;
