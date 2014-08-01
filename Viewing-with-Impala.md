@@ -17,7 +17,7 @@ chmod +x dataset
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
 
-## Infer Schemas CSV Files
+## Infer Schemas from CSV Files
 
 
 Use the `csv-schema` CLI command to infer the schemas for both files.
