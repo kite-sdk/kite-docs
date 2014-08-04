@@ -27,4 +27,4 @@ This is the default landing page for Kite SDK documentation.
 * [Partitioned Datasets](Partitioned-Datasets/)
 * [Column Mapping](Column-Mapping/)
 * [HBase Storage Cells](HBase-Storage-Cells/)
-
+* [Schema Evolution](Schema-Evolution/)
