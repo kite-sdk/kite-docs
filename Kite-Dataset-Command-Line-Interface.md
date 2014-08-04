@@ -272,7 +272,7 @@ dataset [-v] csv-import <csv path> <dataset> [command options]
 Copy the records from `sample.csv` to a Hive dataset named "sample":
 
 ```
-dataset csv-import csv-import path/to/sample.csv sample
+dataset csv-import path/to/sample.csv sample
 ```
 
 ----
