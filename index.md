@@ -28,3 +28,4 @@ This is the default landing page for Kite SDK documentation.
 * [Column Mapping](Column-Mapping/)
 * [HBase Storage Cells](HBase-Storage-Cells/)
 * [Schema Evolution](Schema-Evolution/)
+* [Restricted Views](Restricted-Views/)
