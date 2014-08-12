@@ -95,8 +95,8 @@ There are three formats used to set constraint values. The values can be numbers
 | ------------------------
 | empty | Exists (value is not null) | `id=`
 | comma-separated list | In (any of the specified values) | `id=1,2,5`
-| set notation | Range | `id=[1,5]`
+| interval | Range of values | `id=[1,5]`
 
-See [Set Notation](../Set-Notation/) for more examples of defining ranges of values.
+See [Interval Notation](../Interval-Notation/) for more examples of defining ranges of values.
 
 

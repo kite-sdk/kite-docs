@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Set Notation
+title: Interval Notation
 ---
 
 The syntax for ranges of values follows this format.
@@ -33,4 +33,6 @@ The following table describes the meaning of each syntax element.
 | (aardvark,zebu) | strings greater than _aardvark_ and less than _zebu_
 | ( ,1] | value <= 1
 | [3, ) | value >= 3
+
+For more information on intervals see http://en.wikipedia.org/wiki/Interval_(mathematics) .
 
