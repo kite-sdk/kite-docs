@@ -5,9 +5,8 @@ title: Interval Notation
 
 The syntax for ranges of values follows this format.
 
-```
-([ _value1_ , _value2_ )]
-```
+| bound type | lower bound | (comma) | upper bound | bound type |
+| [ or ( | a value | , | a value | ) or ] |
 
 The following table describes the meaning of each syntax element.
 
@@ -30,9 +29,9 @@ The following table describes the meaning of each syntax element.
 | (1,3] | 1 < value <= 3
 | [1,3) | 1 <= value < 3
 | (1,3) | 1 < value < 3
-| (aardvark,zebu) | strings greater than _aardvark_ and less than _zebu_
-| ( ,1] | value <= 1
-| [3, ) | value >= 3
+| (a,d) | strings greater than a and less than d
+| ( ,1] | value <= 1 (empty means <i>unbounded</i>)
+| [3, ) | value >= 3 (empty means <i>unbounded</i>)
 
-For more information on intervals see http://en.wikipedia.org/wiki/Interval_(mathematics) .
+For more information on intervals see <a href="http://en.wikipedia.org/wiki/Interval_(mathematics)">http://en.wikipedia.org/wiki/Interval_(mathematics)</a>.
 
