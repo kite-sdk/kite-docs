@@ -12,21 +12,13 @@ You construct a dataset URI using variations on the following pattern.
 ```
 dataset:<scheme>:/<path>/<namespace>/<dataset-name>
 ```
-The scheme is the storage format (for example, _hdfs_, _hive_).
+The _scheme_ is the storage format (for example, _hdfs_, _hive_).
 
 _Namespaces_ let you work with multiple datasets as one logical group.
 
 The _dataset-name_ is...well, you know, the name of the dataset.
 
-### File System
-
-The file system URI follows a similar pattern, with the `file:` prefix.
-
-```
-dataset:file:/<path>/<namespace>/<dataset-name>
-```
-
-#### HDFS
+### HDFS
 
 The URI for a dataset in HDFS uses the following pattern.
 
@@ -42,6 +34,14 @@ HDFS URIs can also be used to select between HDFS instances.
 
 ```
 dataset:hdfs://<host>[:port]/<path>/<namespace>/<dataset-name>
+```
+
+### Local File System Datasets
+
+The local file system dataset URI follows a similar pattern, with the `file:` prefix.
+
+```
+dataset:file:/<path>/<namespace>/<dataset-name>
 ```
 
 ### Hive
@@ -80,7 +80,7 @@ A view URI is constructed by changing the prefix of from `dataset:` to `view:`. 
 The query arguments place constraints on the information returned in the view.
 
 ```
-view:?=
+view:_dataset-specific_?_field_=_constraint_
 ```
 
 For example, you can restrict values returned from a table of _users_ to users whose favorite color is pink.
@@ -99,9 +99,9 @@ There are three formats used to set constraint values. The values can be numbers
 
 | Format | Constraint Type| Example
 | ------------------------
-| empty | Exists (value is not null) | `id=`
-| comma-separated list | In (any of the specified values) | `id=1,2,5`
-| interval | Range of values | `id=[1,5]`
+| empty | Exists (value is not null) | `favoriteColor=` (has a favorite color)
+| comma-separated list | In (any of the specified values) | `genre=comedy,animation` (genre is _comedy_ or _animation_)
+| interval | Range of values | `month=[1,3]` (January to March)
 
 See [Interval Notation](../Interval-Notation/) for more examples of defining ranges of values.
 
