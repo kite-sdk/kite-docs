@@ -68,7 +68,7 @@ hbase:<zookeeper>/<dataset-name>
 
 Kite uses the default namespace for the HBase scheme.
 
-The <zookeeper> argument is a comma separated list of hosts.  For example
+The _zookeeper_ argument is a comma separated list of hosts.  For example
 
 ```
 hbase:host1,host2:9999,host3/myDataset
@@ -80,7 +80,7 @@ A view URI is constructed by changing the prefix of from `dataset:` to `view:`. 
 The query arguments place constraints on the information returned in the view.
 
 ```
-view:_dataset-specific_?_field_=_constraint_
+view:<dataset-specific>?<field>=<constraint>
 ```
 
 For example, you can restrict values returned from a table of _users_ to users whose favorite color is pink.
