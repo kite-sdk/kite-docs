@@ -69,6 +69,8 @@ Performance can be enhanced by defining a [partition strategy](../Partitioned-Da
 
 You can work with a subset of dataset entities using the Views API.
 
+Datasets are identified by URIs. See [Dataset URIs](../URIs).
+
 <a name="repositories" />
 
 ## Dataset Repositories

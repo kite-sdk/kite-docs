@@ -29,3 +29,4 @@ This is the default landing page for Kite SDK documentation.
 * [HBase Storage Cells](HBase-Storage-Cells/)
 * [Schema Evolution](Schema-Evolution/)
 * [Restricted Views](Restricted-Views/)
+* [Dataset URIs](URIs/)
