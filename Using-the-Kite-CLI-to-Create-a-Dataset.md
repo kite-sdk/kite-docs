@@ -11,12 +11,8 @@ Kite provides a set of tools that handle the basic legwork for creating a datase
 
 ## Preparation
 
-If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
+If you have not done so already, install the [Kite JAR](../Install-Kite/).
 
-```
-curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
-chmod +x dataset
-```
 
 ## Create a CSV Data File
 

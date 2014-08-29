@@ -25,7 +25,7 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 * [copy](#copy): copy one dataset to another dataset.
 * [delete](#delete): delete a dataset.
 * [partition-config](#partition-config): create a partition strategy for a schema.
-* [mapping-config](#mapping-config): create a partition strategy for a schema.
+* [mapping-config](#mapping-config): create a mapping strategy for a schema.
 * [help](#help): get help for the dataset command in general or a specific command.
 
 ----
