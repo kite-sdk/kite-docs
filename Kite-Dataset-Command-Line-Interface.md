@@ -144,6 +144,7 @@ dataset [-v] create <dataset> [command options]
 | `-f, --format`       | By default, the dataset is created in Avro format.<br />Use this switch to set the format to Parquet `-f parquet` |
 | `-p, --partition-by` | A file containing a JSON-formatted partition strategy. |
 | `-m, --mapping`      | A file containing a JSON-formatted column mapping. |
+| `--set, --property`  | A property to set in the dataset's descriptor: `prop.name=value`. |
 
 ### Examples:
 
