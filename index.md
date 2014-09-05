@@ -16,7 +16,7 @@ This is the default landing page for Kite SDK documentation.
 
 ## Kite Dataset Command Line Interface
 
-* [Install Kite](Install-Kite/)
+* [Install the Kite CLI](Install-Kite/)
 * [Kite SDK Dataset CLI](Kite-Dataset-Command-Line-Interface/)
 * [Using the Kite Dataset CLI to Create a Dataset](Using-the-Kite-CLI-to-Create-a-Dataset/)
 * [Viewing the Kite Dataset Using Impala](Viewing-with-Impala/)

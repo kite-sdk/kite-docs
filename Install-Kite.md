@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Install Kite
+title: Install the Kite Command Line Interface
 ---
 
 To download Kite with `curl`, run the following commands from a terminal window:
