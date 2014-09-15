@@ -4,6 +4,7 @@ email: cdk-dev@cloudera.org
 description: "Documentation for the Kite open source project on GitHub."
 baseurl: "/docs/current/guide"
 url: "http://kitesdk.org"
+include: "./samples/"
 
 # Build settings
 markdown: kramdown
@@ -11,3 +12,5 @@ permalink: pretty
 kramdown:
   input: GFM
   coderay_line_numbers: table
+  
+
