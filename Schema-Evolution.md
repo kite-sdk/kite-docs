@@ -120,7 +120,7 @@ The source code for this file is `movies2.avsc`.
 Use the CLI `update` command to add the new field.
 
 ```
-$ dataset update moives --schema movies2.avsc
+$ dataset update movies --schema movies2.avsc
 ```
 
 Now you can load more records that include values for the _rating_ field.  These records are in the file `movies2.csv`.
