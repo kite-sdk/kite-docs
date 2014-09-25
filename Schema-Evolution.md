@@ -45,7 +45,7 @@ id,title
 Generate an Avro schema file (`movies.avsc`) using `movies.csv`.
 
 ```
-$ dataset csv-schema movies.csv --class movies -o movies.avsc
+$ {% include baseCommand.html %} csv-schema movies.csv --class movies -o movies.avsc
 ```
 
 The schema `movies.avsc` describes fields for _id_ number and the _title_ of the movie.
@@ -71,19 +71,19 @@ The schema `movies.avsc` describes fields for _id_ number and the _title_ of the
 Create the _movies_ dataset.
 
 ```
-$ dataset create movies --schema movies.avsc
+$ {% include baseCommand.html %} create movies --schema movies.avsc
 ```
 
 Import the CSV data.
 
 ```
-$ dataset csv-import movies.csv movies
+$ {% include baseCommand.html %} csv-import movies.csv movies
 ```
 
 Validate the dataset by showing the first few records.
 
 ```
-$ dataset show movies
+$ {% include baseCommand.html %} show movies
 {"id": 1, "title": "Anticoagulance"}
 {"id": 2, "title": "Boy and His Cattle, A"}
 {"id": 3, "title": "Carpool to Vermont"}
@@ -120,7 +120,7 @@ The source code for this file is `movies2.avsc`.
 Use the CLI `update` command to add the new field.
 
 ```
-$ dataset update movies --schema movies2.avsc
+$ {% include baseCommand.html %} update movies --schema movies2.avsc
 ```
 
 Now you can load more records that include values for the _rating_ field.  These records are in the file `movies2.csv`.
@@ -136,10 +136,10 @@ id,title,rating
 After you import `movies2.csv`, the existing records display _null_ for the _rating_ field.
 
 ```
-$ dataset csv-import movies2.csv movies
+$ {% include baseCommand.html %} csv-import movies2.csv movies
 Added 3 records to "movies"
-$ dataset show movies
-{"id": 1, "title": ""Anticoagulance", "rating": null}
+$ {% include baseCommand.html %} show movies
+{"id": 1, "title": "Anticoagulance", "rating": null}
 {"id": 2, "title": "Boy and His Cattle, A", "rating": null}
 {"id": 3, "title": "Carpool to Vermont", "rating": null}
 {"id": 4, "title": "Chameleon Chameleon", "rating": 5}
@@ -176,12 +176,12 @@ Update the schema definition, changing the _rating_ field datatype from _long_ t
 Once again, update the schema.
 
 ```
-$ dataset update movies --schema movies3.avsc
+$ {% include baseCommand.html %} update movies --schema movies3.avsc
 ```
 If you run the `show` command, you'll see that the existing integer _id_ field values now display values with a decimal point and 0.
 
 ```
-$ dataset show movies
+$ {% include baseCommand.html %} show movies
 {"id": 1, "title": ""Anticoagulance", "rating": null}
 {"id": 2, "title": "Boy and His Cattle, A", "rating": null}
 {"id": 3, "title": "Carpool to Vermont", "rating": null}
@@ -205,10 +205,10 @@ id,title,rating
 Import the records and show the table.
 
 ```
-$ dataset csv-import movies3.csv movies
+$ {% include baseCommand.html %} csv-import movies3.csv movies
 Added 3 records to "movies"
-$ dataset show movies
-{"id": 1, "title": ""Anticoagulance", "rating": null}
+$ {% include baseCommand.html %} show movies
+{"id": 1, "title": "Anticoagulance", "rating": null}
 {"id": 2, "title": "Boy and His Cattle, A", "rating": null}
 {"id": 3, "title": "Carpool to Vermont", "rating": null}
 {"id": 4, "title": "Chameleon Chameleon", "rating": 5.0}

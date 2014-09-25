@@ -86,8 +86,8 @@ When you create a new dataset, you can specify the partition strategy along with
 
 For example, you can create a dataset for our High Rollers club using this command.
 
-```bash
-dataset create HighRollersClub -s HighRollers.avsc -p HighRollers.json 
+```
+{% include baseCommand.html %} create HighRollersClub -s HighRollers.avsc -p HighRollers.json 
 ```
 
 See [create](../Kite-Dataset-Command-Line-Interface/index.html#create) for more options when creating a dataset.

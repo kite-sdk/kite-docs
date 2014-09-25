@@ -31,7 +31,7 @@ PBJ, Peanut butter and grape jelly on white bread.
 All right. Now we get to use the CLI. Start by inferring an Avro schema file from the *sandwiches.csv* file you just created. Enter the following command to create an Avro schema file named *sandwich.avsc* with the class name *Sandwich*. The schema details are based on the headings and data in *sandwiches.csv*.
 
 ```
-dataset csv-schema sandwiches.csv --class Sandwich -o sandwich.avsc
+{% include baseCommand.html %} csv-schema sandwiches.csv --class Sandwich -o sandwich.avsc
 ```
 
 If you open *sandwich.avsc* in a text editor, it looks something like the code block below. `csv-schema` infers the names of the columns from the header, and the data type for each column from the first row of values.
@@ -58,14 +58,14 @@ If you open *sandwich.avsc* in a text editor, it looks something like the code b
 With a schema, you can create a new dataset. Enter the following command.
 
 ```
-dataset create sandwiches -s sandwich.avsc
+{% include baseCommand.html %} create sandwiches -s sandwich.avsc
 ```
 
 While it does not create actual sandwiches, it does create an empty dataset in which you can store sandwich descriptions, which is the next best thing. Probably.
 
 Just for giggles, you can reverse the process you just completed and look at the underlying schema of your dataset using the following command.
 
-```dataset schema sandwiches```
+```{% include baseCommand.html %} schema sandwiches```
 
 You'll get the same schema back, but this time, trust me, it's coming from the Hive repository. Honest.
 
@@ -90,7 +90,7 @@ You'll get the same schema back, but this time, trust me, it's coming from the H
 You've created a dataset in the Hive repository, which is the container, but not the information itself. Next, you might want to add some data so that you can run some queries. Use the following command to import the sandwiches in your CSV file.
 
 ```
-dataset csv-import sandwiches.csv sandwiches
+{% include baseCommand.html %} csv-import sandwiches.csv sandwiches
 ```
 
 The method returns a record count. 
@@ -106,7 +106,7 @@ But can you believe that? Inquiring minds want to verify that the information is
 You can list records from your newly created dataset using the `show` command.
 
 ```
-dataset show sandwiches
+{% include baseCommand.html %} show sandwiches
 ```
 
 By default, CLI retrieves up to the first 10 records from your dataset.
@@ -119,7 +119,7 @@ By default, CLI retrieves up to the first 10 records from your dataset.
 If you find that number of sandwiches overwhelming, you can change the number of records the query returns.
 
 ```
-dataset show sandwiches -n 1
+{% include baseCommand.html %} show sandwiches -n 1
 ```
 
 This time only the first record prints to screen.
@@ -135,7 +135,7 @@ You can import additional records to the database and use Hive or Impala to quer
 Given the ease with which you just created the sandwiches dataset, it seems a shame to destroy it out of hand. Keep in mind that this was only an example, and not something you were meant to treasure. I suppose you don't have to delete it, you might want to keep it around as a souvenir, like the first dollar earned or something like that. If so, create a dataset you hate, and prepare to annihilate it using this unassuming command.
 
 ```
-dataset delete sandwiches
+{% include baseCommand.html %} delete sandwiches
 ```
 
 There they go. Reuben and PBJ are gone. But you can create them again, or any other dataset you choose, using the CLI.
