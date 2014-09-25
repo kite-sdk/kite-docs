@@ -75,7 +75,7 @@ For example, the following code sample excerpts the pertinent lines from a class
 Use the CLI command [`obj-schema`](../Kite-Dataset-Command-Line-Interface/index.html#obj-schema) to generate an Avro schema file based on the source Java class.
 
 ```
-{% include baseCommand.html %} obj-schema org.kitesdk.cli.example.Movie -o movie.avsc
+{{site.dataset-command}} obj-schema org.kitesdk.cli.example.Movie -o movie.avsc
 ```
 
 The CLI uses the names and data types of the instance variables in the Java object to construct an Avro schema definition. For the Movie class, it looks like this.
@@ -110,7 +110,7 @@ id, title,releaseDate
 Use the CLI command [`csv-schema`](../Kite-Dataset-Command-Line-Interface/index.html#csv-schema) to generate the Avro schema.
 
 ```
-{% include baseCommand.html %} csv-schema movie.csv --class Movie -o movie.avsc
+{{site.dataset-command}} csv-schema movie.csv --class Movie -o movie.avsc
 ```
 
 The Kite CLI infers field names from the values in the first row and data types from the values in the second row of the CSV file.
@@ -145,7 +145,7 @@ The Kite CLI infers field names from the values in the first row and data types 
 Once you have an Avro schema, you can create your dataset.
 
 ```
-{% include baseCommand.html %} create movie --schema movie.avsc
+{{site.dataset-command}} create movie --schema movie.avsc
 ```
 
 ### Partition Strategy
@@ -165,7 +165,7 @@ You define a partition strategy in JSON format. The following code sample define
 Include the `partition-by` argument when you execute the `create` command.
 
 ```
-{% include baseCommand.html %} create movie --schema movie.avsc partition-by movie.json
+{{site.dataset-command}} create movie --schema movie.avsc partition-by movie.json
 ```
 See [Partitioned Datasets](../Partitioned-Datasets/) for more detail on partition strategies.
 
@@ -178,7 +178,7 @@ Column mapping allows you to configure how your records should be stored in HBas
 If you typically work with a subset of the fields in your dataset rather than an entire row, you might want to create the dataset in Parquet format, rather than the default Avro format. See [Parquet vs Avro Format](../Parquet-vs-Avro-Format/).
 
 ```
-{% include baseCommand.html %} create movie --schema movie.avsc -f parquet
+{{site.dataset-command}} create movie --schema movie.avsc -f parquet
 ```
 
 
@@ -203,7 +203,7 @@ Once you create the dataset, you can insert data in a number of ways.
 You can use the CLI command `csv-import` to insert records from a CSV file to your dataset.
 
 ```
-{% include baseCommand.html %} csv-import /kite/example/movie.csv movie
+{{site.dataset-command}} csv-import /kite/example/movie.csv movie
 ```
 
 See [`csv-import`](../Kite-Dataset-Command-Line-Interface/#csvImport) for additional options.
@@ -213,7 +213,7 @@ See [`csv-import`](../Kite-Dataset-Command-Line-Interface/#csvImport) for additi
 Use the [`copy`](../Kite-Dataset-Command-Line-Interface/#copy) command to transfer the contents of one dataset into another.
 
 ```
-{% include baseCommand.html %} copy movie_parquet movie
+{{site.dataset-command}} copy movie_parquet movie
 ```
 
 
@@ -230,13 +230,13 @@ Use the [`copy`](../Kite-Dataset-Command-Line-Interface/#copy) command to transf
 Select the first few records of your dataset to ensure that they loaded properly. Use the [`show`](../Kite-Dataset-Command-Line-Interface/index.html#show) command to view the first 10 records in your dataset.
 
 ```
-{% include baseCommand.html %} show movie
+{{site.dataset-command}} show movie
 ```
 
 10 records is the default. You can set the number of records you want returned when you execute the command. For example, this would return the first 50 records.
 
 ```
-{% include baseCommand.html %} show movie -n 50
+{{site.dataset-command}} show movie -n 50
 ```
 
 <a name="update" />
@@ -280,7 +280,7 @@ When you first create a dataset, you might want to tweak it before you go live. 
 For example, to remove the _movies_ dataset, you can use the following command.
 
 ```
-$ {% include baseCommand.html %} delete movies
+$ {{site.dataset-command}} delete movies
 ```
 
 

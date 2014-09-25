@@ -4,7 +4,8 @@ email: cdk-dev@cloudera.org
 description: "Documentation for the Kite open source project on GitHub."
 baseurl: "/docs/current/guide"
 url: "http://kitesdk.org"
-include: "./samples/"
+include: ["./samples/"]
+dataset-command: "kite-dataset"
 
 # Build settings
 markdown: kramdown

@@ -18,8 +18,8 @@ If you are using a quickstart virtual machine, Impala is installed for you. If y
 Use the `csv-schema` CLI command to infer the schemas for both files.
 
 ```
-$ {% include baseCommand.html %} csv-schema movies.csv -o movies.avsc --record-name movies 
-$ {% include baseCommand.html %} csv-schema ratings.csv -o ratings.avsc --record-name ratings 
+$ {{site.dataset-command}} csv-schema movies.csv -o movies.avsc --record-name movies 
+$ {{site.dataset-command}} csv-schema ratings.csv -o ratings.avsc --record-name ratings 
 ```
 
 ## Create Datasets
@@ -27,8 +27,8 @@ $ {% include baseCommand.html %} csv-schema ratings.csv -o ratings.avsc --record
 Now that you have the schema, you can create the metadata for your tables in Hadoop. Use the `create` CLI command to add the metadata to Hadoop.
 
 ```
-$ {% include baseCommand.html %} create "movies" --schema movies.avsc
-$ {% include baseCommand.html %} create "ratings" --schema ratings.avsc
+$ {{site.dataset-command}} create "movies" --schema movies.avsc
+$ {{site.dataset-command}} create "ratings" --schema ratings.avsc
 ```
 
 ## Import Data
@@ -36,8 +36,8 @@ $ {% include baseCommand.html %} create "ratings" --schema ratings.avsc
 Hadoop is now prepared with empty tables, ready to import your CSV data.
 
 ```
-$ {% include baseCommand.html %} csv-import movies.csv movies
-$ {% include baseCommand.html %} csv-import ratings.csv ratings
+$ {{site.dataset-command}} csv-import movies.csv movies
+$ {{site.dataset-command}} csv-import ratings.csv ratings
 ```
 
 ## View Datasets with Impala
