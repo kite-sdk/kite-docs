@@ -11,7 +11,7 @@ You construct a dataset URI using one of the following patterns, depending on yo
 
 | Scheme | Pattern
 ---------|--------
-| <a href="#hive">*Hive*</a> | `dataset:hive?dataset=<dataset-name>[namespace=<namespace]`
+| <a href="#hive">*Hive*</a> |`dataset:hive:<namespace>/<dataset>`
 | <a href="#hdfs">*HDFS*</a> | `dataset:hdfs:/<path>/<namespace>/<dataset-name>`
 | <a href="#local">*Local FS*</a> | `dataset:file:/<path>/<namespace>/<dataset-name>`
 | <a href="#hbase">*HBase*</a> | `dataset:hbase:<zookeeper>/<dataset-name>`
@@ -25,7 +25,7 @@ Dataset patterns always begin with the `dataset:` prefix. Any of these patterns 
 Hive manages your datatables for you. You only have to provide the dataset name.
 
 ```
- dataset:hive?dataset=<dataset-name>[namespace=<namespace]
+dataset:hive:<namespace>/<dataset>
 ```
 
 If you want to use external Hive datatables, you must also provide a path to the dataset. If you don't explicitly set a namespace, Kite uses the default namespace. For a Hive dataset, a Kite namespace maps one-to-one to a Hive database.
