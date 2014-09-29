@@ -11,9 +11,9 @@ You construct a dataset URI using one of the following patterns, depending on yo
 
 | Scheme | Pattern
 ---------|--------
-| <a href="#hive">*Hive*</a> | `dataset:hive?dataset=<dataset-name>`
-| <a href="#hdfs">*HDFS*</a> | `dataset:hdfs:/<path>/<dataset-name>`
-| <a href="#local">*Local FS*</a> | `dataset:file:/<path>/<dataset-name>`
+| <a href="#hive">*Hive*</a> |`dataset:hive:<namespace>/<dataset>`
+| <a href="#hdfs">*HDFS*</a> | `dataset:hdfs:/<path>/<namespace>/<dataset-name>`
+| <a href="#local">*Local FS*</a> | `dataset:file:/<path>/<namespace>/<dataset-name>`
 | <a href="#hbase">*HBase*</a> | `dataset:hbase:<zookeeper>/<dataset-name>`
 
 Dataset patterns always begin with the `dataset:` prefix. Any of these patterns can be modified to create a <a href="#view">View URI</a>.
@@ -25,13 +25,13 @@ Dataset patterns always begin with the `dataset:` prefix. Any of these patterns 
 Hive manages your datatables for you. You only have to provide the dataset name.
 
 ```
-dataset:hive?dataset=<dataset-name>
+dataset:hive:<namespace>/<dataset>
 ```
 
-If you want to use external Hive datatables, you must also provide a path to the dataset.
+If you want to use external Hive datatables, you must also provide a path to the dataset. If you don't explicitly set a namespace, Kite uses the default namespace. For a Hive dataset, a Kite namespace maps one-to-one to a Hive database.
 
 ```
-dataset:hive:/<path>/<dataset-name>
+dataset:hive:/<path>/<namespace>/<dataset-name>
 ```
 
 <a name="hdfs" />
@@ -40,7 +40,7 @@ dataset:hive:/<path>/<dataset-name>
 
 The URI for a dataset in HDFS uses the following pattern. You provide a path to the dataset.
 ```
-dataset:hdfs:/<path>/<dataset-name>
+dataset:hdfs:/<path>/<namespace>/<dataset-name>
 ```
 
 While it is not a typical use case, there might be times where it is useful to specify the HDFS host and port. You can insert the host and port before the path in the URI. You can use these URIs to select between HDFS instances.
@@ -48,7 +48,7 @@ While it is not a typical use case, there might be times where it is useful to s
 The host and port are required if your Hadoop configuration files aren't on your classpath. This can happen if your application is running outside the cluster and you haven't taken the step of deploying client configuration files to the server running the application. The host is the hostname for the namenode; the port is the port for the namenode (typically 8020). If you have an HA configuration, you always need client configuration files, and the host should be the NameService ID.
 
 ```
-dataset:hdfs://<host>[:port]/<path>/<dataset-name>
+dataset:hdfs://<host>[:port]/<path>/<namespace>/<dataset-name>
 ```
 
 <a name="local" />
@@ -58,7 +58,7 @@ dataset:hdfs://<host>[:port]/<path>/<dataset-name>
 The local file system dataset URI follows a pattern similar to the HDFS URI, with the `file:` scheme.
 
 ```
-dataset:file:/<path>/<dataset-name>
+dataset:file:/<path>/<namespace>/<dataset-name>
 ```
 
 <a name="#hbase" />
