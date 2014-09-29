@@ -8,12 +8,7 @@ This example uses datasets based on the MovieLens dataset provided by the GroupL
 
 ## Preparation
 
-If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
-
-```
-curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
-chmod +x dataset
-```
+If you have not done so already, [install the Kite command-line interface jar](../Install-Kite/index.html).
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
 
@@ -23,8 +18,8 @@ If you are using a quickstart virtual machine, Impala is installed for you. If y
 Use the `csv-schema` CLI command to infer the schemas for both files.
 
 ```
-$ dataset csv-schema movies.csv -o movies.avsc --record-name movies 
-$ dataset csv-schema ratings.csv -o ratings.avsc --record-name ratings 
+$ {{site.dataset-command}} csv-schema movies.csv -o movies.avsc --record-name movies 
+$ {{site.dataset-command}} csv-schema ratings.csv -o ratings.avsc --record-name ratings 
 ```
 
 ## Create Datasets
@@ -32,8 +27,8 @@ $ dataset csv-schema ratings.csv -o ratings.avsc --record-name ratings
 Now that you have the schema, you can create the metadata for your tables in Hadoop. Use the `create` CLI command to add the metadata to Hadoop.
 
 ```
-$ dataset create "movies" --schema movies.avsc
-$ dataset create "ratings" --schema ratings.avsc
+$ {{site.dataset-command}} create "movies" --schema movies.avsc
+$ {{site.dataset-command}} create "ratings" --schema ratings.avsc
 ```
 
 ## Import Data
@@ -41,8 +36,8 @@ $ dataset create "ratings" --schema ratings.avsc
 Hadoop is now prepared with empty tables, ready to import your CSV data.
 
 ```
-$ dataset csv-import movies.csv movies
-$ dataset csv-import ratings.csv ratings
+$ {{site.dataset-command}} csv-import movies.csv movies
+$ {{site.dataset-command}} csv-import ratings.csv ratings
 ```
 
 ## View Datasets with Impala

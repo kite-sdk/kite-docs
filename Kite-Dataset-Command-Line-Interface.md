@@ -50,7 +50,7 @@ Use `csv-schema` to generate an Avro schema from a comma separated value (CSV) f
 ### Syntax
 
 ```
-dataset [-v] csv-schema <sample csv path> [command options]
+{{site.dataset-command}} [-v] csv-schema <sample csv path> [command options]
 ```
 
 ### Options
@@ -69,13 +69,13 @@ dataset [-v] csv-schema <sample csv path> [command options]
 Print the schema to standard out:
 
 ```
-dataset csv-schema sample.csv --class Sample
+{{site.dataset-command}} csv-schema sample.csv --class Sample
 ```
 
 Write the schema to sample.avsc:
 
 ```
-dataset csv-schema sample.csv --class Sample -o sample.avsc
+{{site.dataset-command}} csv-schema sample.csv --class Sample -o sample.avsc
 ```
 
 ----
@@ -92,7 +92,7 @@ Build a schema from a Java class.
 ### Syntax
 
 ```
-dataset [-v] obj-schema <class name> [command options]
+{{site.dataset-command}} [-v] obj-schema <class name> [command options]
 ```
 
 ### Options
@@ -107,19 +107,19 @@ dataset [-v] obj-schema <class name> [command options]
 Create a schema for an example User class:
 
 ```
-dataset obj-schema org.kitesdk.cli.example.User
+{{site.dataset-command}} obj-schema org.kitesdk.cli.example.User
 ```
 
 Create a schema for a class in a jar:
 
 ```
-dataset obj-schema com.example.MyRecord --jar my-application.jar
+{{site.dataset-command}} obj-schema com.example.MyRecord --jar my-application.jar
 ```
 
 Save the schema for the example User class to user.avsc:
 
 ```
-dataset obj-schema org.kitesdk.cli.example.User -o user.avsc
+{{site.dataset-command}} obj-schema org.kitesdk.cli.example.User -o user.avsc
 ```
 
 ----
@@ -135,7 +135,7 @@ After you have generated an Avro schema, you can use `create` to make an empty d
 ### Usage
 
 ```
-dataset [-v] create <dataset> [command options]
+{{site.dataset-command}} [-v] create <dataset> [command options]
 ```
 
 ### Options
@@ -150,19 +150,19 @@ dataset [-v] create <dataset> [command options]
 Create dataset "users" in Hive:
 
 ```
-dataset create users --schema user.avsc
+{{site.dataset-command}} create users --schema user.avsc
 ```
 
 Create dataset "users" using Parquet:
 
 ```
-dataset create users --schema user.avsc --format parquet
+{{site.dataset-command}} create users --schema user.avsc --format parquet
 ```
 
 Create dataset "users" partitioned by JSON configuration:
 
 ```
-dataset create users --schema user.avsc --partition-by user_part.json
+{{site.dataset-command}} create users --schema user.avsc --partition-by user_part.json
 ```
 
 
@@ -181,7 +181,7 @@ Update the metadata descriptor for a dataset.
 ### Syntax
 
 ```
-dataset [-v] update-dataset <dataset> [command options]
+{{site.dataset-command}} [-v] update-dataset <dataset> [command options]
 ```
 
 ### Options
@@ -195,13 +195,13 @@ dataset [-v] update-dataset <dataset> [command options]
 Update schema for dataset "users" in Hive:
 
 ```
-dataset update users --schema user.avsc
+{{site.dataset-command}} update users --schema user.avsc
 ```
 
 Update HDFS dataset by URI, add property:
 
 ```
-dataset update dataset:hdfs:/user/me/datasets/users --set kite.write.cache-size=20
+{{site.dataset-command}} update dataset:hdfs:/user/me/datasets/users --set kite.write.cache-size=20
 ```
 
 ----
@@ -219,7 +219,7 @@ Show the schema for a dataset.
 ### Syntax
 
 ```
-dataset [-v] schema <dataset> [command options]
+{{site.dataset-command}} [-v] schema <dataset> [command options]
 ```
 
 ### Options
@@ -232,7 +232,7 @@ dataset [-v] schema <dataset> [command options]
 Print the schema for dataset "users" to standard out:
 
 ```
-dataset schema users
+{{site.dataset-command}} schema users
 ```
 
 Save the schema for dataset "users" to user.avsc:
@@ -256,7 +256,7 @@ Copy CSV records into a dataset.
 ### Syntax
 
 ```
-dataset [-v] csv-import <csv path> <dataset> [command options]
+{{site.dataset-command}} [-v] csv-import <csv path> <dataset> [command options]
 ```
 
 ### Options
@@ -272,7 +272,7 @@ dataset [-v] csv-import <csv path> <dataset> [command options]
 Copy the records from `sample.csv` to a Hive dataset named "sample":
 
 ```
-dataset csv-import path/to/sample.csv sample
+{{site.dataset-command}} csv-import path/to/sample.csv sample
 ```
 
 ----
@@ -290,7 +290,7 @@ Print the first *n* records in a dataset.
 ### Syntax
 
 ```
-dataset [-v] show <dataset> [command options]
+{{site.dataset-command}} [-v] show <dataset> [command options]
 ```
 
 ### Options
@@ -302,13 +302,13 @@ dataset [-v] show <dataset> [command options]
 Show the first 10 records in dataset "users":
 
 ```
-dataset show users
+{{site.dataset-command}} show users
 ```
 
 Show the first 50 records in dataset "users":
 
 ```
-dataset show users -n 50
+{{site.dataset-command}} show users -n 50
 ```
 
 ----
@@ -326,7 +326,7 @@ Copy records from one dataset to another.
 ### Syntax
 
 ```
-dataset [-v] copy <source dataset> <destination dataset> [command options]
+{{site.dataset-command}} [-v] copy <source dataset> <destination dataset> [command options]
 ```
 
 ### Options
@@ -339,13 +339,13 @@ dataset [-v] copy <source dataset> <destination dataset> [command options]
 Copy the contents of `movies_avro` to `movies_parquet`:
 
 ```
-dataset copy movies_avro movies_parquet
+{{site.dataset-command}} copy movies_avro movies_parquet
 ```
  
 Copy the movies dataset into HBase in a map-only job:
  
 ```
-dataset copy movies dataset:hbase:zk-host/movies --no-compaction
+{{site.dataset-command}} copy movies dataset:hbase:zk-host/movies --no-compaction
 ```
 
 ----
@@ -364,7 +364,7 @@ Delete one or more datasets and related metadata.
 ### Syntax
 
 ```
-dataset [-v] delete <datasets> [command options]
+{{site.dataset-command}} [-v] delete <datasets> [command options]
 ```
 
 ### Examples
@@ -372,7 +372,7 @@ dataset [-v] delete <datasets> [command options]
 Delete all data and metadata for the dataset "users":
 
 ```
-dataset delete users
+{{site.dataset-command}} delete users
 ```
 
 ----
@@ -390,7 +390,7 @@ Builds a partition strategy for a schema.
 ### Syntax
 
 ```
-dataset [-v] partition-config <field:type pairs> [command options]
+{{site.dataset-command}} [-v] partition-config <field:type pairs> [command options]
 ```
 
 ### Options:
@@ -404,13 +404,13 @@ dataset [-v] partition-config <field:type pairs> [command options]
 Partition by email address, balanced across 16 hash partitions and save to a file.
 
 ```
-dataset partition-config email:hash[16] email:copy -s user.avsc -o part.json
+{{site.dataset-command}} partition-config email:hash[16] email:copy -s user.avsc -o part.json
 ```
 
 Partition by `created_at` time's year, month, and day:
 
 ```
-dataset partition-config created_at:year created_at:month created_at:day -s event.avsc
+{{site.dataset-command}} partition-config created_at:year created_at:month created_at:day -s event.avsc
 ```
 
 ----
@@ -438,7 +438,7 @@ If the last option is used, the mapping type will determined by the source field
 ### Syntax
 
 ```
-dataset [-v] create-column-mapping <field:type pairs> [command options]
+{{site.dataset-command}}  [-v] create-column-mapping <field:type pairs> [command options]
 ```
 
 ### Options
@@ -452,19 +452,19 @@ dataset [-v] create-column-mapping <field:type pairs> [command options]
 Store email in the key, other fields in column family `u`:
 
 ```
-dataset mapping-config email:key username:u id:u --schema user.avsc -o user-cols.json
+{{site.dataset-command}}  mapping-config email:key username:u id:u --schema user.avsc -o user-cols.json
 ```
 
 Store preferences hash-map in column family `prefs`:
 
 ```
-dataset mapping-config preferences:prefs --schema user.avsc
+{{site.dataset-command}}  mapping-config preferences:prefs --schema user.avsc
 ```
 
 Use the `version` field as an OCC version:
 
 ```
-dataset mapping-config version:version --schema user.avsc
+{{site.dataset-command}}  mapping-config version:version --schema user.avsc
 ```
 
 ----
@@ -482,7 +482,7 @@ Retrieves details on the functions of one or more dataset commands.
 ### Syntax
 
 ```
-dataset [-v] help <commands> [command options]
+{{site.dataset-command}}  [-v] help <commands> [command options]
 ```
 
 ### Examples
@@ -490,7 +490,8 @@ dataset [-v] help <commands> [command options]
 Retrieve details for the create, show, and delete commands.
 
 ```
-dataset help create show delete
+{{site.dataset-command}} help create show delete
+
 ```
 
 ----
@@ -498,3 +499,5 @@ dataset help create show delete
 [Back to the Top](#top)
 
 ----
+
+
