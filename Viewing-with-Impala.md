@@ -4,16 +4,11 @@ title: Viewing a Kite CLI Dataset with Impala
 ---
 You can create datasets using the Kite CLI, then view the data in a variety of ways using Impala.
 
-This example uses datasets based on the MovieLens dataset provided by the GroupLens Research Group at the University of Minnesota. You can get a copy of the original dataset at the [Grouplens site](http://grouplens.org/datasets/movielens/). For this example, the _movies.csv_ and _ratings.csv_ data files are converted from the original plain text dataset to CSV format. The Release field, which is stored in string format, has been formatted as yyyy-mm-dd so that the dates sort properly. You can modify the Grouplens files yourself as a starting point, you can create your own sample CSV files based on the table descriptions below, or you can use [Dennis's Random Ratings Dataset](https://github.com/DennisDawson/KiteImages/raw/master/movies.zip), a list of random ratings for movies that do not exist (at least not yet).
+This example uses datasets based on the MovieLens dataset provided by the GroupLens Research Group at the University of Minnesota. You can get a copy of the original dataset at the [Grouplens site](http://grouplens.org/datasets/movielens/). For this example, the _movies.csv_ and _ratings.csv_ data files are converted from the original plain text dataset to CSV format. The Release field, which is stored in string format, has been formatted as yyyy-mm-dd so that the dates sort properly. You can modify the GroupLens files yourself as a starting point, you can create your own sample CSV files based on the table descriptions below, or you can use [Dennis's Random Ratings Dataset](https://github.com/DennisDawson/KiteImages/raw/master/movies.zip), a list of random ratings for movies that do not exist (at least not yet).
 
 ## Preparation
 
-If you have not done so already, download the Kite command-line interface jar. This jar is the executable that runs the command-line interface, so save it as `dataset`. To download with curl, run:
-
-```
-curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.15.0/kite-tools-0.15.0-binary.jar -o dataset
-chmod +x dataset
-```
+If you have not done so already, [install the Kite command-line interface jar](../Install-Kite/index.html).
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
 
@@ -23,8 +18,8 @@ If you are using a quickstart virtual machine, Impala is installed for you. If y
 Use the `csv-schema` CLI command to infer the schemas for both files.
 
 ```
-$ dataset csv-schema movies.csv -o movies.avsc --record-name movies 
-$ dataset csv-schema ratings.csv -o ratings.avsc --record-name ratings 
+$ {{site.dataset-command}} csv-schema movies.csv -o movies.avsc --record-name movies 
+$ {{site.dataset-command}} csv-schema ratings.csv -o ratings.avsc --record-name ratings 
 ```
 
 ## Create Datasets
@@ -32,8 +27,8 @@ $ dataset csv-schema ratings.csv -o ratings.avsc --record-name ratings
 Now that you have the schema, you can create the metadata for your tables in Hadoop. Use the `create` CLI command to add the metadata to Hadoop.
 
 ```
-$ dataset create "movies" --schema movies.avsc
-$ dataset create "ratings" --schema ratings.avsc
+$ {{site.dataset-command}} create "movies" --schema movies.avsc
+$ {{site.dataset-command}} create "ratings" --schema ratings.avsc
 ```
 
 ## Import Data
@@ -41,8 +36,8 @@ $ dataset create "ratings" --schema ratings.avsc
 Hadoop is now prepared with empty tables, ready to import your CSV data.
 
 ```
-$ dataset csv-import movies.csv movies
-$ dataset csv-import ratings.csv ratings
+$ {{site.dataset-command}} csv-import movies.csv movies
+$ {{site.dataset-command}} csv-import ratings.csv ratings
 ```
 
 ## View Datasets with Impala
@@ -288,10 +283,11 @@ Query: select title, avg(ratings.rating) from movies join ratings on movies.id=r
 
 
 ```
+
 You might find it surprising that a modern classic like "Tattlers" received an average rating of "1," despite its iconic status. It might be helpful to know how many reviews were received for each of the films. You can use the `COUNT` function to see how many critics actually ranked for each film. Doing so casts an entirely different light on that rating. You can use the `ROUND` function to make the ratings column easier to read. Sorting by title makes it easier to find a specific movie.
 
 ```
->  > select title, round(avg(ratings.rating), 2), count(ratings.id)
+> select title, round(avg(ratings.rating), 2), count(ratings.id)
 from movies join ratings on movies.id=ratings.id 
 where crime=1
 group by title, ratings.id
@@ -328,7 +324,7 @@ No rows are returned as a result of the query, but Impala creates a new view.
 One advantage of working with a view is that you can use the aggregate column (rating, named _c1 in the view) in a WHERE clause. If you only want to see the highest rated movies for children, you can run an additional query on the view.
 
 ```
-> > select * from children where _c1> 2.5;
+> select * from children where _c1> 2.5;
 Query: select * from children where _c1> 2.5
 +-----------------------+------+
 | title                 | _c1  |
