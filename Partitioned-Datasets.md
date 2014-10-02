@@ -90,6 +90,6 @@ For example, you can create a dataset for our High Rollers club using this comma
 dataset create HighRollersClub -s HighRollers.avsc -p HighRollers.json 
 ```
 
-See [create](../Kite-Dataset-Command-Line-Interface/index.html#create) for more options when creating a dataset.
+See [create](../Kite-Dataset-Command-Line-Interface/index.html#create) for more options when creating a dataset. See [Partition Strategy JSON Format][partition-format] for available options when defining a partition strategy.
 
 You can also use Kite to manage datasets in HBase, using the same tools and APIs. HBase datasets work differently than datasets stored in HDFS in two ways. First, HBase handles its own dataset partitions, and configures them differently. Second, HBase stores data as a group of values, or cells; you need to configure how Kite will divide your records into separate cells.

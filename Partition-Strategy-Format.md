@@ -23,6 +23,7 @@ The available types are:
 | `minute`   | a timestamp          | minute in the hour, 0-59    | must be a long |
 | `identity` | any string or number | the source value, unchanged | must be a string or numeric |
 | `hash`     | any object           | int hash of the value, 0-B  | requires B, `buckets` integer attribute[<sup>2</sup>](#notes) |
+|`record` | any object | object with nested values| |
 
 A field definition can optionally provide a `name` attribute, which is used to reference the partition field. HDFS datasets use this name when creating partition paths. If the name attribute is missing, it is defaulted based on the partition type and source field name.
 
@@ -48,6 +49,23 @@ This strategy hashes and embeds the "email" field from a user record.
   {"type": "identity", "source": "email"}
 ]
 ```
+
+This strategy defines the record `location` with the nested values `latitude` and `longitude`.
+
+```json
+[
+   {
+      "type": "record", 
+      "name": "location",
+      "fields" : [
+         {"name": "latitude", "type": "long"},
+         {"name": "longitude", "type": "string"}
+      ]
+   }
+]
+```
+
+You access record values using dot notation. For example, `myentity.location.latitude`.
 
 ### Notes:
 1. Source timestamps must be [long][avro-types] fields. The value encodes the number of milliseconds since unix epoch, as in Joda Time's [Instant][timestamp] and Java's Date.
