@@ -49,6 +49,23 @@ This strategy hashes and embeds the "email" field from a user record.
 ]
 ```
 
+This strategy defines the record `location` with the nested values `latitude` and `longitude`.
+
+```json
+[
+   {
+      "type": "record", 
+      "name": "location",
+      "fields" : [
+         {"name": "latitude", "type": "long"},
+         {"name": "longitude", "type": "long"}
+      ]
+   }
+]
+```
+
+You access record values using dot notation. For example, `location.latitude`.
+
 ### Notes:
 1. Source timestamps must be [long][avro-types] fields. The value encodes the number of milliseconds since unix epoch, as in Joda Time's [Instant][timestamp] and Java's Date.
 2. The `buckets` attribute is required for `hash` partitions and controls the number of partitions into which the entities should be pseudo-randomly distributed.
