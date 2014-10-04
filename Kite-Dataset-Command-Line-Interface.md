@@ -525,7 +525,7 @@ Transforms records from one dataset and stores them in another dataset.
 
 ### Examples
 
-Transform the contents of `movies_src` using `com.example.TransformFn`
+Transform the contents of `movies_src` using `com.example.TransformFn`:
 
 ```
 {{site.dataset-command}}  transform movies_src movies --transform com.example.TransformFn --jar fns.jar
@@ -551,7 +551,7 @@ Print all metadata for a dataset.
 
 ### Example
 
-Print all metadata for the `users` dataset
+Print all metadata for the "users" dataset:
 
 
 ```
@@ -578,13 +578,13 @@ Builds a log4j configuration to log events to a dataset.
 
 ### Examples
 
-Print log4j configuration to log to dataset `users` 
+Print log4j configuration to log to dataset "users":
 
 ```
 {{site.dataset-command}} log4j-config --host flume.cluster.com --class org.kitesdk.examples.MyLoggingApp users
 ```
 
-Save log4j configuration to the file `log4j.properties`
+Save log4j configuration to the file `log4j.properties`:
 
 ```
 {{site.dataset-command}} log4j-config --host flume.cluster.com --package org.kitesdk.examples -o log4j.properties users
@@ -634,19 +634,19 @@ Builds a Flume configuration to log events to a dataset.
 
 ### Examples
 
-Print Flume configuration to log to dataset `users`
+Print Flume configuration to log to dataset "users":
 
 ```
 {{site.dataset-command}} flume-config --checkpoint-dir /data/0/flume/checkpoint --data-dir /data/1/flume/data users
 ```
 
-Print Flume configuration to log to dataset `dataset:hdfs:/datasets/default/users`
+Print Flume configuration to log to dataset `dataset:hdfs:/datasets/default/users`:
 
 ```
 {{site.dataset-command}} flume-config --channel-type memory dataset:hdfs:/datasets/default/users
 ```
 
-Save Flume configuration to the file `flume.properties`
+Save Flume configuration to the file `flume.properties`:
 
 ```
 {{site.dataset-command}} flume-config --channel-type memory -o flume.properties users
