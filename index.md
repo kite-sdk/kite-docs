@@ -1,34 +1,86 @@
 ---
 layout: page
-title: Kite SDK Documentation
+title: 'A Data API for Hadoop'
 ---
 
-This is the default landing page for Kite SDK documentation.
+Kite is a high-level data layer for Hadoop. It is an API and a set of tools that speed up development. You configure how Kite stores your data in Hadoop, instead of building and maintaining that infrastructure yourself.
 
-## Kite SDK Overview
+## High-level tools
 
+Kite's API and tools are built around datasets. Datasets are uniquely identified URIs, like `dataset:hive:ratings`.
 
-* [What is Kite? (and What Makes It So Awesome?)](Kite-SDK-Guide/)
-* [Kite Data Module Overview](Kite-Data-Module-Overview/)
-* [Kite Dataset Lifecycle](lifecycle/)
+Dataset is a consistent interface for working with your data. You have control of implementation details, such as whether to use Avro or Parquet format, HDFS or HBase storage, and snappy compression or another. You only have to tell Kite what to do; Kite handles the implementation for you.
 
+<div class="right">
+{% highlight text %}
+$> kite-dataset csv-import ratings.csv \
+              dataset:hbase:zk/ratings
+Added 1000000 records to dataset "ratings"
+{% endhighlight %}
+</div>
 
+Kite's command-line interface helps you manage datasets with pre-built tasks like creating datasets, migrating schemas, and loading data. It also helps you configure Kite and other Hadoop projects.
 
-## Kite Dataset Command Line Interface
+[<i class="fa fa-chevron-right"></i>&nbsp; Get started with Kite's CSV tutorial][kite-cli]
 
-* [Install the Kite CLI](Install-Kite/)
-* [Kite SDK Dataset CLI](Kite-Dataset-Command-Line-Interface/)
-* [Using the Kite Dataset CLI to Create a Dataset](Using-the-Kite-CLI-to-Create-a-Dataset/)
-* [Viewing the Kite Dataset Using Impala](Viewing-with-Impala/)
+<div class="left">
+{% highlight java %}
+View latest = Datasets.load(uri)
+    .from("time", startOfToday)
+    .to("time", now);
+{% endhighlight %}
+</div>
 
+Kite's data API provides programmatic access to datasets. Using the API, you can build applications that directly interact with your datasets. For example, you can load a dataset and select a subset of it for a MapReduce pipeline.
 
-## Conceptual Topics
+[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about Kite datasets][kite-data-overview]
 
-* [Parquet vs Avro Format](Parquet-vs-Avro-Format/)
-* [Partitioned Datasets](Partitioned-Datasets/)
-* [Column Mapping](Column-Mapping/)
-* [HBase Storage Cells](HBase-Storage-Cells/)
-* [Schema Evolution](Schema-Evolution/)
-* [Restricted Views](Restricted-Views/)
-* [Dataset URIs](URIs/)
-* [Using Kite with Apache Maven](Using-Kite-with-Apache-Maven/)
+## Low-level control
+
+When you create a dataset, uou control your data layout, record schema, and other options with straight-forward configuration. Then you can focus on building your application, while Kite handles data storage for you. Kite automatically partitions records when writing and prunes partitions when reading. It will even keep Hive up-to-date with a dataset's newest partitions.
+
+<div class="columns">
+  <div class="left">
+{% highlight text %}
+time,rating,user_id,item_id
+1412361369702,4,34,18865
+...
+{% endhighlight %}
+    <div class="center"><i class="fa fa-plus"></i></div>
+{% highlight json %}
+[
+  {"type": "year", "source": "time"},
+  {"type": "month", "source": "time"},
+  {"type": "day", "source": "time"},
+]
+{% endhighlight %}
+  </div>
+  <div class="middle"><i class="fa fa-arrow-right"></i></div>
+  <div class="right">
+{% highlight text %}
+datasets/
+└── ratings/
+    └── year=2014/
+        ├── month=09/
+        │   ├── day=01/
+        │   ├── ...
+        │   └── day=30/
+        ├── month=10/
+        │   ├── day=01/
+        │   ├── ...
+{% endhighlight %}
+  </div>
+</div>
+
+[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about configuring Kite][kite-config]
+
+## Configuration-based transformation
+
+Kite morphlines is a flexible way to express data transformations as configuration.
+
+[<i class="fa fa-chevron-right"></i>&nbsp; Go to the Morphlines reference guide][morphlines-intro]
+
+[kite-cli]: {{ site.baseurl }}/Using-the-Kite-CLI-to-Create-a-Dataset
+[kite-data-overview]: {{ site.baseurl }}/Kite-Data-Module-Overview
+[kite-config]: {{ site.baseurl }}/configuraton-formats
+[morphlines-intro]: /docs/latest/kite-morphlines/index.html

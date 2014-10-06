@@ -14,10 +14,10 @@ td.code {
 html, body { height: 100%; }
 
 body {
-  font-family: Palatino, TimesRoman, Serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  font-weight: 300;
+  font-weight: 400;
   background-color: #fdfdfd;
 }
 
@@ -41,6 +41,58 @@ table td {
   padding: 0.2em;
 }
 
+.left {
+  float: left;
+  clear: left;
+  overflow: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  float: right;
+  clear: right;
+  overflow: auto;
+}
+
+.post-content .left {
+  min-width: 40%;
+  margin-right: 2em;
+}
+
+.post-content .right {
+  min-width: 40%;
+  margin-left: 2em;
+}
+
+.columns {
+  display: table;
+  width: 100%;
+}
+
+.columns .left {
+  float: none;
+  display: table-cell;
+  vertical-align: middle;
+  width: 47.5%;
+}
+
+.columns .middle {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 5%;
+}
+
+.columns .right {
+  float: none;
+  display: table-cell;
+  vertical-align: middle;
+  width: 47.5%;
+}
+
 /* Utility */
 
 .wrap:before,
@@ -61,9 +113,9 @@ table td {
 
 .site-header {
   border-top: 5px solid #333;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid #d5d5e9;
   min-height: 56px;
-  background-color: white;
+  background-color: #fafafe;
 }
 
 .site-title,
@@ -95,13 +147,14 @@ table td {
 /* Site footer */
 
 .site-footer {
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #d5d5e9;
+  background-color: #fafafe;
   padding: 30px 0;
 }
 
 .footer-heading {
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -.5px;
   margin-bottom: 15px;
 }
@@ -139,15 +192,6 @@ table td {
   font-size: 15px;
   letter-spacing: -.3px;
   color: #828282;
-}
-
-.github-icon-svg,
-.twitter-icon-svg {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  position: relative;
-  top: 3px;
 }
 
 
@@ -191,7 +235,8 @@ table td {
   font-size: 42px;
   letter-spacing: -1.75px;
   line-height: 1;
-  font-weight: 300;
+  font-weight: 500;
+
 }
 
 .post-header .meta {
@@ -212,7 +257,7 @@ table td {
 .post-content h5,
 .post-content h6 {
   line-height: 1;
-  font-weight: 300;
+  font-weight: 400;
   margin: 40px 0 20px;
 }
 
@@ -246,6 +291,7 @@ table td {
 
 .post pre,
 .post code {
+  font-family: monospace;
   border: 1px solid #d5d5e9;
   background-color: #eef;
   padding: 8px 12px;
@@ -274,6 +320,10 @@ table td {
 }
 
 .post pre.terminal code { background-color: #333; }
+
+.post .no-line-numbers .line-numbers {
+  visibility: hidden;
+}
 
 /* Syntax highlighting styles */
 /* ----------------------------------------------------------*/
