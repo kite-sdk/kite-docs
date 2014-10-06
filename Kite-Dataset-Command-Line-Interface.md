@@ -151,6 +151,8 @@ After you have generated an Avro schema, you can use `create` to make an empty d
 | `-m, --mapping`      | A file containing a JSON-formatted column mapping |
 | `--set` | Set one or more descriptor properties.
 
+<b>Note:</b> The dataset name must not contain a period (.).
+
 ### Examples:
 
 Create dataset "users" in Hive:
