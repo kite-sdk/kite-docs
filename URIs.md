@@ -22,7 +22,7 @@ Dataset patterns always begin with the `dataset:` prefix. Any of these patterns 
 
 ### Hive
 
-Hive manages your datatables for you. You only have to provide the dataset name.
+Hive manages your datatables for you. You only have to provide the dataset name. You also have the option of providing a namespace.
 
 ```
 dataset:hive:<namespace>/<dataset>
@@ -32,6 +32,14 @@ If you want to use external Hive datatables, you must also provide a path to the
 
 ```
 dataset:hive:/<path>/<namespace>/<dataset-name>
+```
+
+In earlier versions of Kite, `dataset:hive:a/b` meant directory ./a/b  Now, it has changed to _namespace_=a _datasource_=b. If this has an impact on your use case, you can use a full path to the dataset. For example, `dataset:hive:/data/path/a/b`. In either case, it is stored in Hive under the name _b,_ which is why you can just refer to it by the hive name.
+
+To create an external table, add `location=/path/to/data/dir` to the dataset URI. 
+
+```
+dataset:hive:namespace/dataset?location=/path/to/data/dir
 ```
 
 <a name="hdfs" />
