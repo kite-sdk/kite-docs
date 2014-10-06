@@ -16,6 +16,7 @@ The data module contains APIs and utilities for defining and performing actions 
 * <a href="#datasets">datasets</a>
 * <a href="#repositories">dataset repositories</a>
 * <a href="#loading">loading data</a>
+* <a href="#writers">dataset writers</a>
 * <a href="#viewing">viewing data</a>
 
 Many of these objects are interfaces, permitting multiple implementations, each with different functionality. The current release contains an implementation of each of these components for the Hadoop `FileSystem` abstraction, for Hive, and for HBase.
@@ -69,7 +70,7 @@ Performance can be enhanced by defining a [partition strategy](../Partitioned-Da
 
 You can work with a subset of dataset entities using the Views API.
 
-Datasets are identified by URIs. See [Dataset URIs](../URIs).
+Datasets are identified by URIs. See [Dataset URIs](../URIs). Dataset names cannot contain a period (.).
 
 <a name="repositories" />
 
@@ -89,6 +90,20 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
 
+<a name="writers" />
+
+## Dataset Writers
+
+Dataset writers add entities to your datasets (that is, add rows to your data tables). 
+
+The `DatasetWriter` lifecycle is as follows:
+
+1. `Dataset#newWriter()` returns a DatasetWriter instance.
+2. `DatasetWriter#write()` writes an entity to a dataset.
+3. `DatasetWriter#flush()` attempts to push buffered data from the client to the remote hosts. Some dataset implementations might not implement this method, depending on the guarantees available to the underlying storage system. In particular, when using HDFS-backed datasets, the Parquet format does not implement `flush()` by default.
+4. `DatasetWriter#sync()` executes a `flush()` and waits for the remote hosts to force their buffers to persistent storage (for example, hard disks). Like `flush()`, `sync()` depends on support of the underlying format: Parquet is not supported by default.
+5. `DatasetWriter#close()` closes the writer. If it returns without throwing an exception, any entity that was successfully written with `DatasetWriter#write()` is safely stored to persistent storage in all locations.
+
 <a name="viewing" />
 
 ## Viewing Your Data
@@ -96,6 +111,8 @@ You can load comma separated value data into a dataset repository using the comm
 Datasets you create Kite are no different than any other Hadoop dataset in your system, once created. You can query the data with Hive or view it using Impala.
 
 For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](../Kite-Dataset-Command-Line-Interface/index.html#show).
+
+
 
 ---
 
