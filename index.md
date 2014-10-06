@@ -31,3 +31,4 @@ This is the default landing page for Kite SDK documentation.
 * [Schema Evolution](Schema-Evolution/)
 * [Restricted Views](Restricted-Views/)
 * [Dataset URIs](URIs/)
+* [Using Kite with Apache Maven](Using-Kite-with-Apache-Maven/)
