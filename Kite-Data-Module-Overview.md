@@ -94,7 +94,7 @@ You can load comma separated value data into a dataset repository using the comm
 
 ## Dataset Writers
 
-In the dataset workflow, the `DatasetWriter.flush()` method pushes any buffered data to data nodes in the underlying stream. The `DatasetWriter.sync()` method ensures that the data in the stream is written to local disks. When the `DatasetWriter.close() `method returns with a success message, the data is safely stored to disk in all locations.
+In the dataset workflow, the `DatasetWriter#flush()` method pushes any buffered data to data nodes in the underlying stream. The `DatasetWriter#sync()` method ensures that the data in the stream is written to local disks. When the `DatasetWriter#close() `method returns with a success message, the data is safely stored to disk in all locations.
 
 It's important to note that during the interval between the `flush()` method and the `sync()` method, it's possible that data might be lost if there is a system failure.
 
