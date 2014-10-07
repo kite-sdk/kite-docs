@@ -94,9 +94,15 @@ You can load comma separated value data into a dataset repository using the comm
 
 ## Dataset Writers
 
-In the dataset workflow, the `DatasetWriter.flush()` method pushes any buffered data to data nodes in the underlying stream. The `DatasetWriter.sync()` method ensures that the data in the stream is written to local disks. When the `DatasetWriter.close() `method returns with a success message, the data is safely stored to disk in all locations.
+Dataset writers add entities to your datasets (that is, add rows to your data tables). 
 
-It's important to note that during the interval between the `flush()` method and the `sync()` method, it's possible that data might be lost if there is a system failure.
+The `DatasetWriter` lifecycle is as follows:
+
+1. `Dataset#newWriter()` returns a DatasetWriter instance.
+2. `DatasetWriter#write()` writes an entity to a dataset.
+3. `DatasetWriter#flush()` attempts to push buffered data from the client to the remote hosts. Some dataset implementations might not implement this method, depending on the guarantees available to the underlying storage system. In particular, when using HDFS-backed datasets, the Parquet format does not implement `flush()` by default.
+4. `DatasetWriter#sync()` executes a `flush()` and waits for the remote hosts to force their buffers to persistent storage (for example, hard disks). Like `flush()`, `sync()` depends on support of the underlying format: Parquet is not supported by default.
+5. `DatasetWriter#close()` closes the writer. If it returns without throwing an exception, any entity that was successfully written with `DatasetWriter#write()` is safely stored to persistent storage in all locations.
 
 <a name="viewing" />
 
