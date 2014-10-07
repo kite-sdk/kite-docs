@@ -38,9 +38,29 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 
 ## General options
 
-Every command begins with `dataset`, followed by general options. Currently, the only general option turns on debugging, which will show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
+Every command begins with `{{site.dataset-command}}`, followed by general options. Currently, the only general option turns on debugging, which will show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
 
 | `-v`<br />`--verbose`<br />`--debug` | Turn on debug logging and show stack traces. |
+
+The Kite CLI supports the following environment variables.
+
+| `HIVE_HOME` | Root directory of Hive instance |
+| `HIVE_CONF_DIR` | Configuration directory for Hive instance |
+| `HBASE_HOME` | Root directory of HBase instance |
+| `HADOOP_MAPRED_HOME` | Root directory for MapReduce |
+| `HADOOP_HOME` | Root directory for Hadoop instance |
+
+To show the values for these variables at runtime, set the  `debug=` option to _true_. This can be helpful when troubleshooting issues where one or more of these resources is not found.  For example:
+
+```
+debug=true {{site.dataset-command}} info users
+```
+
+Use the `flags=` option to pass arguments to the internal Hadoop jar command. For example:
+
+```
+flags="-Xmx512m" {{site.dataset-command}} info users`
+```
 
 ----
 [Back to the Top](#top)
@@ -582,7 +602,8 @@ Builds a log4j configuration to log events to a dataset.
 
 | `--port` | Flume port |
 | `--class`, `--package` | Java class or package from which to log |
-| `log-all` | Configure the root logger to send to Flume | 
+| `--log-all` | Configure the root logger to send to Flume | 
+| `-o, --output` | Save the log4j configuration to a file |
 
 ### Examples
 
@@ -630,15 +651,16 @@ Builds a Flume configuration to log events to a dataset.
 | `--bind` | Avro source bind address |
 | `--port` | Avro source port |
 | `--channel` | Flume channel name |
-| `--channel-type` | Flume channel type |
+| `--channel-type` | Flume channel type (`memory` or `file`)|
 | `--channel-capacity` | Flume channel capacity |
-| `-- channel-transaction-capacity` | Flume channel transaction capacity |
-| `--checkpoint-dir` | File channel checkpoint directory |
-|  `--data-dir` | File channel data directory. Use the option multiple times for multiple data directories. |
-| `--sink` | Avro sink name" |
+| `--channel-transaction-capacity` | Flume channel transaction capacity |
+| `--checkpoint-dir` | File channel checkpoint directory (required when using `--channel-type file`)|
+| `--data-dir` | File channel data directory. Use the option multiple times for multiple data directories. (required when using `--channel-type file`)|
+| `--sink` | Flume sink name |
 | `--batch-size` | Records to write per batch |
 | `--roll-interval` | Time in seconds before starting the next file |
-|`--proxy-user` | User identity to use when writing to HDFS |
+| `--proxy-user` | User identity to use when writing to HDFS |
+| `-o, --output` | Save the Flume configuration to a file |
 
 ### Examples
 
