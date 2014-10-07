@@ -40,16 +40,26 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 Every command begins with `dataset`, followed by general options. Currently, the only general option turns on debugging, which will show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
 
 | `-v`<br />`--verbose`<br />`--debug` | Turn on debug logging and show stack traces. |
-|`$flags` | Pass arguments to the Hadoop jar command that runs internally. For example,<br /> `hadoop jar "$0" $flags "$@"` |
 
 The Kite CLI supports the following environment variables.
 
-| HIVE_HOME | Root directory of Hive instance |
-| HIVE_CONF_DIR | Configuration directory for Hive instance |
-| HBASE_HOME | Root directory of HBase instance |
-| HADOOP_MAPRED_HOME | Root directory for MapReduce |
-| HADOOP_HOME | Root directory for Hadoop instance |
+| `HIVE_HOME` | Root directory of Hive instance |
+| `HIVE_CONF_DIR` | Configuration directory for Hive instance |
+| `HBASE_HOME` | Root directory of HBase instance |
+| `HADOOP_MAPRED_HOME` | Root directory for MapReduce |
+| `HADOOP_HOME` | Root directory for Hadoop instance |
 
+To show the values for these variables at runtime, set the  `debug=` option to _true_. This can be helpful when troubleshooting issues where one or more of these resources is not found.  For example:
+
+```
+debug=true kite-dataset info users
+```
+
+Use the `flags=` option to pass arguments to the internal Hadoop jar command. For example:
+
+```
+flags="-Xmx512m" kite-dataset info users`
+```
 
 ----
 [Back to the Top](#top)
