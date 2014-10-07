@@ -15,18 +15,22 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 
 ----
 * [general options](#general): options for all commands.
-* [csv-schema](#csvSchema): create a schema from a CSV data file.
-* [obj-schema](#objSchema): create a schema from a Java object.
+* [help](#help): get help for the dataset command in general or a specific command.
 * [create](#create): create a dataset based on an existing schema.
-* [update](#update): update the metadata descriptor for a dataset. 
-* [schema](#schema) : view the schema for an existing dataset.
-* [csv-import](#csvImport): import a CSV data file.
-* [show](#show): show the first _n_ records of a dataset.
 * [copy](#copy): copy one dataset to another dataset.
+* [transform](#transform): transform records from one dataset and store them in another dataset.
+* [update](#update): update the metadata descriptor for a dataset. 
 * [delete](#delete): delete a dataset.
+* [schema](#schema) : view the schema for an existing dataset.
+* [info](#info): show metadata for a dataset.
+* [show](#show): show the first _n_ records of a dataset.
+* [csv-schema](#csvSchema): create a schema from a CSV data file.
+* [csv-import](#csvImport): import a CSV data file.
+* [obj-schema](#objSchema): create a schema from a Java object.
 * [partition-config](#partition-config): create a partition strategy for a schema.
 * [mapping-config](#mapping-config): create a mapping strategy for a schema.
-* [help](#help): get help for the dataset command in general or a specific command.
+* [log4j-config](#log4j-config): Configure Log4j.
+* [flume-config](#flume-config): Configure Flume.
 
 ----
 <a name="general" />
@@ -36,6 +40,16 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 Every command begins with `dataset`, followed by general options. Currently, the only general option turns on debugging, which will show a stack trace if something goes awry during execution of the command. A concise set of additional options might be added as the product matures.
 
 | `-v`<br />`--verbose`<br />`--debug` | Turn on debug logging and show stack traces. |
+|`$flags` | Pass arguments to the Hadoop jar command that runs internally. For example,<br /> `hadoop jar "$0" $flags "$@"` |
+
+The Kite CLI supports the following environment variables.
+
+| HIVE_HOME | Root directory of Hive instance |
+| HIVE_CONF_DIR | Configuration directory for Hive instance |
+| HBASE_HOME | Root directory of HBase instance |
+| HADOOP_MAPRED_HOME | Root directory for MapReduce |
+| HADOOP_HOME | Root directory for Hadoop instance |
+
 
 ----
 [Back to the Top](#top)
@@ -87,7 +101,7 @@ Write the schema to sample.avsc:
 <a name="objSchema" />
 
 ## obj-schema
-Build a schema from a Java class.
+Build a schema from a Java class. Fields are assumed to be nullable by default. You can edit the generated schema directly to remove the "null" option for specific fields.
 
 ### Syntax
 
@@ -142,8 +156,9 @@ After you have generated an Avro schema, you can use `create` to make an empty d
 
 | `-s, --schema`       | A file containing the Avro schema. This value is **required**. |
 | `-f, --format`       | By default, the dataset is created in Avro format.<br />Use this switch to set the format to Parquet `-f parquet` |
-| `-p, --partition-by` | A file containing a JSON-formatted partition strategy. |
-| `-m, --mapping`      | A file containing a JSON-formatted column mapping. |
+| `-p, --partition-by` | A file containing a JSON-formatted partition strategy |
+| `-m, --mapping`      | A file containing a JSON-formatted column mapping |
+| `--set` | Set one or more descriptor properties.
 
 ### Examples:
 
@@ -159,12 +174,11 @@ Create dataset "users" using Parquet:
 {{site.dataset-command}} create users --schema user.avsc --format parquet
 ```
 
-Create dataset "users" partitioned by JSON configuration:
+Create dataset "users" partitioned by JSON configuration using a cache size of 20 (rather than the default cache size of 10):
 
 ```
-{{site.dataset-command}} create users --schema user.avsc --partition-by user_part.json
+{{site.dataset-command}} create users --schema user.avsc --partition-by user_part.json --set kite.writer.cache-size=20
 ```
-
 
 ----
 
@@ -475,7 +489,7 @@ Use the `version` field as an OCC version:
 
 <a name="help" />
 
-## Help
+## help
 
 Retrieves details on the functions of one or more dataset commands.
 
@@ -500,4 +514,155 @@ Retrieve details for the create, show, and delete commands.
 
 ----
 
+<a name="transform" />
 
+## transform
+Transforms records from one dataset and stores them in another dataset.
+
+### Syntax
+
+```
+{{site.dataset-command}} transform <source dataset> <destination dataset> [command options]
+```
+
+### Options
+
+| `--no-compaction` | Copy to output without compacting the data |
+| `--num-writers` | The number of writer processes to use |
+| `--transform` | A transform DoFn class name |
+| `--jar` | Add a jar to the runtime class path |
+
+### Examples
+
+Transform the contents of `movies_src` using `com.example.TransformFn`:
+
+```
+{{site.dataset-command}}  transform movies_src movies --transform com.example.TransformFn --jar fns.jar
+```
+
+---
+
+[Back to the Top](#top)
+
+----
+
+<a name="info" />
+
+## info
+
+Print all metadata for a dataset.
+
+### Syntax
+
+```
+{{site.dataset-command}} info <dataset name>
+```
+
+### Example
+
+Print all metadata for the "users" dataset:
+
+
+```
+{{site.dataset-command}} info users
+```
+
+<a name="log4j-config" />
+
+## log4j-config
+
+Builds a log4j configuration to log events to a dataset.
+
+### Syntax
+
+```
+{{site.dataset-command}} log4j-config <dataset name> --host <flume hostname> [command options]
+```
+
+### Options
+
+| `--port` | Flume port |
+| `--class`, `--package` | Java class or package from which to log |
+| `log-all` | Configure the root logger to send to Flume | 
+
+### Examples
+
+Print log4j configuration to log to dataset "users":
+
+```
+{{site.dataset-command}} log4j-config --host flume.cluster.com --class org.kitesdk.examples.MyLoggingApp users
+```
+
+Save log4j configuration to the file `log4j.properties`:
+
+```
+{{site.dataset-command}} log4j-config --host flume.cluster.com --package org.kitesdk.examples -o log4j.properties users
+```
+
+Print log4j configuration to log from all classes:
+
+```
+{{site.dataset-command}} log4j-config --host flume.cluster.com --log-all users
+```
+
+---
+
+[Back to the Top](#top)
+
+----
+
+<a name="flume-config" />
+
+## flume-config
+
+Builds a Flume configuration to log events to a dataset.
+
+### Syntax
+
+```
+{{site.dataset-command}} flume-config <dataset name or URI> [command options]
+```
+
+### Options
+
+| `--use-dataset-uri` | Configure Flume with a dataset URI. Requires Flume 1.6 or later. |
+| `--agent` | Flume agent name |
+| `--source` | Flume source name |
+| `--bind` | Avro source bind address |
+| `--port` | Avro source port |
+| `--channel` | Flume channel name |
+| `--channel-type` | Flume channel type |
+| `--channel-capacity` | Flume channel capacity |
+| `-- channel-transaction-capacity` | Flume channel transaction capacity |
+| `--checkpoint-dir` | File channel checkpoint directory |
+|  `--data-dir` | File channel data directory. Use the option multiple times for multiple data directories. |
+| `--sink` | Avro sink name" |
+| `--batch-size` | Records to write per batch |
+| `--roll-interval` | Time in seconds before starting the next file |
+|`--proxy-user` | User identity to use when writing to HDFS |
+
+### Examples
+
+Print Flume configuration to log to dataset "users":
+
+```
+{{site.dataset-command}} flume-config --checkpoint-dir /data/0/flume/checkpoint --data-dir /data/1/flume/data users
+```
+
+Print Flume configuration to log to dataset `dataset:hdfs:/datasets/default/users`:
+
+```
+{{site.dataset-command}} flume-config --channel-type memory dataset:hdfs:/datasets/default/users
+```
+
+Save Flume configuration to the file `flume.properties`:
+
+```
+{{site.dataset-command}} flume-config --channel-type memory -o flume.properties users
+```
+
+---
+
+[Back to the Top](#top)
+
+----
