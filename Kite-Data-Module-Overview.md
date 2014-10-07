@@ -16,6 +16,7 @@ The data module contains APIs and utilities for defining and performing actions 
 * <a href="#datasets">datasets</a>
 * <a href="#repositories">dataset repositories</a>
 * <a href="#loading">loading data</a>
+* <a href="#writers">dataset writers</a>
 * <a href="#viewing">viewing data</a>
 
 Many of these objects are interfaces, permitting multiple implementations, each with different functionality. The current release contains an implementation of each of these components for the Hadoop `FileSystem` abstraction, for Hive, and for HBase.
@@ -69,7 +70,7 @@ Performance can be enhanced by defining a [partition strategy](../Partitioned-Da
 
 You can work with a subset of dataset entities using the Views API.
 
-Datasets are identified by URIs. See [Dataset URIs](../URIs).
+Datasets are identified by URIs. See [Dataset URIs](../URIs). Dataset names cannot contain a period (.).
 
 <a name="repositories" />
 
@@ -89,6 +90,14 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
 
+<a name="writers" />
+
+## Dataset Writers
+
+In the dataset workflow, the `DatasetWriter#flush()` method pushes any buffered data to data nodes in the underlying stream. The `DatasetWriter#sync()` method ensures that the data in the stream is written to local disks. When the `DatasetWriter#close() `method returns with a success message, the data is safely stored to disk in all locations.
+
+It's important to note that during the interval between the `flush()` method and the `sync()` method, it's possible that data might be lost if there is a system failure.
+
 <a name="viewing" />
 
 ## Viewing Your Data
@@ -96,6 +105,8 @@ You can load comma separated value data into a dataset repository using the comm
 Datasets you create Kite are no different than any other Hadoop dataset in your system, once created. You can query the data with Hive or view it using Impala.
 
 For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](../Kite-Dataset-Command-Line-Interface/index.html#show).
+
+
 
 ---
 
