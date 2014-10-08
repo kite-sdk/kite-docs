@@ -39,3 +39,15 @@ guide/Viewing-with-Impala: ../../Viewing-with-Impala.html
 guide/samples/flowers.tar.gz: ../samples/flowers.tar.gz
 guide/samples/movies.tar.gz: ../samples/movies.tar.gz
 
+# maven docs
+maven/index.html: plugin-info.html
+kite-maven-plugin/plugin-info.html: ../maven/plugin-info.html
+kite-maven-plugin/help-mojo.html: ../maven/help-mojo.html
+kite-maven-plugin/create-dataset-mojo.html: ../maven/create-dataset-mojo.html
+kite-maven-plugin/update-dataset-mojo.html: ../maven/update-dataset-mojo.html
+kite-maven-plugin/delete-dataset-mojo.html: ../maven/delete-dataset-mojo.html
+kite-maven-plugin/package-app-mojo.html: ../maven/package-app-mojo.html
+kite-maven-plugin/deploy-app-mojo.html: ../maven/deploy-app-mojo.html
+kite-maven-plugin/run-app-mojo.html: ../maven/run-app-mojo.html
+kite-maven-plugin/run-tool-mojo.html: ../maven/run-tool-mojo.html
+
