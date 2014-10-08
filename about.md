@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About Kite SDK
+title: About Kite
 permalink: /about/
 ---
 
