@@ -21,9 +21,9 @@ If you have a CSV file sitting around waiting to be used, you can substitute you
 If you don't have a CSV file handy, you can copy the next code snippet and save it as a plain text file named *sandwiches.csv*.
 
 ```
-name, description
-Reuben, Pastrami and sauerkraut on toasted rye with Russian dressing.
-PBJ, Peanut butter and grape jelly on white bread.
+name,description
+Reuben,Pastrami and sauerkraut on toasted rye with Russian dressing.
+PBJ,Peanut butter and grape jelly on white bread.
 ```
 
 ## Infer the Schema
@@ -44,11 +44,11 @@ If you open *sandwich.avsc* in a text editor, it looks something like the code b
   "fields" : [ {
     "name" : "name",
     "type" : [ "null", "string" ],
-    "doc" : "Type inferred from \"Reuben\""
+    "doc" : "Type inferred from 'Reuben'"
   }, {
     "name" : "description",
     "type" : [ "null", "string" ],
-    "doc" : "Type inferred from \" Pastrami and sauerkraut on toasted rye with Russian dressing.\""
+    "doc" : "Type inferred from 'Pastrami and sauerkraut on toasted rye with Russian dressing.'"
   } ]
 }
 ```
@@ -77,11 +77,11 @@ You'll get the same schema back, but this time, trust me, it's coming from the H
   "fields" : [ {
     "name" : "name",
     "type" : [ "null", "string" ],
-    "doc" : "Type inferred from \"Reuben\""
+    "doc" : "Type inferred from 'Reuben'"
   }, {
     "name" : "description",
     "type" : [ "null", "string" ],
-    "doc" : "Type inferred from \" Pastrami and sauerkraut on toasted rye with Russian dressing.\""
+    "doc" : "Type inferred from 'Pastrami and sauerkraut on toasted rye with Russian dressing.'"
   } ]
 }
 ```
