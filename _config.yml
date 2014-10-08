@@ -11,12 +11,16 @@ issue_tracker_url: "https://issues.cloudera.org/browse/CDK"
 mailing_list_url: "https://groups.google.com/a/cloudera.org/forum/#!forum/cdk-dev"
 contributing_url: "https://github.com/kite-sdk/kite/wiki/How-to-contribute"
 
+# version-specific
+version: "0.17.0"
+javadoc_url: "/docs/0.17.0/apidocs/index.html"
+jdiff_url: "/docs/0.17.0/jdiff/changes.html"
+
 dataset-command: "kite-dataset"
 
 # Build settings
 include: ["./samples/"]
 markdown: kramdown
-permalink: pretty
 kramdown:
   input: GFM
   coderay_line_numbers: table
