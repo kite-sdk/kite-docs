@@ -214,7 +214,7 @@ Update the metadata descriptor for a dataset.
 ### Syntax
 
 ```
-{{site.dataset-command}} [-v] update <dataset> [command options]
+{{site.dataset-command}} [-v] update-dataset <dataset> [command options]
 ```
 
 ### Options
