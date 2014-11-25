@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Using Kite with Apache Maven
 ---
 
 The easiest way to use the Kite API in your own Java project is to use [Apache Maven](http://maven.apache.org). Maven is a build tool that handles the end-to-end build life cycle of a project including compilation, testing, packaging, and deployment. In addition, Maven handles many of the details of dependency management for you.
