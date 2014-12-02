@@ -68,7 +68,7 @@ import org.kitesdk.data.DatasetWriter;
 import org.kitesdk.data.Datasets;
 
 /**
- * Create a dataset on the local filesystem and write some {@link Product} objects to it.
+ * Create a dataset in HDFS and write some Product objects.
  */
 
 public class CreateProductDatasetPojo () {
