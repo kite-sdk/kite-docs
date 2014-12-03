@@ -7,7 +7,7 @@ title: Generic Record Datasets
 
 ## CreateProductDatasetGeneric
 
-This program creates the same product dataset used in the POJO example, but uses generic records.
+This program creates the same product dataset used in the Streaming I/O example, but uses generic records.
 
 ```Java
 package org.kitesdk.examples.data.generic;
