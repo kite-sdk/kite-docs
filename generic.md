@@ -112,6 +112,8 @@ You can run this program using Maven on the command line.
 mvn exec:java -Dexec.mainClass="org.kitesdk.examples.data.generic.CreateProductDatasetGeneric"
 ```
 
+<a name="ReadProductDatasetGeneric" />
+
 ## ReadProductDatasetGeneric
 
 This program reads records from the products data as generic record objects.
@@ -192,6 +194,7 @@ Not surprisingly, the results are very much the same as those returned by the St
 {"name": "butter dish", "id": 2}
 2014-12-03 13:27:58 DEBUG :: Closing reader on path:hdfs://quickstart.cloudera/tmp/data/products/8a3fa27c-a78e-491e-883c-830e0b6938bf.avro
 ```
+<a name="DeleteProductDatasetGeneric" />
 
 ## DeleteProductDatasetGeneric
 
