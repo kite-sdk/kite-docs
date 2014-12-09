@@ -24,9 +24,9 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset](..
 * [schema](#schema) : view the schema for an existing dataset.
 * [info](#info): show metadata for a dataset.
 * [show](#show): show the first _n_ records of a dataset.
-* [csv-schema](#csvSchema): create a schema from a CSV data file.
-* [csv-import](#csvImport): import a CSV data file.
-* [obj-schema](#objSchema): create a schema from a Java object.
+* [csv-schema](#csv-schema): create a schema from a CSV data file.
+* [csv-import](#csv-import): import a CSV data file.
+* [obj-schema](#obj-schema): create a schema from a Java object.
 * [partition-config](#partition-config): create a partition strategy for a schema.
 * [mapping-config](#mapping-config): create a mapping strategy for a schema.
 * [log4j-config](#log4j-config): Configure Log4j.
@@ -66,11 +66,14 @@ flags="-Xmx512m" {{site.dataset-command}} info users`
 [Back to the Top](#top)
 
 ----
-<a name="csvSchema" />
 
 ## csv-schema
 
 Use `csv-schema` to generate an Avro schema from a comma separated value (CSV) file.
+
+The schema produced by this command is a record based on the first few lines of the file. If the first line is a header, it is used to name the fields.
+
+Field schemas are set by inspecting the first non-empty value in each field. Fields are nullable unless the field's name is passed using `--require`. Nullable fields default to `null`.
 
 ### Syntax
 
@@ -80,13 +83,14 @@ Use `csv-schema` to generate an Avro schema from a comma separated value (CSV) f
 
 ### Options
 
-| `--skip-lines`           | The number of lines to skip before the start of the CSV data. Default is 0. |
-| `--quote`                | Quote character in the CSV data file. Default is the double-quote ("). |
-| `--delimiter`            | Delimiter character in the CSV data file. Default is the comma (,). |
-| `--escape`               | Escape character in the CSV data file. Default is the backslash (\\). |
 | `--class,`<br />`--record-name` | A class name or record name for the schema result. This value is **required**. |
 | `-o, --output`           | Save schema avsc to path. |
+| `--require`              | Mark a field required; the schema for this field will not allow null values.<br />Use more than once to require multiple fields. |
 | `--no-header`            | Use this option when the CSV data file does not have header information in the first line.<br />Fields are given the default names *field_0*, *field_1,...field_n*. |
+| `--skip-lines`           | The number of lines to skip before the start of the CSV data. Default is 0. |
+| `--delimiter`            | Delimiter character in the CSV data file. Default is the comma (,). |
+| `--escape`               | Escape character in the CSV data file. Default is the backslash (\\). |
+| `--quote`                | Quote character in the CSV data file. Default is the double-quote ("). |
 | `--minimize`             | Minimize schema file size by eliminating white space. |
 
 ### Examples
@@ -109,10 +113,11 @@ Write the schema to sample.avsc:
 
 ----
 
-<a name="objSchema" />
-
 ## obj-schema
-Build a schema from a Java class. Fields are assumed to be nullable by default. You can edit the generated schema directly to remove the "null" option for specific fields.
+
+Build a schema from a Java class.
+
+Fields are assumed to be nullable if they are Objects, or required if they are primitives. You can edit the generated schema directly to remove the `null` option for specific fields.
 
 ### Syntax
 
@@ -280,11 +285,13 @@ dataset schema users -o user.avsc
 
 ----
 
-<a name="csvImport" />
-
 ## csv-import
 
 Copy CSV records into a dataset.
+
+Kite matches the CSV header to the target record schema's fields by name. If a header is not present (that is, you use the `--no-header` option), then CSV columns are matched with the target fields based on their position.
+
+As Kite constructs each record, it validates values using the target field's schema. Invalid values (in numeric fields) and null values (in required fields) cause exceptions. Kite handles empty strings as null values for numeric fields.
 
 ### Syntax
 
@@ -294,11 +301,11 @@ Copy CSV records into a dataset.
 
 ### Options
 
-| `--escape` | Escape character. Default is backslash (\\). |
-| `--delimiter` | Delimiter character. Default is comma (,). |
-| `--quote` | Quote character. Default is double quote ("). |
-| `--skip-lines` | Lines to skip before CSV start (default: 0) |
 | `--no-header` | Use this option when the CSV data file does not have header information in the first line.<br />Fields are given the default names *field_0*, *field_1,...field_n*. |
+| `--skip-lines` | Lines to skip before CSV start (default: 0) |
+| `--delimiter` | Delimiter character. Default is comma (,). |
+| `--escape` | Escape character. Default is backslash (\\). |
+| `--quote` | Quote character. Default is double quote ("). |
 
 ### Examples
 

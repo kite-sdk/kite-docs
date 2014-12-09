@@ -206,7 +206,7 @@ You can use the CLI command `csv-import` to insert records from a CSV file to yo
 {{site.dataset-command}} csv-import /kite/example/movie.csv movie
 ```
 
-See [`csv-import`](../Kite-Dataset-Command-Line-Interface/#csvImport) for additional options.
+See [`csv-import`](../Kite-Dataset-Command-Line-Interface/#csv-import) for additional options.
 
 ### Copy Dataset
 

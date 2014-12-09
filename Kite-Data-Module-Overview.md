@@ -56,8 +56,8 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 
 | Java API | Command Line Interface |
 | --------- | ----------------------- |
-| [Inferring a schema from a Java Class](../Inferring-a-Schema-from-a-Java-Class/) | [Inferring a schema from a Java class](../Kite-Dataset-Command-Line-Interface#objSchema) |
-| [Inferring a schema from an Avro data file](../Inferring-a-Schema-from-an-Avro-Data-File) | [Inferring a schema from a CSV file](../Kite-Dataset-Command-Line-Interface#csvSchema) |
+| [Inferring a schema from a Java Class](../Inferring-a-Schema-from-a-Java-Class/) | [Inferring a schema from a Java class](../Kite-Dataset-Command-Line-Interface#obj-schema) |
+| [Inferring a schema from an Avro data file](../Inferring-a-Schema-from-an-Avro-Data-File) | [Inferring a schema from a CSV file](../Kite-Dataset-Command-Line-Interface#csv-schema) |
 
 
 
@@ -88,7 +88,7 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 ## Loading Data from CSV
 
-You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csvImport). 
+You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csv-import). 
 
 <a name="writers" />
 
