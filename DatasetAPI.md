@@ -1,226 +1,215 @@
 ---
 layout: page
-title: Kite Data Module API
+title: Kite Dataset API
 ---
 
-## The DatasetDescriptor API
+Most of the time, you can create sophisticated datasets and system prototypes using the Kite Command Line Interface (CLI). However, there are other use cases where you require the additional control offered by working directly with the Kite Dataset API. For example, if you are a creating a Hadoop dataset for a client, you can use the API to provide a distributable application that installs automatically from the Maven command line. You have the flexibility to use the CLI to quickly generate the application components you require, then use the API to create distributable applications of greater autonomy and complexity.
 
-```java
-getSchema(): org.apache.avro.Schema
-getPartitionStrategy(): PartitionStrategy
-isPartitioned(): boolean
+## Dataset
+
+A dataset is essentially the same as a table in a database. It stores rows of information divided into logical columns.
+
+A Kite `Dataset` object defines the fields for a single row in a dataset. However, you don't edit a `Dataset` object directly. The only methods defined by the `Dataset` class have to do with accessing information after the `Dataset` is created.
+
+Instead, you use methods from the `Datasets` class to interact with your Kite `Dataset` instance.
+## Datasets
+
+The `Datasets` class is the workhorse of the Kite Data API. It provides methods to create, load, update, and delete `Dataset` objects.
+
+### create()
+
+To create a dataset using the Kite API, you need two things:
+
+* A URI to where the dataset and metadata are stored
+* A `DatasetDescriptor` object
+
+#### Dataset URI
+
+Datasets are identified by URI. The dataset URI determines where Kite creates and stores the metadata and data for your dataset.
+
+For example, if you want to create the `products` dataset in Hive, you can use this URI.
+
+```
+dataset:hive?dataset=products
 ```
 
-You do not instantiate datasets directly. Instead, you create them using factory methods on a DatasetRepository.
+Common dataset URI schemes are Hive, HDFS, Local FileSystem, and HBase. See [Dataset and View URIs](../URIs/).
 
-An instance of Dataset acts as a factory for both reader and writer streams. Each implementation is free to produce stream implementations that make sense for the underlying storage system. The Hadoop FileSystem implementation, for example, produces streams that read from, or write to, Avro data files on a FileSystem implementation.
+#### DatasetDescriptor
 
-### Dataset stream factory methods
+A `DatasetDescriptor` provides the structural definition of a dataset.
 
-Reader and writer streams both function similarly to Java's standard IO streams, but are specialized. Both interfaces are generic. The type parameter indicates the type of entity that they consume or produce, respectively.
+When you create a `Dataset`, you specify the associated `Schema` object and an optional `PartitionStrategy`. The `DatasetDescriptor` object stores this information.
 
-```Java
-<E> getReader(): DatasetReader <E>
-    open()
-    close()
-    isOpen(): boolean
-    hasNext(): boolean
-    next(): E
+You create a `DatasetDescriptor` object using the fluent `DatasetDescriptor.Builder()`.
 
-<E> getWriter(): DatasetWriter <E>
-    open()
-    close()
-    isOpen(): boolean
-    write(E)
-    flush()
-```
+At a minimum, you must specify an Avro schema definition for your dataset.
 
-## Partitioned Dataset
+##### Avro Schema
 
-You can provide a PartitionStrategy when you construct a dataset. A partition strategy is a list of one or more partition functions that, when applied to an attribute of an entity, produce a value used to decide in which partition an entity should be written. Different partition function implementations exist, each of which facilitates a different form of partitioning. The initial version of the library includes the identity, hash, range, and value list functions.
+A schema defines the field names and datatypes for a dataset. For example, this is the schema definition for the products dataset. It defines a _name_ field as a string and an _id_ field as an integer.
 
-This example produces a dataset that can have up to 53 partitions. User entities written to the dataset are automatically written to the correct partition. Note that the name of the attribute used in the partition strategy builder ("userId") must appear in the schema ("user.avsc").
-
-You can specify multiple partition functions. The order of specification is extremely important, because it reflects the physical storage (in the case of the HDFS implementation).
-
-
-```Java
-/*Assume the content of userSchema is defined as follows:
- * {
- *   "type": "record",
- *   "name": "User",
- *   "fields": [
- *     { "type": "long", "name": "userId" },
- *     { "type": "string", "name": "username" }
- *   ]
- * }
- */
-
-Schema userSchema = ...;
-
-FileSystemDatasetRepository repo = new FileSystemDatasetRepository(
-  FileSystem.get(new Configuration()),
-  new Path("/data"),
-  new FileSystemMetadataProvider(fileSystem, new Path("/data"))
-);
-
-DatasetDescriptor desc = new DatasetDescriptor.Builder()
-  .schema(userSchema)
-  .partitionStrategy(
-    /*
-     * Partition the users dataset using the hash code of the value of the
-     * userId attribute modulo 53.
-     */
-    new PartitionStrategy.Builder().hash("userId", 53).get()
-  ).get();
-
-Dataset users = repo.create("users", desc);
-DatasetWriter[Record] writer = users.getWriter();
-
-try {
-  writer.open();
-
-  /*
-   * This writes to /data/users/data/userId=15/*.avro because
-   * (Integer.valueOf(1234).hashCode() & Integer.MAX_VALUE) % 53 = 15
-   */
-  writer.write(
-    new GenericRecordBuilder(userSchema)
-      .set("userId", 1234)
-      .set("username", "jane")
-      .build()
-  );
-  writer.flush();
-} finally {
-  writer.close();
+```json
+{
+  "type": "record",
+  "name": "Product",
+  "namespace": "org.kitesdk.examples.data.generic",
+  "doc": "A product record",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "int"
+    }
+  ]
 }
 ```
-It's worth pointing out that Hive and Impala only support the identity function in partitioned datasets, at least at the time this is written. Users who do not use partitioning for subset selection can use any partition function(s) they choose. If, however, you want to use the partition pruning feature of Hive/Impala's query engine, only the identity function works. This is because both systems rely on the idea that the value in the path name equals the value found in each record. If you look closely at the earlier example, you'll see that while the value of the userId attribute in record is 1234, its value in the path is 15. To mimic more complex partitioning schemes, users often resort to adding a surrogate field to each record to hold the derived value and handle proper setting of such a field themselves.
+Store the schema file in the `src/main/resources` directory in your Maven project. Maven looks in this directory for URIs with the prefix `resource:` by default.
 
-The equivalent workaround for the hashed field example above is to add a new attribute to the User entity called `userIdHash`, set it to the proper value in user code, and use the identity function on that column instead. Note that this means partition pruning is no longer transparent; the user must know to query the table using code similar to the following snippet.
-
-```... WHERE userIdHash = (hashCode(SOME_VALUE) % 53)```
-
-The hope is that these engines learn about more complex partitioning schemes in the future.
-
-## Dataset Repositories and Metadata Providers
-
-A _dataset repository_ is a physical storage location for zero or more datasets. In keeping with the relational database analogy, a dataset repository is the equivalent of a database. An instance of a `DatasetRepository` acts as a factory for `Datasets`, supplying methods for creating, loading, and dropping datasets.
-
-Each dataset belongs to exactly one dataset repository. There's no built in
-support for moving or copying datasets between repositories. MapReduce and other execution engines provide copy functionality when needed.
-
-## DatasetRepository APIs
-
-### DatasetRepository
+Once you have defined a schema, you can use `DatasetDescriptor.Builder()` to create a descriptor instance.
 
 ```Java
-    load(String): Dataset
-    create(String, DatasetDescriptor): Dataset
-    update(String, DatasetDescriptor): Dataset
-    delete(String): boolean
+DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
+  .schemaUri("resource:product.avsc")
+  .build();
 ```
 
-Along with the Hadoop FileSystem Dataset and stream implementations, there is a related `DatasetRepository` implementation. This implementation requires an instance of a Hadoop FileSystem, a root directory under which datasets are stored, and a metadata provider supplied upon instantiation. Once complete, users can freely interact with datasets under the supplied root directory. The supplied MetadataProvider is used to resolve dataset schemas,
-partitioning information, and any other like data.
+##### DatasetDescriptor options
 
-## MetadataProvider API
+There are several options available to you in addition to the mandatory schema when creating a DatasetDescriptor, including setting a partition strategy, specifying column mapping, and choosing formats for storage and compression.
 
-Along with the dataset repository, the metadata provider is a service provider interface used to interact with the service that provides dataset metadata information. The MetadataProvider interface defines the contract metadata services must provide to the library and, specifically, the DatasetRepository.
+###### Partition Strategy
 
-### MetadataProvider
+You can build a `DatasetDescriptor` that includes a partition strategy, which gives hints to the system for optimal storage of information by logical categories on which to search and retrieve. See [Partitioned Datasets](../Partitioned-Datasets/) for a conceptual introduction. 
+
+###### Column Mapping
+
+If you are creating an HBase dataset, you can create logical mapping of your data into columns. See [Column Mapping](../column-mapping/) for a conceptual introduction.
+
+###### Storage Format
+
+The default storage format is Avro, which is best for datasets where you typically query all of the columns in the dataset. You have the option using the Parquet format, which is more performant when you typically query a subset of the available columns. You can also choose CSV format, which stores your data in less performant, but human-readable, comma-separated values.
+
+###### Compression Format
+
+Kite uses _Snappy_ compression by default. You have the option of using _Deflate_, _Bzip2_, _Lzo_, or _Uncompressed_ formats.
+
+You can `DatasetDescriptor.Builder` to include some or all of these settings when you create your dataset. See [DatasetDescriptor.Builder](http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html).
+
+#### Create the Dataset
+
+With a storage URI and a DatasetDescriptor, you can create a dataset instance.
 
 ```Java
-    load(String): DatasetDescriptor
-    create(String, DatasetDescriptor): DatasetDescriptor
-    update(String, DatasetDescriptor): DatasetDescriptor
-    delete(String): boolean
+DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
+  .schemaUri("resource:product.avsc")
+  .build();
+
+Datasets.create("dataset:hive?dataset=products", descriptor);
+```
+The `create` command creates an empty dataset. To populate the dataset, you can invoke a DatasetWriter instance.
+
+##### DatasetWriter
+
+The DatasetWriter class stores data in your Hadoop dataset in the format you choose when creating the dataset.
+
+This example creates a generic record builder, reads in each item and assign an ID number, then writes each record to the dataset.
+
+```Java
+DatasetWriter<Record> writer = null;
+
+DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
+  .schemaUri("resource:product.avsc")
+  .build();
+
+int i = 0;
+  try {
+    GenericRecordBuilder builder = new GenericRecordBuilder(descriptor.getSchema());
+
+    for (String item : items) {
+
+      Record product = builder
+        .set("name", item)
+        .set("id", i++)
+        .build();
+
+      writer.write(product);
+    }
+  }
+. . .
 ```
 
-The expectation is that `MetadataProvider` implementations act as a bridge between this library and centralized metadata repositories. An obvious example of this (in the Hadoop ecosystem) is HCatalog and the Hive metastore. By providing an implementation that makes the necessary API calls to HCatalog's REST service, any and all datasets are immediately consumable by systems compatible with HCatalog, the storage system represented by the `DatasetRepository` implementation, and the format in which the data is written.
+### load
 
+You can retrieve the records from your dataset using `DatasetReader`. It has methods that support iterating through the records in a dataset one at a time. 
 
-As it turns out, that's a pretty tall order and, in keeping with the Kite's purpose of simplifying rather than presenting additional options, you are encouraged to
-
-<ol>
-<li> Use HCatalog</li>
-<li>Allow this library to default to snappy compressed Avro data files</li>
-<li>Use systems that also integrate with HCatalog</li>
-</ol>
-
-In this way, this library acts as a fourth integration point to working with data in HDFS that is HCatalog-aware, in addition to Hive, Pig, and MapReduce input/output formats.
-
-[verify it does not exist and/or remove this paragraph]
-
-At this time, an HCatalog implementation of the MetadataProvider interface does not exist. It is, however, straightforward to implement and on the roadmap.
-
-## Examples
-
-### Writing to a new dataset
+This code snippet shows the code you use to load a dataset, then print the records one at a time to the console.
 
 ```Java
-FileSystem fileSystem = FileSystem.get(new Configuration());
-Schema eventSchema = new Schema.Parser.parse(
-  Resources.getResource("event.avsc").openStream()
-);
+Dataset<Record> products = Datasets.load(
+    "dataset:hive?dataset=products", Record.class);
 
-DatasetRepository repo = new FileSystemDatasetRepository(
-  fileSystem,
-  new Path("/data"),
-  new FileSystemMetadataProvider(fileSystem, new Path("/data"))
-);
-DatasetDescriptor eventDescriptor = new DatasetDescriptor.Builder()
-  .schema(eventSchema)
-  .get();
-Dataset events = repo.create("events", eventDescriptor);
-DatasetWriter<Event> writer = events.getWriter();
+DatasetReader<Record> reader = null;
 
 try {
-  writer.open();
 
-  while (...) {
-    /*
-     * Event is an Avro specific (generated) type, a generic type, or a
-     * POJO, in which case we use reflection. Here, we use a POJO.
-     */
-    Event e = ...
+  reader = products.newReader();
 
-    writer.write(e);
-  }
-} finally {
-  if (writer != null) {
-    writer.close();
-  }
+  for (GenericRecord product : products.newReader()) {
+      System.out.println(product);
+
 }
 ```
 
-## Reading from an existing dataset
+### update
+
+Over time, your dataset requirements might change. You can add, remove, or change the datatype of columns in your dataset, provided you don't attempt a change that would result in the loss or corruption of data. Kite follows the guidelines in the [Avro schema](http://avro.apache.org/docs/current/spec.html#Schema+Resolution). See [Schema Evolution](../Schema-Evolution/) for more detail and examples.
 
 ```Java
-FileSystem fileSystem = FileSystem.get(new Configuration());
+    Dataset<Record> products = Datasets.load(
+        "dataset:hive?dataset=products", Record.class);
 
-DatasetRepository repo = new FileSystemDatasetRepository(
-  fileSystem,
-  new Path("/data")
-  new FileSystemMetadataProvider(fileSystem, new Path("/data"))
-);
-Dataset events = repo.get("events");
-DatasetReader<GenericData.Record> reader = events.getReader();
+    DatasetDescriptor descriptor2 = new DatasetDescriptor.Builder()
+        .schemaUri("resource:partitionedProduct2.avsc")
+        .build(); 
+    
+     Dataset<Record> products2 = Datasets.create("dataset:hive?dataset=products2",
+      descriptor2, Record.class);
 
-try {
-  reader.open();
+    products2 = Datasets.<Record, Dataset<Record>>
+		update("dataset:hive?dataset=products2", descriptor2, Record.class);
+```
 
-  // We can also use Avro Generic records.
-  for (GenericData.Record record : reader) {
-    System.out.println(new StringBuilder("event - timestamp:")
-      .append(record.get("timestamp"))
-      .append(" eventId:", record.get("eventId"))
-      .append(" message:", record.get("message"))
-      .toString()
-    );
-  }
-} finally {
-  reader.close();
-}
+### delete
+
+Delete the dataset, based on its URI. Kite takes care of any housekeeping, such as deleting metadata stored separately from the records themselves.
+
+```Java
+boolean success = Datasets.delete("dataset:hive?dataset=products");
+```
+
+## Avro Objects
+Kite stores your dataset as an Avro object in the datastore by default. Files are compressed using Google's Snappy codec by default, and are not human readable. You can use the Hue data browser to view the information when it is stored in Hadoop.
+
+See the [Avro specification](http://avro.apache.org/docs/1.7.5/spec.html#Object+Container+Files) for details on how Avro object files are constructed.
+
+### Avro Object Model
+
+Object models are in-memory representations of data. Avro, Hive, and Pig are examples of object models. Object model converters prepare your data for storage in your chosen format.
+## Kite Dependencies
+
+Kite dependencies are handled via Maven. If you reference the Project Object Model file `kite/kite-app-parent/pom.xml` in your own `pom.xml` file, all of the latest dependencies are downloaded automatically at run time.
+
+To include the Kite dependencies, add the parent element to your `pom.xml` file. This example references version 0.18.0-SNAPSHOT. You should use the most recent version, or the most recent one that is compatible with your application.
+
+```XML
+  <parent>
+    <groupId>org.kitesdk</groupId>
+    <artifactId>kite-parent</artifactId>
+    <version>0.18.0-SNAPSHOT</version>
+  </parent>
 ```
 
