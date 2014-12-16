@@ -32,8 +32,9 @@ Before starting a VirtualBox VM, follow these setup steps (you can't make these 
 1. Browse to the expanded VM folder and open the `.ovf` file.
 1. Click __Continue__.
 1. Optionally change the name of the VM to something meaningful to your project.
-1. Change the number of CPUs to 2.
-1. Increase the RAM to 8192MB.
+1. If you plan to use Cloudera Manager:
+a. Change the number of CPUs to 2.
+b. Increase the RAM to 8192MB.
 1. Click __Import__.
 1. If you are going to access the CDH cluster inside the VM, you can now start and work with the VM.
 
@@ -55,7 +56,7 @@ To work with the CDH cluster from the host machine, you need to perform addition
 
 ### Configure Port Forwarding
 
-* If you are using VirtualBox, before you start the VM, configure port forwarding for YARN and MapReduce. (These settings are already set for you in the 5.2 VM):
+* If you are using the VirtualBox 5.1 VM, before you start the VM, configure port forwarding for YARN and MapReduce. (These settings are already set for you in the 5.2 VM):
 
   1. Open the __Settings__ dialog for the VM.
   1. Select the __Network__ tab.
