@@ -27,7 +27,7 @@ cd demo
 
 Flume needs to be able to impersonate the owner of the dataset it is writing to. (This is similar to Unix `sudo`. See [Configuring Flume's Security Properties](http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Security-Guide/cdh5sg_flume_security_props.html#topic_4_2_1_unique_1) for further information.)
 
-If you're using Cloudera Manager then this is already configured.  (The QuickStart VM ships with Cloudera Manager, but it is disable by default.) 
+If you're using Cloudera Manager then this is already configured.  (The QuickStart VM ships with Cloudera Manager, but it is disabled by default.) 
 
 If you're not using Cloudera Manager, configure Flume as follows:
 
@@ -93,7 +93,7 @@ Maven creates the following artifacts:
 First create the datasets: one named `events` to store the raw events,
 and another named `sessions` for the derived sessions.
 
-The raw events metadata is stored in HDFS so Flume can find the schema. The sessions dataset metadata is stored using HCatalog, so that you can query the dataset using Hive.
+The raw events metadata is stored in HDFS so Flume can find the schema. The sessions metadata is stored in the Hive metastore so that you can query the dataset using Impala or Hive.
 
 These commands create the events and sessions datasets when executed from a terminal window in the demo folder. The backslash (\) characters represent line breaks: these commands must be entered on a single line (single line versions follow these human-readable versions).
 
@@ -123,7 +123,7 @@ A few comments about these commands. The schemas for the `events` and `sessions`
 
 The `-Dkite.partitionExpression` argument is used to specify that the data is partitioned by time fields, using JEXL to specify the field partitioners.
 
-You can check that the data directories were created, using Hue (login as `cloudera/cloudera` if you are using the VM, or as your host login if you are running from the host machine): [`/tmp/data/default/events`](http://quickstart.cloudera:8888/filebrowser/#/tmp/data/default/events),
+You can check that the data directories were created, using Hue (login as `cloudera/cloudera` if you are using the VM): [`/tmp/data/default/events`](http://quickstart.cloudera:8888/filebrowser/#/tmp/data/default/events),
  [`/tmp/data/default/sessions`](http://quickstart.cloudera:8888/filebrowser/#/tmp/data/default/sessions).
 
 ### Start Flume
@@ -141,7 +141,7 @@ Start an embedded Tomcat instance using Maven:
 mvn tomcat7:run
 ```
 
-In a web browser, open [http://quickstart.cloudera:8034/demo-logging-webapp/](http://quickstart.cloudera:8034/demo-logging-webapp/). This is a bare-bones web page you can use to send messages that are handled by the Flume agent. The agent writes the events you generate to the HDFS file sink.
+In a web browser, open [http://quickstart.cloudera:8034/demo-logging-webapp/](http://quickstart.cloudera:8034/demo-logging-webapp/). This is a bare-bones web page you can use to send messages that are handled by the Flume agent. The agent writes the events you generate to HDFS using the DatasetSink.
 
 Rather than creating lots of events manually, it's easier to simulate two users with a script. You can run the `simulate-activity.sh` script in a terminal window from the `demo` directory:
 
@@ -187,11 +187,11 @@ Another way is to run ad hoc SQL queries using the Hue interfaces to
 [Impala](http://quickstart.cloudera:8888/impala/) or [Hive](http://quickstart.cloudera:8888/beeswax/). Here are some queries you can try:
 
 ```
-DESCRIBE sessions
+DESCRIBE sessions;
 
-SELECT * FROM sessions
+SELECT * FROM sessions;
 
-SELECT AVG(duration) FROM sessions
+SELECT AVG(duration) FROM sessions;
 ```
 
 ### Delete the Datasets
