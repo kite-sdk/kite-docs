@@ -38,30 +38,6 @@ The `Datasets` class is the starting point when working with the Kite Data API. 
 
 You can retrieve the records from an existing dataset using `DatasetReader`. It has methods that support iterating through the records in a dataset one at a time. 
 
-This code snippet shows the code you use to load a dataset, then print the records one at a time to the console.
-
-```Java
-. . .
-
-  Dataset<Record> products = Datasets.load(
-    "dataset:hive:products", Record.class);
-
-  DatasetReader<Record> reader = null;
-
-  try {
-
-    reader = products.newReader();
-
-    for (GenericRecord product : reader) {
-      System.out.println(product);
-  } finally {
-    if (reader != null) {
-      reader.close();
-    }
-  }
-}
-```
-
 ### create
 
 With a storage URI and a DatasetDescriptor, you can use Datasets.create to create a dataset instance. This example creates a dataset named _products_ in the Hive metastore.
@@ -105,6 +81,76 @@ boolean success = Datasets.delete("dataset:hive:products");
 ## Working with Datasets
 
 
+### Avro Objects
+
+Kite stores your dataset as an Avro object in the datastore by default. Any program that works with Kite uses Avro's object model, even though the Avro format might not be (when storing to Parquet or HBase).
+
+In this introduction, Kite returns record instances defined by Avro, specifically Avro's generic data classes. Regardless of the underlying storage format, Kite uses Avro's object model so that applications can be written once: changing the underlying storage format is as simple as switching the dataset's URI.
+
+Object models are in-memory representations of data. Avro, Hive, and Pig are examples of object models. Object model converters prepare your data for storage in your chosen format.
+
+Kite also supports Avro's [specific](http://avro.apache.org/docs/1.7.7/api/java/index.html?org/apache/avro/specific/package-summary.html) and [reflect](http://avro.apache.org/docs/1.7.7/api/java/org/apache/avro/reflect/package-summary.html) object models.
+
+Files are compressed using Google's Snappy codec by default, and are not human readable. You can use the Hue data browser to view your information when it is stored in Hadoop.
+
+#### Avro Schema
+
+A schema defines the field names and data types for a dataset. For example, this is the schema definition for the products dataset. It defines a _name_ field as a string and an _id_ field as an integer.
+
+```json
+{
+  "type": "record",
+  "name": "Product",
+  "namespace": "org.kitesdk.examples.data.generic",
+  "doc": "A product record",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "long"
+    }
+  ]
+}
+```
+Store the schema file in the `src/main/resources` directory in your Maven project. A URI that references `resource:` instructs Kite to look in the class path for the file and it will find it in the JAR at runtime.
+
+Once you have defined a schema, you can use `DatasetDescriptor.Builder()` to create a descriptor instance.
+
+```Java
+DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
+  .schemaUri("resource:product.avsc")
+  .build();
+```
+
+<a name="DatasetDescriptor" />
+
+### DatasetDescriptor Options
+
+There are several options available to you in addition to the setting the schema when creating a DatasetDescriptor, including setting a partition strategy, and choosing formats for storage and compression.
+
+#### Schema
+
+A key element of the dataset descriptor is the dataset's schema. There are a number of ways to find and use a schema, including a straightforward method that inspects a Java class for you and creates the field descriptions.
+
+You can also create a DatasetDescriptor using an Avro schema definition for your dataset.
+
+#### Partition Strategy
+
+You can build a `DatasetDescriptor` that includes a partition strategy. A partition strategy gives hints to the system for optimal storage of information by logical categories on which to search and retrieve. See [Partitioned Datasets](../Partitioned-Datasets/) for a conceptual introduction. 
+
+#### Storage Format
+
+The default storage format is Avro, which is best for datasets where you typically query all of the columns in the dataset. You have the option of using the Parquet format, which is more performant when you typically query a subset of the available columns.
+
+#### Compression Format
+
+Kite uses _Snappy_ compression by default. You have the option of using _Deflate_, _Bzip2_, _Lzo_, or _Uncompressed_ formats.
+
+You can use `DatasetDescriptor.Builder` to include some or all of these settings when you create your dataset. See [DatasetDescriptor.Builder](http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html).
+
 <a name="DatasetWriter" />
 
 ### DatasetWriter
@@ -143,75 +189,36 @@ try {
 
 ```
 
-## Avro Objects
+<a name="DatasetReader" />
 
-Kite stores your dataset as an Avro object in the datastore by default. Any program that works with Kite uses Avro's object model, even though the Avro format might not be (when storing to Parquet or HBase).
+### DatasetReader
 
-In this introduction, Kite returns record instances defined by Avro, specifically Avro's generic data classes. Regardless of the underlying storage format, Kite uses Avro's object model so that applications can be written once: changing the underlying storage format is as simple as switching the dataset's URI.
+`DatasetReader` loads a dataset for inspection and processing.
 
-Object models are in-memory representations of data. Avro, Hive, and Pig are examples of object models. Object model converters prepare your data for storage in your chosen format.
-
-Kite also supports Avro's [specific](http://avro.apache.org/docs/1.7.7/api/java/index.html?org/apache/avro/specific/package-summary.html) and [reflect](http://avro.apache.org/docs/1.7.7/api/java/org/apache/avro/reflect/package-summary.html) object models.
-
-Files are compressed using Google's Snappy codec by default, and are not human readable. You can use the Hue data browser to view your information when it is stored in Hadoop.
-
-### Avro Schema
-
-A schema defines the field names and data types for a dataset. For example, this is the schema definition for the products dataset. It defines a _name_ field as a string and an _id_ field as an integer.
-
-```json
-{
-  "type": "record",
-  "name": "Product",
-  "namespace": "org.kitesdk.examples.data.generic",
-  "doc": "A product record",
-  "fields": [
-    {
-      "name": "name",
-      "type": "string"
-    },
-    {
-      "name": "id",
-      "type": "long"
-    }
-  ]
-}
-```
-Store the schema file in the `src/main/resources` directory in your Maven project. A URI that references `resource:` instructs Kite to look in the class path for the file and it will find it in the JAR at runtime.
-
-Once you have defined a schema, you can use `DatasetDescriptor.Builder()` to create a descriptor instance.
+This code snippet shows the code you use to load a dataset, then print the records one at a time to the console.
 
 ```Java
-DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
-  .schemaUri("resource:product.avsc")
-  .build();
+. . .
+
+  Dataset<Record> products = Datasets.load(
+    "dataset:hive:products", Record.class);
+
+  DatasetReader<Record> reader = null;
+
+  try {
+
+    reader = products.newReader();
+
+    for (GenericRecord product : reader) {
+      System.out.println(product);
+  } finally {
+    if (reader != null) {
+      reader.close();
+    }
+  }
+}
 ```
 
-<a name="DatasetDescriptor" />
-
-## DatasetDescriptor Options
-
-There are several options available to you in addition to the setting the schema when creating a DatasetDescriptor, including setting a partition strategy, and choosing formats for storage and compression.
-
-### Schema
-
-A key element of the dataset descriptor is the dataset's schema. There are a number of ways to find and use a schema, including a straightforward method that inspects a Java class for you and creates the field descriptions.
-
-You can also create a DatasetDescriptor using an Avro schema definition for your dataset.
-
-### Partition Strategy
-
-You can build a `DatasetDescriptor` that includes a partition strategy. A partition strategy gives hints to the system for optimal storage of information by logical categories on which to search and retrieve. See [Partitioned Datasets](../Partitioned-Datasets/) for a conceptual introduction. 
-
-### Storage Format
-
-The default storage format is Avro, which is best for datasets where you typically query all of the columns in the dataset. You have the option of using the Parquet format, which is more performant when you typically query a subset of the available columns.
-
-### Compression Format
-
-Kite uses _Snappy_ compression by default. You have the option of using _Deflate_, _Bzip2_, _Lzo_, or _Uncompressed_ formats.
-
-You can use `DatasetDescriptor.Builder` to include some or all of these settings when you create your dataset. See [DatasetDescriptor.Builder](http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html).
 
 ## Other Kite Data Artifacts
 
