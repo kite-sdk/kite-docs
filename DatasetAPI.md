@@ -3,7 +3,7 @@ layout: page
 title: Kite Dataset API
 ---
 
-Most of the time, you can create datasets and system prototypes using the Kite Command Line Interface (CLI). When you want to perform these tasks using a Java program, you can use the Kite API. With the Kite API, you can perform tasks such as reading a dataset, defining and reading views, and using MapReduce to process a dataset.
+Most of the time, you can create datasets and system prototypes using the Kite Command Line Interface (CLI). When you want to perform these tasks using a Java program, you can use the Kite API. With the Kite API, you can perform tasks such as reading a dataset, defining and reading views of a dataset, and using MapReduce to process a dataset.
 
 ## Dataset
 
@@ -21,22 +21,29 @@ For example, if you want to create the `products` dataset in Hive, you can use t
 dataset:hive:products
 ```
 
-Common dataset URI schemes are Hive, HDFS, Local FileSystem, and HBase. See [Dataset and View URIs](../URIs/).
+Common dataset URI patterns are Hive, HDFS, Local FileSystem, and HBase. See [Dataset and View URIs](../URIs/).
 
 ### DatasetDescriptors
 
 A `DatasetDescriptor` provides the structural definition of a dataset.
 
-When you create a `Dataset`, you specify the associated `Schema` object. The `DatasetDescriptor` object stores this information. You create a `DatasetDescriptor` object using the fluent `DatasetDescriptor.Builder()`.
+When you create a `Dataset`, at a minimum you specify the associated `Schema` object. The `DatasetDescriptor` object stores this information. You create a `DatasetDescriptor` object using the fluent `DatasetDescriptor.Builder()`.
 
-See [DatasetDescriptor Options](#DatasetDescriptor) for additional settings.
+See [DatasetDescriptor Options](#datasetdescriptor-options) for additional settings.
 ## Datasets
 
 The `Datasets` class is the starting point when working with the Kite Data API. It provides operations around datasets, such as creating or deleting a dataset.
 
 ### load
 
-You can retrieve the records from an existing dataset using `DatasetReader`. It has methods that support iterating through the records in a dataset one at a time. 
+Load an existing dataset for processing using the load method. The load method verifies that the dataset exists, retrieves the dataset's metadata, and verifies that you can communicate with its services. 
+
+```Java
+Dataset<Record> products = Datasets.load("dataset:hive:products");
+
+```
+
+Once you load the dataset, you can retrieve and view the dataset records using [`DatasetReader`](#datasetreader).
 
 ### create
 
@@ -50,7 +57,7 @@ DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
 Datasets.create("dataset:hive:products", descriptor);
 ```
 
-The `create` command creates an empty dataset. You can use a [`DatasetWriter`](#DatasetWriter) to populate your dataset.
+The `create` command creates an empty dataset. You can use a [`DatasetWriter`](#datasetwriter) to populate your dataset.
 
 ### update
 
@@ -80,18 +87,13 @@ boolean success = Datasets.delete("dataset:hive:products");
 
 ## Working with Datasets
 
-
 ### Avro Objects
 
-Kite stores your dataset as an Avro object in the datastore by default. Any program that works with Kite uses Avro's object model, even though the Avro format might not be (when storing to Parquet or HBase).
-
-In this introduction, Kite returns record instances defined by Avro, specifically Avro's generic data classes. Regardless of the underlying storage format, Kite uses Avro's object model so that applications can be written once: changing the underlying storage format is as simple as switching the dataset's URI.
-
-Object models are in-memory representations of data. Avro, Hive, and Pig are examples of object models. Object model converters prepare your data for storage in your chosen format.
+In this introduction, Kite returns record instances defined by Avro, specifically Avro's generic data classes. Regardless of the underlying storage format, Kite uses Avro's object models, which are in-memory representations of data. You can write applications that use the same object classes and store the dataset in any of the available formats. To change the underlying storage format, you only need to change the dataset URI.
 
 Kite also supports Avro's [specific](http://avro.apache.org/docs/1.7.7/api/java/index.html?org/apache/avro/specific/package-summary.html) and [reflect](http://avro.apache.org/docs/1.7.7/api/java/org/apache/avro/reflect/package-summary.html) object models.
 
-Files are compressed using Google's Snappy codec by default, and are not human readable. You can use the Hue data browser to view your information when it is stored in Hadoop.
+Files are compressed using Google's Snappy codec, by default. The Snappy codec is an efficient binary format that works well with Hadoop, but the stored files are not human readable. You can use the Kite CLI or the Hue data browser to view your compressed information stored in Hadoop.
 
 #### Avro Schema
 
@@ -125,8 +127,6 @@ DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
   .build();
 ```
 
-<a name="DatasetDescriptor" />
-
 ### DatasetDescriptor Options
 
 There are several options available to you in addition to the setting the schema when creating a DatasetDescriptor, including setting a partition strategy, and choosing formats for storage and compression.
@@ -151,8 +151,6 @@ Kite uses _Snappy_ compression by default. You have the option of using _Deflate
 
 You can use `DatasetDescriptor.Builder` to include some or all of these settings when you create your dataset. See [DatasetDescriptor.Builder](http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html).
 
-<a name="DatasetWriter" />
-
 ### DatasetWriter
 
 The DatasetWriter class stores data in your Hadoop dataset in the format you choose when creating the dataset.
@@ -160,7 +158,6 @@ The DatasetWriter class stores data in your Hadoop dataset in the format you cho
 This code snippet creates a generic record builder, reads in each item, assigns an ID number, then writes each record to the dataset.
 
 ```Java
-. . .
 
 DatasetWriter<Record> writer = null;
 
@@ -168,9 +165,11 @@ DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
   .schemaUri("resource:product.avsc")
   .build();
 
-int i = 0;
 try {
+
   GenericRecordBuilder builder = new GenericRecordBuilder(descriptor.getSchema());
+
+  int i = 0;
 
   for (String item : items) {
 
@@ -180,54 +179,50 @@ try {
       .build();
 
     writer.write(product);
-  } finally {
-    if (writer != null) {
-      writer.close();
-    }
+
+} finally {
+  if (writer != null) {
+    writer.close();
   }
-. . .
+}
 
 ```
 
-<a name="DatasetReader" />
-
 ### DatasetReader
 
-`DatasetReader` loads a dataset for inspection and processing.
+`DatasetReader` retrieves records in a dataset for inspection and processing. It has methods that support iterating through the records in a dataset one at a time.
 
 This code snippet shows the code you use to load a dataset, then print the records one at a time to the console.
 
 ```Java
-. . .
 
-  Dataset<Record> products = Datasets.load(
-    "dataset:hive:products", Record.class);
+Dataset<Record> products = Datasets.load(
+  "dataset:hive:products", Record.class);
 
-  DatasetReader<Record> reader = null;
+DatasetReader<Record> reader = null;
 
-  try {
+try {
 
-    reader = products.newReader();
+  reader = products.newReader();
 
-    for (GenericRecord product : reader) {
-      System.out.println(product);
-  } finally {
-    if (reader != null) {
-      reader.close();
-    }
+  for (GenericRecord product : reader) {
+    System.out.println(product);
+  }
+
+} finally {
+  if (reader != null) {
+    reader.close();
   }
 }
-```
 
+```
 
 ## Other Kite Data Artifacts
 
-The `kite-data` package has additional modules with utilities that help you to implement additional tools for your Hadoop datasets.
+You can use the Kite data API by adding dependencies for the artifacts listed below.
 
 * `kite-data-core` has the Kite data API, including all of the Kite classes used in this introduction. It also includes the Dataset implementation for both HDFS and local file systems.
 * `kite-data-hive` is a Dataset implementation that creates Datasets as Hive tables and stores metadata in the Hive MetaStore. Add a dependency on kite-data-hive if you want to interact with your data through Hive or Impala
 * `kite-data-hbase` is an experimental Dataset implementation that creates datasets as HBase tables.
 * `kite-data-mapreduce` provides MR input and output formats that read from or write to Kite datasets.
 * `kite-data-crunch` provides helpers to use a Kite dataset as a source or target in a Crunch pipeline.
-
-
