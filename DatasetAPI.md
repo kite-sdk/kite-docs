@@ -73,7 +73,7 @@ DatasetDescriptor updatedDescriptor = new DatasetDescriptor.Builder(originalDesc
   .schemaUri("resource:product_v2.avsc")
   .build(); 
 
-Datasets.update("dataset:hive:products", descriptor2);
+Datasets.update("dataset:hive:products", updatedDescriptor);
 ```
 
 ### delete
