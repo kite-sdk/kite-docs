@@ -179,6 +179,7 @@ try {
       .build();
 
     writer.write(product);
+  }
 
 } finally {
   if (writer != null) {
