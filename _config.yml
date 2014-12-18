@@ -2,7 +2,7 @@
 title: Kite Development Guide
 email: cdk-dev@cloudera.org
 description: "An open source data API for Hadoop."
-baseurl: "/docs/current/guide"
+baseurl: "/docs/current"
 url: "http://kitesdk.org"
 
 license_url: "http://www.apache.org/licenses/LICENSE-2.0.html"
