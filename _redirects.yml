@@ -51,3 +51,7 @@ kite-maven-plugin/deploy-app-mojo.html: ../maven/deploy-app-mojo.html
 kite-maven-plugin/run-app-mojo.html: ../maven/run-app-mojo.html
 kite-maven-plugin/run-tool-mojo.html: ../maven/run-tool-mojo.html
 
+# morphlines content
+kite-morphlines/index.html: morphlines
+kite-morphlines/morphlinesReferenceGuide.html: ../morphlines/morphlines-reference-guide.html
+morphlines/morphlinesReferenceGuide.html: morphlines-reference-guide.html
