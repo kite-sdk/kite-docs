@@ -141,7 +141,12 @@ module Jekyll
         <p><strong>Redirecting...</strong></p>
         <p><a href='#{destination_path}'>Click here if you are not redirected.</a></p>
         <script>
-          document.location.href = "#{destination_path}";
+          var urlSplit = document.URL.split("#");
+          if (urlSplit[1]) {
+            document.location.href = "#{destination_path}" + "#" + urlSplit[1];
+          } else {
+            document.location.href = "#{destination_path}";
+          }
         </script>
       </body>
       </html>

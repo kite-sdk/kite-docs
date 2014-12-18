@@ -6,7 +6,7 @@ title: Install the Kite Command Line Interface
 To download Kite with `curl`, run the following commands from a terminal window:
 
 ```
-curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.17.0/kite-tools-0.17.0-binary.jar -o {{site.dataset-command}}
+curl http://central.maven.org/maven2/org/kitesdk/kite-tools/{{site.version}}/kite-tools-{{site.version}}-binary.jar -o {{site.dataset-command}}
 chmod +x {{site.dataset-command}}
 ```
 
