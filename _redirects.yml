@@ -1,40 +1,41 @@
-guide: index
+guide: ../
 
 # pages from maven
-kite-data/limitations.html: ../known-limitations
-kite-data/faq.html: ../faq
-release_notes.html: release-notes
+kite-data/limitations.html: ../known-limitations.html
+kite-data/faq.html: ../faq.html
+release_notes.html: release-notes.html
 
 # redirects from maven
-inferschemafromavro.html: Inferring-a-Schema-from-an-Avro-Data-File
-inferschemafromobject.html: Inferring-a-Schema-from-a-Java-Class
-kitedatasetcli.html: Kite-Dataset-Command-Line-Interface
-overview.html: Kite-Data-Module-Overview
-usingkiteclicreatedataset.html: Using-the-Kite-CLI-to-Create-a-Dataset
+inferschemafromavro.html: Inferring-a-Schema-from-an-Avro-Data-File.html
+inferschemafromobject.html: Inferring-a-Schema-from-a-Java-Class.html
+kitedatasetcli.html: Kite-Dataset-Command-Line-Interface.html
+overview.html: Kite-Data-Module-Overview.html
+usingkiteclicreatedataset.html: Using-the-Kite-CLI-to-Create-a-Dataset.html
 
 # relocation from docs/current/guide/ to docs/current/
 # redirect up two levels to account for index.html
 guide/feed.xml: ../feed.xml
-guide/about: ../../about
-guide/Column-Mapping: ../../Column-Mapping
-guide/HBase-Storage-Cells: ../../HBase-Storage-Cells
-guide/Inferring-a-Schema-from-a-Java-Class: ../../Inferring-a-Schema-from-a-Java-Class
-guide/Inferring-a-Schema-from-an-Avro-Data-File: ../../Inferring-a-Schema-from-an-Avro-Data-File
-guide/Install-Kite: ../../Install-Kite
-guide/Interval-Notation: ../../Interval-Notation
-guide/Kite-Data-Module-Overview: ../../Kite-Data-Module-Overview
-guide/Kite-Dataset-Command-Line-Interface: ../../Kite-Dataset-Command-Line-Interface
-guide/Kite-SDK-Guide: ../../Kite-SDK-Guide
-guide/lifecycle: ../../lifecycle
-guide/Parquet-vs-Avro-Format: ../../Parquet-vs-Avro-Format
-guide/Partitioned-Datasets: ../../Partioned-Datasets
-guide/Partition-Strategy-Format: ../../Partition-Strategy-Format
-guide/Restricted-Views: ../../Restricted-Views
-guide/Schema-Evolution: ../../Schema-Evolution
-guide/Schema-URL-Warning: ../../Schema-URL-Warning
-guide/URIs: ../../URIs
-guide/Using-Kite-with-Apache-Maven: ../../Using-Kite-with-Apache-Maven
-guide/Using-the-Kite-CLI-to-Create-a-Dataset: ../../Using-the-Kite-CLI-to-Create-a-Dataset
-guide/Viewing-with-Impala: ../../Viewing-with-Impala
+guide/about: ../../about.html
+guide/Column-Mapping: ../../Column-Mapping.html
+guide/HBase-Storage-Cells: ../../HBase-Storage-Cells.html
+guide/Inferring-a-Schema-from-a-Java-Class: ../../Inferring-a-Schema-from-a-Java-Class.html
+guide/Inferring-a-Schema-from-an-Avro-Data-File: ../../Inferring-a-Schema-from-an-Avro-Data-File.html
+guide/Install-Kite: ../../Install-Kite.html
+guide/Interval-Notation: ../../Interval-Notation.html
+guide/Kite-Data-Module-Overview: ../../Kite-Data-Module-Overview.html
+guide/Kite-Dataset-Command-Line-Interface: ../../Kite-Dataset-Command-Line-Interface.html
+guide/Kite-SDK-Guide: ../../Kite-SDK-Guide.html
+guide/lifecycle: ../../lifecycle.html
+guide/Parquet-vs-Avro-Format: ../../Parquet-vs-Avro-Format.html
+guide/Partitioned-Datasets: ../../Partioned-Datasets.html
+guide/Partition-Strategy-Format: ../../Partition-Strategy-Format.html
+guide/Restricted-Views: ../../Restricted-Views.html
+guide/Schema-Evolution: ../../Schema-Evolution.html
+guide/Schema-URL-Warning: ../../Schema-URL-Warning.html
+guide/URIs: ../../URIs.html
+guide/Using-Kite-with-Apache-Maven: ../../Using-Kite-with-Apache-Maven.html
+guide/Using-the-Kite-CLI-to-Create-a-Dataset: ../../Using-the-Kite-CLI-to-Create-a-Dataset.html
+guide/Viewing-with-Impala: ../../Viewing-with-Impala.html
 guide/samples/flowers.tar.gz: ../samples/flowers.tar.gz
 guide/samples/movies.tar.gz: ../samples/movies.tar.gz
+

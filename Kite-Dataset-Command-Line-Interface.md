@@ -5,7 +5,10 @@ title: Kite Dataset Command Line Interface
 
 The Kite Dataset command line interface (CLI) provides utility commands that let you perform essential tasks such as creating a schema and dataset, importing data from a CSV file, and viewing the results.
 
-Each command is described below. See [Using the Kite CLI to Create a Dataset](../Using-the-Kite-CLI-to-Create-a-Dataset/) for a practical example of the CLI in use.
+Each command is described below. See [Using the Kite CLI to Create a Dataset][cli-csv-tutorial] for a practical example of the CLI in use.
+
+
+[cli-csv-tutorial]: {{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
 
 
 
@@ -473,7 +476,7 @@ Mappings are specified by `field:type` pairs, where `field` is a source field fr
 
 If the last option is used, the mapping type will determined by the source field type. Numbers will use `counter`, hash maps and records will use `keyAsColumn`, and all others will use `column`.
 
-[mapping-format]: ../Column-Mapping
+[mapping-format]: {{site.baseurl}}/Column-Mapping.html
 
 ### Syntax
 

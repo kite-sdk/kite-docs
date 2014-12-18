@@ -11,8 +11,9 @@ Kite provides a set of tools that handle the basic legwork for creating a datase
 
 ## Preparation
 
-If you have not done so already, install the [Kite JAR](../Install-Kite/).
+If you have not done so already, install the [Kite command-line interface][install-cli].
 
+[install-cli]: {{site.baseurl}}/Install-Kite.html
 
 ## Create a CSV Data File
 
@@ -146,4 +147,7 @@ There they go. Reuben and PBJ are gone. But you can create them again, or any ot
 
 ----
 
-[Kite Command Line Interface](../Kite-Dataset-Command-Line-Interface/)
+Next: [go to the Kite CLI command reference][cli-command-reference]
+
+
+[cli-command-reference]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html

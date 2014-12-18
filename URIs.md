@@ -18,8 +18,6 @@ You construct a dataset URI using one of the following patterns, depending on yo
 
 Dataset patterns always begin with the `dataset:` prefix. Any of these patterns can be modified to create a <a href="#view">View URI</a>.
 
-<a name="hive" />
-
 ### Hive
 
 Hive manages your datatables for you. You only have to provide the dataset name. You also have the option of providing a namespace.
@@ -41,8 +39,6 @@ To create an external table, add `location=/path/to/data/dir` to the dataset URI
 ```
 dataset:hive:namespace/dataset?location=/path/to/data/dir
 ```
-
-<a name="hdfs" />
 
 ### HDFS
 
@@ -68,8 +64,6 @@ The local file system dataset URI follows a pattern similar to the HDFS URI, wit
 ```
 dataset:file:/<path>/<namespace>/<dataset-name>
 ```
-
-<a name="#hbase" />
 
 ### HBase
 
@@ -116,6 +110,8 @@ There are three formats used to set constraint values. The values can be numbers
 | comma-separated list | In (any of the specified values) | `genre=comedy,animation` | Field _genre_ is _comedy_ or _animation_. |
 | interval | Range of values | `month=[1,4]` | Date is from January 1 through April 30. |
 
-See [Interval Notation](../Interval-Notation/) for more examples of defining ranges of values.
+See [Interval Notation][interval-notation] for more examples of defining ranges of values.
+
+[interval-notation]: {{site.baseurl}}/Interval-Notation.html
 
 

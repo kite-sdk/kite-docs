@@ -3,11 +3,11 @@ layout: page
 title: Schema Evolution
 ---
 
-Over time, you might want to add or remove fields in an existing schema. The precise rules for schema evolution are inherited from Avro, and are documented in the Avro specification as rules for [Avro schema resolution][]. For the purposes of working in Kite, here are some important things to note.
+Over time, you might want to add or remove fields in an existing schema. The precise rules for schema evolution are inherited from Avro, and are documented in the Avro specification as rules for [Avro schema resolution][avro-schema-resolution]. For the purposes of working in Kite, here are some important things to note.
 
 ## Writer Schemas and Reader Schemas
 
-Writer schemas describe a dataset as it is being written. Reader schemas describe a dataset as it is being read from a datastore. Writer and reader schemas must be compatible, but they do not have to match exactly. See the [Avro schema resolution][] specification for the exhaustive list of rules for matching one schema to another.
+Writer schemas describe a dataset as it is being written. Reader schemas describe a dataset as it is being read from a datastore. Writer and reader schemas must be compatible, but they do not have to match exactly. See the [Avro schema resolution][avro-schema-resolution] specification for the exhaustive list of rules for matching one schema to another.
 
 ## Changing Field Types
 
@@ -219,6 +219,6 @@ $ {{site.dataset-command}} show movies
 {"id": 9, "title": "Cormack!", "rating": 4.75}
 ```
 
-See [Avro schema resolution][] for further options.
+See [Avro schema resolution][avro-schema-resolution] for further options.
 
-[Avro Schema resolution]: http://avro.apache.org/docs/current/spec.html#Schema+Resolution "schemaSpec"
+[avro-schema-resolution]: http://avro.apache.org/docs/current/spec.html#Schema+Resolution "schemaSpec"

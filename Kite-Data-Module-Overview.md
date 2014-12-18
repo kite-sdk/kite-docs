@@ -54,23 +54,29 @@ A schema defines the field names and datatypes for a dataset. Kite relies on an 
 
 The goal is to get the schema into `.avsc` format and store it in the Hadoop file system. There are several ways to get the schema into the correct format. The following links provide examples for some of these approaches.
 
-| Java API | Command Line Interface |
-| --------- | ----------------------- |
-| [Inferring a schema from a Java Class](../Inferring-a-Schema-from-a-Java-Class/) | [Inferring a schema from a Java class](../Kite-Dataset-Command-Line-Interface#obj-schema) |
-| [Inferring a schema from an Avro data file](../Inferring-a-Schema-from-an-Avro-Data-File) | [Inferring a schema from a CSV file](../Kite-Dataset-Command-Line-Interface#csv-schema) |
+| Java API                                                      | Command Line Interface |
+| --------                                                      | ---------------------- |
+| [Inferring a schema from a Java Class][api-schema-from-class] | [Inferring a schema from a Java class][cli-schema-from-class] |
+| [Using the schema of an Avro data file][api-schema-from-data] | [Inferring a schema from a CSV file][cli-schema-from-csv] |
 
-
+[api-schema-from-class]: {{site.baseurl}}/Inferring-a-Schema-from-a-Java-Class.html
+[api-schema-from-data]: {{site.baseurl}}Inferring-a-Schema-from-an-Avro-Data-File.html
+[cli-schema-from-class]: {{site.baseurl}}Kite-Dataset-Command-Line-Interface.html#obj-schema
+[cli-schema-from-csv]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#csv-schema
 
 ## Datasets
 A dataset is a collection of zero or more entities, represented by the interface `Dataset`. The relational database analog of a dataset is a table.
 
 The HDFS implementation of a dataset is stored as Snappy-compressed Avro data files by default. The HDFS implementation is made up of zero or more files in a directory. You also have the option of storing your dataset in the column-oriented Parquet file format.
 
-Performance can be enhanced by defining a [partition strategy](../Partitioned-Datasets) for your dataset.
+Performance can be enhanced by defining a [partition strategy][partition-strategy] for your dataset.
 
 You can work with a subset of dataset entities using the Views API.
 
-Datasets are identified by URIs. See [Dataset URIs](../URIs). Dataset names cannot contain a period (.).
+Datasets are identified by URIs. See [Dataset URIs][dataset-uris]. Dataset names cannot contain a period (.).
+
+[partition-strategy]: {{site.baseurl}}/Partitioned-Datasets.html
+[dataset-uris]: {{site.baseurl}}/URIs.html
 
 <a name="repositories" />
 
@@ -88,7 +94,9 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 ## Loading Data from CSV
 
-You can load comma separated value data into a dataset repository using the command line interface function [csv-import](../Kite-Dataset-Command-Line-Interface/index.html#csv-import). 
+You can load comma separated value data into a dataset repository using the command line interface function [csv-import][csv-import].
+
+[csv-import]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#csv-import
 
 <a name="writers" />
 
@@ -110,8 +118,9 @@ The `DatasetWriter` lifecycle is as follows:
 
 Datasets you create Kite are no different than any other Hadoop dataset in your system, once created. You can query the data with Hive or view it using Impala.
 
-For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show](../Kite-Dataset-Command-Line-Interface/index.html#show).
+For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show][cli-show].
 
+[cli-show]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#show
 
 
 ---

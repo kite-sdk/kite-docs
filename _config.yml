@@ -16,7 +16,7 @@ dataset-command: "kite-dataset"
 # Build settings
 include: ["./samples/"]
 markdown: kramdown
-permalink: pretty
+
 kramdown:
   input: GFM
   coderay_line_numbers: table

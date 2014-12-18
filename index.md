@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 'A Data API for Hadoop'
+title: 'Kite: A Data API for Hadoop'
 ---
 
 Kite is a high-level data layer for Hadoop. It is an API and a set of tools that speed up development. You configure how Kite stores your data in Hadoop, instead of building and maintaining that infrastructure yourself.
@@ -80,7 +80,7 @@ Kite morphlines is a flexible way to express data transformations as configurati
 
 [<i class="fa fa-chevron-right"></i>&nbsp; Go to the Morphlines reference guide][morphlines-intro]
 
-[kite-cli]: {{ site.baseurl }}/Using-the-Kite-CLI-to-Create-a-Dataset
-[kite-data-overview]: {{ site.baseurl }}/Kite-Data-Module-Overview
-[kite-config]: {{ site.baseurl }}/configuraton-formats
-[morphlines-intro]: /docs/latest/kite-morphlines/index.html
+[kite-cli]: {{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
+[kite-data-overview]: {{site.baseurl}}/Kite-Data-Module-Overview.html
+[kite-config]: {{site.baseurl}}/configuraton-formats.html
+[morphlines-intro]: {{site.baseurl}}/morphlines.html

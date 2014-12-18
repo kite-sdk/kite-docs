@@ -26,7 +26,7 @@ For example, you might partition a database by Year and Month. You can send a qu
 
 A partition strategy is configured with a [JSON-based format][partition-format]. You can create a partition strategy by hand. However, it's usually easier to use the CLI to create the definition in JSON format and check it against your schema. Then you can edit it, if needed.
 
-[partition-format]: ../Partition-Strategy-Format
+[partition-format]: {{site.baseurl}}/Partition-Strategy-Format.html
 
 ### Defining a Partitioning Strategy
 
@@ -78,7 +78,9 @@ Since the most common query against this data is time-based, you can define a pa
 } ]
 ```
 
-You can also use the command `partition-config` from the command line interface to generate the JSON file. See [partition-config](../Kite-Dataset-Command-Line-Interface/index.html#partition-config).
+You can also use the command `partition-config` from the command line interface to generate the JSON file. See [partition-config][cli-partition-config].
+
+[cli-partition-config]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#partition-config
 
 ### Creating a Dataset That Uses a Partition Strategy
 
@@ -90,6 +92,8 @@ For example, you can create a dataset for our High Rollers club using this comma
 {{site.dataset-command}} create HighRollersClub -s HighRollers.avsc -p HighRollers.json 
 ```
 
-See [create](../Kite-Dataset-Command-Line-Interface/index.html#create) for more options when creating a dataset. See [Partition Strategy JSON Format][partition-format] for available options when defining a partition strategy.
+See [create][cli-create] for more options when creating a dataset, and [Partition Strategy JSON Format][partition-format] for available options when defining a partition strategy.
 
 You can also use Kite to manage datasets in HBase, using the same tools and APIs. HBase datasets work differently than datasets stored in HDFS in two ways. First, HBase handles its own dataset partitions, and configures them differently. Second, HBase stores data as a group of values, or cells; you need to configure how Kite will divide your records into separate cells.
+
+[cli-create]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#create

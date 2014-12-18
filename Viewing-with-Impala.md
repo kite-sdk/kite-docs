@@ -8,9 +8,11 @@ This example uses datasets based on the MovieLens dataset provided by the GroupL
 
 ## Preparation
 
-If you have not done so already, [install the Kite command-line interface jar](../Install-Kite/index.html).
+If you have not done so already, [install the Kite command-line interface][install-cli].
 
 If you are using a quickstart virtual machine, Impala is installed for you. If you need to install Impala on your own system, see the [Impala](http://www.cloudera.com/content/support/en/documentation.html) documentation for your version of CDH.
+
+[install-cli]: {{site.baseurl}}/Install-Kite.html
 
 ## Infer Schemas from CSV Files
 
@@ -321,7 +323,7 @@ Returned 0 row(s) in 0.04s
 
 No rows are returned as a result of the query, but Impala creates a new view.
 
-One advantage of working with a view is that you can use the aggregate column (rating, named _c1 in the view) in a WHERE clause. If you only want to see the highest rated movies for children, you can run an additional query on the view.
+One advantage of working with a view is that you can use the aggregate column (rating, named `_c1` in the view) in a WHERE clause. If you only want to see the highest rated movies for children, you can run an additional query on the view.
 
 ```
 > select * from children where _c1> 2.5;
