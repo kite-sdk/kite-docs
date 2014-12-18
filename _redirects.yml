@@ -55,3 +55,57 @@ kite-maven-plugin/run-tool-mojo.html: ../maven/run-tool-mojo.html
 kite-morphlines/index.html: morphlines
 kite-morphlines/morphlinesReferenceGuide.html: ../morphlines/morphlines-reference-guide.html
 morphlines/morphlinesReferenceGuide.html: morphlines-reference-guide.html
+
+# dependencies content
+kite-data/kite-data-core/dependency-info.html: ../../dependencies/kite-data-core.html#Dependency_Information
+kite-data/kite-data-core/dependencies.html: ../../dependencies/kite-data-core.html#Project_Dependencies
+kite-data/kite-data-hive/dependency-info.html: ../../dependencies/kite-data-hive.html#Dependency_Information
+kite-data/kite-data-hive/dependencies.html: ../../dependencies/kite-data-hive.html#Project_Dependencies
+kite-data/kite-data-hbase/dependency-info.html: ../../dependencies/kite-data-hbase.html#Dependency_Information
+kite-data/kite-data-hbase/dependencies.html: ../../dependencies/kite-data-hbase.html#Project_Dependencies
+kite-data/kite-data-crunch/dependency-info.html: ../../dependencies/kite-data-crunch.html#Dependency_Information
+kite-data/kite-data-crunch/dependencies.html: ../../dependencies/kite-data-crunch.html#Project_Dependencies
+kite-data/kite-data-mapreduce/dependency-info.html: ../../dependencies/kite-data-mapreduce.html#Dependency_Information
+kite-data/kite-data-mapreduce/dependencies.html: ../../dependencies/kite-data-mapreduce.html#Project_Dependencies
+kite-tools-parent/kite-tools/dependency-info.html: ../../dependencies/kite-tools.html#Dependency_Information
+kite-tools-parent/kite-tools/dependencies.html: ../../dependencies/kite-tools.html#Project_Dependencies
+
+# morphlines dependencies content
+kite-morphlines/kite-morphlines-core/dependency-info.html: ../../dependencies/kite-morphlines-core.html#Dependency_Information
+kite-morphlines/kite-morphlines-core/dependencies.html: ../../dependencies/kite-morphlines-core.html#Project_Dependencies
+kite-morphlines/kite-morphlines-avro/dependency-info.html: ../../dependencies/kite-morphlines-json.html#Dependency_Information
+kite-morphlines/kite-morphlines-avro/dependencies.html: ../../dependencies/kite-morphlines-json.html#Project_Dependencies
+kite-morphlines/kite-morphlines-json/dependency-info.html: ../../dependencies/kite-morphlines-json.html#Dependency_Information
+kite-morphlines/kite-morphlines-json/dependencies.html: ../../dependencies/kite-morphlines-json.html#Project_Dependencies
+kite-morphlines/kite-morphlines-protobuf/dependency-info.html: ../../dependencies/kite-morphlines-protobuf.html#Dependency_Information
+kite-morphlines/kite-morphlines-protobuf/dependencies.html: ../../dependencies/kite-morphlines-protobuf.html#Project_Dependencies
+kite-morphlines/kite-morphlines-hadoop-core/dependency-info.html: ../../dependencies/kite-morphlines-hadoop-core.html#Dependency_Information
+kite-morphlines/kite-morphlines-hadoop-core/dependencies.html: ../../dependencies/kite-morphlines-hadoop-core.html#Project_Dependencies
+kite-morphlines/kite-morphlines-hadoop-parquet-avro/dependency-info.html: ../../dependencies/kite-morphlines-hadoop-parquet-avro.html#Dependency_Information
+kite-morphlines/kite-morphlines-hadoop-parquet-avro/dependencies.html: ../../dependencies/kite-morphlines-hadoop-parquet-avro.html#Project_Dependencies
+kite-morphlines/kite-morphlines-hadoop-rcfile/dependency-info.html: ../../dependencies/kite-morphlines-hadoop-rcfile.html#Dependency_Information
+kite-morphlines/kite-morphlines-hadoop-rcfile/dependencies.html: ../../dependencies/kite-morphlines-hadoop-rcfile.html#Project_Dependencies
+kite-morphlines/kite-morphlines-hadoop-sequencefile/dependency-info.html: ../../dependencies/kite-morphlines-hadoop-sequencefile.html#Dependency_Information
+kite-morphlines/kite-morphlines-hadoop-sequencefile/dependencies.html: ../../dependencies/kite-morphlines-hadoop-sequencefile.html#Project_Dependencies
+kite-morphlines/kite-morphlines-maxmind/dependency-info.html: ../../dependencies/kite-morphlines-maxmind.html#Dependency_Information
+kite-morphlines/kite-morphlines-maxmind/dependencies.html: ../../dependencies/kite-morphlines-maxmind.html#Project_Dependencies
+kite-morphlines/kite-morphlines-metrics-servlets/dependency-info.html: ../../dependencies/kite-morphlines-metrics-servlets.html#Dependency_Information
+kite-morphlines/kite-morphlines-metrics-servlets/dependencies.html: ../../dependencies/kite-morphlines-metrics-servlets.html#Project_Dependencies
+kite-morphlines/kite-morphlines-saxon/dependency-info.html: ../../dependencies/kite-morphlines-saxon.html#Dependency_Information
+kite-morphlines/kite-morphlines-saxon/dependencies.html: ../../dependencies/kite-morphlines-saxon.html#Project_Dependencies
+kite-morphlines/kite-morphlines-solr-core/dependency-info.html: ../../dependencies/kite-morphlines-solr-core.html#Dependency_Information
+kite-morphlines/kite-morphlines-solr-core/dependencies.html: ../../dependencies/kite-morphlines-solr-core.html#Project_Dependencies
+kite-morphlines/kite-morphlines-solr-cell/dependency-info.html: ../../dependencies/kite-morphlines-solr-cell.html#Dependency_Information
+kite-morphlines/kite-morphlines-solr-cell/dependencies.html: ../../dependencies/kite-morphlines-solr-cell.html#Project_Dependencies
+kite-morphlines/kite-morphlines-tika-core/dependency-info.html: ../../dependencies/kite-morphlines-tika-core.html#Dependency_Information
+kite-morphlines/kite-morphlines-tika-core/dependencies.html: ../../dependencies/kite-morphlines-tika-core.html#Project_Dependencies
+kite-morphlines/kite-morphlines-tika-decompress/dependency-info.html: ../../dependencies/kite-morphlines-tika-decompress.html#Dependency_Information
+kite-morphlines/kite-morphlines-tika-decompress/dependencies.html: ../../dependencies/kite-morphlines-tika-decompress.html#Project_Dependencies
+kite-morphlines/kite-morphlines-twitter/dependency-info.html: ../../dependencies/kite-morphlines-twitter.html#Dependency_Information
+kite-morphlines/kite-morphlines-twitter/dependencies.html: ../../dependencies/kite-morphlines-twitter.html#Project_Dependencies
+kite-morphlines/kite-morphlines-useragent/dependency-info.html: ../../dependencies/kite-morphlines-useragent.html#Dependency_Information
+kite-morphlines/kite-morphlines-useragent/dependencies.html: ../../dependencies/kite-morphlines-useragent.html#Project_Dependencies
+kite-morphlines/kite-morphlines-all/dependency-info.html: ../../dependencies/kite-morphlines-all.html#Dependency_Information
+kite-morphlines/kite-morphlines-all/dependencies.html: ../../dependencies/kite-morphlines-all.html#Project_Dependencies
+kite-morphlines/kite-morphlines-all-except-solr/dependency-info.html: ../../dependencies/kite-morphlines-all-except-solr.html#Dependency_Information
+kite-morphlines/kite-morphlines-all-except-solr/dependencies.html: ../../dependencies/kite-morphlines-all-except-solr.html#Project_Dependencies

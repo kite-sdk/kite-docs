@@ -37,7 +37,7 @@ Kite's data API provides programmatic access to datasets. Using the API, you can
 
 ## Low-level control
 
-When you create a dataset, uou control your data layout, record schema, and other options with straight-forward configuration. Then you can focus on building your application, while Kite handles data storage for you. Kite automatically partitions records when writing and prunes partitions when reading. It will even keep Hive up-to-date with a dataset's newest partitions.
+When you create a dataset, you control your data layout, record schema, and other options with straight-forward configuration. Then you can focus on building your application, while Kite handles data storage for you. Kite automatically partitions records when writing and prunes partitions when reading. It will even keep Hive up-to-date with a dataset's newest partitions.
 
 <div class="columns">
   <div class="left">
