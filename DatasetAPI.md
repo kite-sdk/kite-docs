@@ -40,7 +40,6 @@ Load an existing dataset for processing using the load method. The load method v
 
 ```Java
 Dataset<Record> products = Datasets.load("dataset:hive:products");
-
 ```
 
 Once you load the dataset, you can retrieve and view the dataset records using [`DatasetReader`](#datasetreader).
@@ -93,7 +92,7 @@ In this introduction, Kite returns record instances defined by Avro, specificall
 
 Kite also supports Avro's [specific](http://avro.apache.org/docs/1.7.7/api/java/index.html?org/apache/avro/specific/package-summary.html) and [reflect](http://avro.apache.org/docs/1.7.7/api/java/org/apache/avro/reflect/package-summary.html) object models.
 
-Files are compressed using Google's Snappy codec, by default. The Snappy codec is an efficient binary format that works well with Hadoop, but the stored files are not human readable. You can use the Kite CLI or the Hue data browser to view your compressed information stored in Hadoop.
+Avro and Parquet are efficient binary formats that work well with Hadoop. You can use the Kite CLI or the Hue data browser to view the compressed information stored in Hadoop.
 
 #### Avro Schema
 
@@ -158,18 +157,14 @@ The DatasetWriter class stores data in your Hadoop dataset in the format you cho
 This code snippet creates a generic record builder, reads in each item, assigns an ID number, then writes each record to the dataset.
 
 ```Java
-
 DatasetWriter<Record> writer = null;
 
-DatasetDescriptor descriptor = new DatasetDescriptor.Builder()
-  .schemaUri("resource:product.avsc")
-  .build();
+Dataset<Record> products = Datasets.load("dataset:hive:products", Record.class);
 
 try {
-
-  GenericRecordBuilder builder = new GenericRecordBuilder(descriptor.getSchema());
-
   int i = 0;
+
+  writer = products.newWriter();
 
   for (String item : items) {
 
@@ -180,13 +175,11 @@ try {
 
     writer.write(product);
   }
-
 } finally {
   if (writer != null) {
     writer.close();
   }
 }
-
 ```
 
 ### DatasetReader
@@ -196,26 +189,22 @@ try {
 This code snippet shows the code you use to load a dataset, then print the records one at a time to the console.
 
 ```Java
-
 Dataset<Record> products = Datasets.load(
   "dataset:hive:products", Record.class);
 
 DatasetReader<Record> reader = null;
 
 try {
-
   reader = products.newReader();
 
   for (GenericRecord product : reader) {
     System.out.println(product);
   }
-
 } finally {
   if (reader != null) {
     reader.close();
   }
 }
-
 ```
 
 ## Other Kite Data Artifacts
