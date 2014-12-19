@@ -57,6 +57,7 @@ kite-morphlines/morphlinesReferenceGuide.html: ../morphlines/morphlines-referenc
 morphlines/morphlinesReferenceGuide.html: morphlines-reference-guide.html
 
 # dependencies content
+dependencies.html: dependencies
 kite-data/kite-data-core/dependency-info.html: ../../dependencies/kite-data-core.html#Dependency_Information
 kite-data/kite-data-core/dependencies.html: ../../dependencies/kite-data-core.html#Project_Dependencies
 kite-data/kite-data-hive/dependency-info.html: ../../dependencies/kite-data-hive.html#Dependency_Information

@@ -33,7 +33,7 @@ View latest = Datasets.load(uri)
 
 Kite's data API provides programmatic access to datasets. Using the API, you can build applications that directly interact with your datasets. For example, you can load a dataset and select a subset of it for a MapReduce pipeline.
 
-[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about Kite datasets][kite-data-overview]
+[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about the Kite API][kite-api]
 
 ## Low-level control
 
@@ -72,15 +72,17 @@ datasets/
   </div>
 </div>
 
-[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about configuring Kite][kite-config]
+[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about Kite datasets][kite-data-overview]
 
 ## Configuration-based transformation
 
 Kite morphlines is a flexible way to express data transformations as configuration.
 
-[<i class="fa fa-chevron-right"></i>&nbsp; Go to the Morphlines reference guide][morphlines-intro]
+[<i class="fa fa-chevron-right"></i>&nbsp; Go to the Morphlines introduction][morphlines-intro] or [reference guide][morphlines-reference]
 
 [kite-cli]: {{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
+[kite-api]: {{site.baseurl}}/Kite-Data-Module-Overview.html
 [kite-data-overview]: {{site.baseurl}}/Kite-Data-Module-Overview.html
 [kite-config]: {{site.baseurl}}/configuraton-formats.html
 [morphlines-intro]: {{site.baseurl}}/morphlines/
+[morphlines-reference]: {{site.baseurl}}/morphlines/morphlines-reference-guide.html

@@ -3,12 +3,15 @@
   <div class="wrap columns">
 
     <div class="left">
-      <h2 class="footer-heading">{{ site.title }}</h2>
+      <h2 class="footer-heading">{{ site.title }}, {{site.version}}</h2>
 
       <ul>
         <li>Kite is licensed under</li>
         <li><a href="{{ site.license_url }}">The Apache License, Version 2.0</a></li>
+        <li>&nbsp;</li>
+        <li>Generated on {{ site.time | date_to_long_string }}</li>
       </ul>
+
     </div>
 
     <div class="middle">
@@ -27,6 +30,7 @@
           </div>
           <div class="right">
             <ul>
+              <li><a href="{{ site.examples_url }}"><i class="fa fa-play"></i>&nbsp; Examples</a></li>
               <li><a href="{{ site.javadoc_url }}"><i class="fa fa-file-text-o"></i>&nbsp; API Javadoc</a></li>
               <li><a href="{{ site.jdiff_url }}"><i class="fa fa-bolt fs-lg"></i>&nbsp; API Changes</a></li>
               <li><a href="{{ site.baseurl }}/release-notes"><i class="fa fa-info fa-lg"></i>&nbsp; Release Notes</a></li>
