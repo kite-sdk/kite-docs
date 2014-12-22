@@ -81,7 +81,7 @@ Kite morphlines is a flexible way to express data transformations as configurati
 [<i class="fa fa-chevron-right"></i>&nbsp; Go to the Morphlines introduction][morphlines-intro] or [reference guide][morphlines-reference]
 
 [kite-cli]: {{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
-[kite-api]: {{site.baseurl}}/Kite-Data-Module-Overview.html
+[kite-api]: {{site.baseurl}}/API-Overview.html
 [kite-data-overview]: {{site.baseurl}}/Kite-Data-Module-Overview.html
 [kite-config]: {{site.baseurl}}/configuraton-formats.html
 [morphlines-intro]: {{site.baseurl}}/morphlines/
