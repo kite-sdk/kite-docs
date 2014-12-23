@@ -29,7 +29,7 @@ guide/lifecycle: ../../lifecycle.html
 guide/Parquet-vs-Avro-Format: ../../Parquet-vs-Avro-Format.html
 guide/Partitioned-Datasets: ../../Partioned-Datasets.html
 guide/Partition-Strategy-Format: ../../Partition-Strategy-Format.html
-guide/Restricted-Views: ../../Restricted-Views.html
+guide/Restricted-Views: ../../writing-to-views.html
 guide/Schema-Evolution: ../../Schema-Evolution.html
 guide/Schema-URL-Warning: ../../Schema-URL-Warning.html
 guide/URIs: ../../URIs.html
