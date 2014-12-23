@@ -52,3 +52,9 @@
     - title: Dataset Lifecycle
       alias: Kite Dataset Lifecycle
       file: lifecycle.html
+    - title: Maven Plugin
+      alias: Maven Plugin Goals
+      file: maven
+    - title: Dependency Info
+      alias: Dependency Information
+      file: dependencies
