@@ -65,6 +65,10 @@ Dataset<Record> products = Datasets.load("dataset:hive:products");
 
 Once you load the dataset, you can retrieve and view the dataset records using [`DatasetReader`](#datasetreader).
 
+The `load` method can also be used with a [view URI][view-uris].
+
+[view-uris]: {{site.baseurl}}/URIs.html#view-uris
+
 ### update
 
 Over time, your dataset requirements might change. You can use `update` to change a dataset's configuration by replacing its `DatasetDescriptor`.
@@ -128,7 +132,7 @@ A schema defines the field names and data types for records in a dataset. For ex
 }
 ```
 
-Once you have defined a schema, you can use `DatasetDescriptor.Builder` to create a descriptor instance and a dataset using that descriptor. Once a dataset is created, its schema is loaded automatically.
+Once you have defined a schema, you can use `DatasetDescriptor.Builder` to create a descriptor instance and then a dataset using that descriptor. Once a dataset is created, its schema is loaded automatically.
 
 
 ### DatasetDescriptor Options
@@ -136,7 +140,7 @@ Once you have defined a schema, you can use `DatasetDescriptor.Builder` to creat
 A `DatasetDescriptor` encapsulates the configuration needed to read and write a dataset. A `DatasetDescriptor` is [immutable][def-immutable], and is created by [`DatasetDescriptor.Builder`][javadoc-descriptor-builder].
 
 There are several options available when creating a descriptor:
-* [Set the record schema](#schema) (**required**)
+* [Set the record schema](#schema), **required**
 * [Add a partition strategy](#partition-strategy)
 * [Choose the data format](#storage-format) and [compression](#compression-type)
 * Add custom key-value properties
@@ -237,7 +241,7 @@ try {
 
 ### DatasetReader
 
-`DatasetReader` retrieves records in a dataset for inspection and processing. It has methods that support iterating through the records as they are read.
+`DatasetReader` retrieves records in a dataset for inspection and processing. It has supports iterating through the records as they are read.
 
 This code snippet shows the code you use to load a dataset, then print each record to the console.
 
@@ -259,6 +263,10 @@ try {
   }
 }
 ```
+
+If you don't need the entire dataset, you can use the [View API][view-api] to select a subset of its records.
+
+[view-api]: {{site.baseurl}}/view-api.html
 
 ## Kite Data Artifacts
 

@@ -29,6 +29,6 @@ This is the default landing page for Kite SDK documentation.
 * [Column Mapping]({{site.baseurl}}/Column-Mapping.html)
 * [HBase Storage Cells]({{site.baseurl}}/HBase-Storage-Cells.html)
 * [Schema Evolution]({{site.baseurl}}/Schema-Evolution.html)
-* [Restricted Views]({{site.baseurl}}/Restricted-Views.html)
+* [Writing to Views]({{site.baseurl}}/writing-to-views.html)
 * [Dataset URIs]({{site.baseurl}}/URIs.html)
 * [Using Kite with Apache Maven]({{site.baseurl}}/Using-Kite-with-Apache-Maven.html)
