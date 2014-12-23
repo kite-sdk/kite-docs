@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Kite View API
+title: Kite Views API
 ---
 
 Most of the time, you don't need to work with all of the records stored in a dataset. It is common to work with subsets, like events _last month_ rather than _all_ events. The Views API is a way to express constraints for the records that Kite loads.

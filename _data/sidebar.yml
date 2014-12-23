@@ -1,0 +1,54 @@
+---
+- topic: About Kite
+- pages:
+    - title: Kite Background
+      alias: What is Kite?
+      file: Kite-SDK-Guide.html
+    - title: Datasets Overview
+      alias: Kite Data Module Overview
+      file: Kite-Data-Module-Overview.html
+- topic: Kite CLI
+  pages:
+    - title: Installing the CLI
+      alias: Install the Kite Command Line Interface
+      file: Install-Kite.html
+    - title: Importing CSV data
+      alias: Using the Kite Command Line Interface to Create a Dataset
+      file: Using-the-Kite-CLI-to-Create-a-Dataset.html
+    - title: Kite CLI Reference
+      alias: Kite Dataset Command Line Interface
+      file: Kite-Dataset-Command-Line-Interface.html
+- topic: Kite API
+  pages:
+    - title: API Introduction
+      alias: Kite Dataset API
+      file: API-Overview.html
+    - title: Views API
+      alias: Kite Views API
+      file: view-api.html
+    - title: Using Kite with Maven
+      alias: Using Kite with Apache Maven
+      file: Using-Kite-with-Apache-Maven.html
+- topic: Reference
+  pages:
+    - title: Kite URIs
+      alias: Dataset and View URIs
+      file: URIs.html
+    - title: Schema Evolution
+      alias: Schema Evolution
+      file: Schema-Evolution.html
+    - title: Partitioned Datasets
+      alias: Partitioned Datasets
+      file: Partitioned-Datasets.html
+    - title: Parquet vs Avro
+      alias: Parquet vs Avro Format
+      file: Parquet-vs-Avro-Format.html
+    - title: HBase Storage
+      alias: HBase Storage Cells
+      file: HBase-Storage-Cells.html
+    - title: Column Mapping
+      alias: HBase Column Mapping
+      file: Column-Mapping.html
+    - title: Dataset Lifecycle
+      alias: Kite Dataset Lifecycle
+      file: lifecycle.html
