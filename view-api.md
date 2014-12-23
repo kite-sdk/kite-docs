@@ -113,7 +113,7 @@ The [`newWriter`][javadoc-view-newwriter] method creates an appropriate `Dataset
 See [Restricted Views][restricted-views].
 
 [javadoc-view-newwriter]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#newWriter()
-[writing-to-views]: {{site.baseurl}}/Writing-to-Views.html
+[writing-to-views]: {{site.baseurl}}/writing-to-views.html
 
 ### deleteAll
 
