@@ -9,13 +9,10 @@ HDFS writes files into statically configured partitions. HBase, on the other han
 
 Data cells are organized first by column family, then by column qualifier. The cells form columns and groups of columns in a table structure. For example, a user's data can be stored using the e-mail address for a key, then as a &quot;name&quot; column family with &quot;first&quot; and &quot;last&quot; qualifiers. We end up with a view that looks like this:
 
-```bash
-
-|  key           | name family      |
-| (e-mail)       | first|   last    |
+|                | name |   name    |
+| key (e-mail)   | first|   last    |
 | -------------- | -----| --------- |
 | buzz@pixar.com | Buzz | Lightyear |
-```
 
 ## HBase partitioning
 
