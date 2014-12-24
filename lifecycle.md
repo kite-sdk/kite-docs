@@ -132,8 +132,8 @@ The Kite CLI infers field names from the values in the first row and data types 
 }
 ```
 
-[cli-obj-schema]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#obj-schema
-[cli-csv-schema]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#csv-schema
+[cli-obj-schema]: {{site.baseurl}}/cli-reference.html#obj-schema
+[cli-csv-schema]: {{site.baseurl}}/cli-reference.html#csv-schema
 
 <a name="create" />
 
@@ -220,7 +220,7 @@ You can use the CLI command `csv-import` to insert records from a CSV file to yo
 
 See [`csv-import`][cli-csv-import] for additional options.
 
-[cli-csv-import]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#csv-import
+[cli-csv-import]: {{site.baseurl}}/cli-reference.html#csv-import
 
 ### Copy Dataset
 
@@ -230,7 +230,7 @@ Use the [`copy`][cli-copy] command to transfer the contents of one dataset into 
 {{site.dataset-command}} copy movie_parquet movie
 ```
 
-[cli-copy]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#copy
+[cli-copy]: {{site.baseurl}}/cli-reference.html#copy
 
 <a name="validate" />
 
@@ -254,7 +254,7 @@ Select the first few records of your dataset to ensure that they loaded properly
 {{site.dataset-command}} show movie -n 50
 ```
 
-[cli-show]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#show
+[cli-show]: {{site.baseurl}}/cli-reference.html#show
 
 <a name="update" />
 
@@ -303,4 +303,4 @@ For example, to remove the _movies_ dataset, you can use the following command.
 $ {{site.dataset-command}} delete movies
 ```
 
-[cli-delete]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#delete
+[cli-delete]: {{site.baseurl}}/cli-reference.html#delete

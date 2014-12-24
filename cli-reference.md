@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Kite Dataset Command Line Interface
+title: Kite CLI Reference
 ---
 
 The Kite Dataset command line interface (CLI) provides utility commands that let you perform essential tasks such as creating a schema and dataset, importing data from a CSV file, and viewing the results.
@@ -429,6 +429,24 @@ Delete all data and metadata for the dataset "users":
 ## partition-config
 
 Builds a partition strategy for a schema.
+
+The resulting partition strategy is a valid [JSON partition strategy file][strategy-format].
+
+Entries in the partition strategy are specified by `field:type` pairs, where `field` is the source field from the given schema and `type` can be:
+
+| `year`     | Extract the year from a timestamp |
+| `month`    | Extract the month from a timestamp |
+| `day`      | Extract the day from a timestamp |
+| `hour`     | Extract the hour from a timestamp |
+| `minute`   | Extract the minute from a timestamp |
+| `hash[N]`  | Hash the source field, using _N_ buckets |
+| `copy`     | Copy the field without modification (identity) |
+| `provided` | Doesn't use a source field, the field name is used to name the partition |
+
+Provided partitioners do not reference a source field and instead require that a value is provided when writing. Values can be provided by writing to [views][views].
+
+[strategy-format]: {{site.baseurl}}/Partition-Strategy-Format.html
+[views]: {{site.baseurl}}/view-api.html
 
 ### Syntax
 

@@ -80,7 +80,7 @@ Since the most common query against this data is time-based, you can define a pa
 
 You can also use the command `partition-config` from the command line interface to generate the JSON file. See [partition-config][cli-partition-config].
 
-[cli-partition-config]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#partition-config
+[cli-partition-config]: {{site.baseurl}}/cli-reference.html#partition-config
 
 ### Creating a Dataset That Uses a Partition Strategy
 
@@ -96,4 +96,4 @@ See [create][cli-create] for more options when creating a dataset, and [Partitio
 
 You can also use Kite to manage datasets in HBase, using the same tools and APIs. HBase datasets work differently than datasets stored in HDFS in two ways. First, HBase handles its own dataset partitions, and configures them differently. Second, HBase stores data as a group of values, or cells; you need to configure how Kite will divide your records into separate cells.
 
-[cli-create]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#create
+[cli-create]: {{site.baseurl}}/cli-reference.html#create

@@ -23,7 +23,7 @@ guide/Inferring-a-Schema-from-an-Avro-Data-File: ../../Inferring-a-Schema-from-a
 guide/Install-Kite: ../../Install-Kite.html
 guide/Interval-Notation: ../../Interval-Notation.html
 guide/Kite-Data-Module-Overview: ../../Kite-Data-Module-Overview.html
-guide/Kite-Dataset-Command-Line-Interface: ../../Kite-Dataset-Command-Line-Interface.html
+guide/Kite-Dataset-Command-Line-Interface: ../../cli-reference.html
 guide/Kite-SDK-Guide: ../../Kite-SDK-Guide.html
 guide/lifecycle: ../../lifecycle.html
 guide/Parquet-vs-Avro-Format: ../../Parquet-vs-Avro-Format.html

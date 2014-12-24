@@ -60,9 +60,9 @@ The goal is to get the schema into `.avsc` format and store it in the Hadoop fil
 | [Using the schema of an Avro data file][api-schema-from-data] | [Inferring a schema from a CSV file][cli-schema-from-csv] |
 
 [api-schema-from-class]: {{site.baseurl}}/Inferring-a-Schema-from-a-Java-Class.html
-[api-schema-from-data]: {{site.baseurl}}Inferring-a-Schema-from-an-Avro-Data-File.html
-[cli-schema-from-class]: {{site.baseurl}}Kite-Dataset-Command-Line-Interface.html#obj-schema
-[cli-schema-from-csv]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#csv-schema
+[api-schema-from-data]: {{site.baseurl}}/Inferring-a-Schema-from-an-Avro-Data-File.html
+[cli-schema-from-class]: {{site.baseurl}}/cli-reference.html#obj-schema
+[cli-schema-from-csv]: {{site.baseurl}}/cli-reference.html#csv-schema
 
 ## Datasets
 A dataset is a collection of zero or more entities, represented by the interface `Dataset`. The relational database analog of a dataset is a table.
@@ -96,7 +96,7 @@ Each dataset belongs to exactly one dataset repository. Kite doesn&apos;t provid
 
 You can load comma separated value data into a dataset repository using the command line interface function [csv-import][csv-import].
 
-[csv-import]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#csv-import
+[csv-import]: {{site.baseurl}}/cli-reference.html#csv-import
 
 <a name="writers" />
 
@@ -120,7 +120,7 @@ Datasets you create Kite are no different than any other Hadoop dataset in your 
 
 For quick verification that your data has loaded properly, you can view the top _n_ records in your dataset using the command line interface function [show][cli-show].
 
-[cli-show]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html#show
+[cli-show]: {{site.baseurl}}/cli-reference.html#show
 
 
 ---

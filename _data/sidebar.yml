@@ -16,8 +16,8 @@
       alias: Using the Kite Command Line Interface to Create a Dataset
       file: Using-the-Kite-CLI-to-Create-a-Dataset.html
     - title: Kite CLI Reference
-      alias: Kite Dataset Command Line Interface
-      file: Kite-Dataset-Command-Line-Interface.html
+      alias: Kite CLI Reference
+      file: cli-reference.html
 - topic: Kite API
   pages:
     - title: API Introduction
@@ -47,7 +47,7 @@
       alias: HBase Storage Cells
       file: HBase-Storage-Cells.html
     - title: Column Mapping
-      alias: HBase Column Mapping
+      alias: Column Mapping
       file: Column-Mapping.html
     - title: Dataset Lifecycle
       alias: Kite Dataset Lifecycle

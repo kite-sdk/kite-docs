@@ -150,4 +150,4 @@ There they go. Reuben and PBJ are gone. But you can create them again, or any ot
 Next: [go to the Kite CLI command reference][cli-command-reference]
 
 
-[cli-command-reference]: {{site.baseurl}}/Kite-Dataset-Command-Line-Interface.html
+[cli-command-reference]: {{site.baseurl}}/cli-reference.html
