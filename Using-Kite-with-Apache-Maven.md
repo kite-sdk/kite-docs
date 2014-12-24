@@ -15,7 +15,7 @@ In order to use the application parent POM, you simply need to configure the `pa
 <parent>
   <groupId>org.kitesdk</groupId>
   <artifactId>kite-app-parent-cdh5</artifactId>
-  <version>0.17.0</version>
+  <version>{{site.version}}</version>
 </parent>
 {% endhighlight %}
 
