@@ -9,7 +9,7 @@ In truth, the lifecycle looks something like this.
 
 <p align="center">
 
-<img src="images/lifecycleflow.jpg" />
+<img src="images/lifecycleflow.jpg" width="550"/>
 </p>
 
 For the sake of simplicity, let's break it down into six general steps.
