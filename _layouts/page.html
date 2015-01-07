@@ -7,7 +7,7 @@ layout: default
     <h1>{{ page.title }}</h1>
   </header>
 
-  {% if page.title != 'Kite: A Data API for Hadoop' %}
+  {% if page.sidebar != 'hidden' %}
   <div class="sidebar">
   {% for group in site.data.sidebar %}
     <h4>{{group.topic}}</h4>

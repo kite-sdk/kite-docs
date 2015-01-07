@@ -1,5 +1,6 @@
 ---
 layout: page
+sidebar: hidden
 title: 'Kite: A Data API for Hadoop'
 ---
 
@@ -11,7 +12,7 @@ Kite's API and tools are built around datasets. Datasets are uniquely identified
 
 Dataset is a consistent interface for working with your data. You have control of implementation details, such as whether to use Avro or Parquet format, HDFS or HBase storage, and snappy compression or another. You only have to tell Kite what to do; Kite handles the implementation for you.
 
-<div class="right">
+<div class="left">
 {% highlight text %}
 $> kite-dataset csv-import ratings.csv \
               dataset:hbase:zk/ratings
@@ -23,7 +24,7 @@ Kite's command-line interface helps you manage datasets with pre-built tasks lik
 
 [<i class="fa fa-chevron-right"></i>&nbsp; Get started with Kite's CSV tutorial][kite-cli]
 
-<div class="left">
+<div class="right">
 {% highlight java %}
 View latest = Datasets.load(uri)
     .from("time", startOfToday)

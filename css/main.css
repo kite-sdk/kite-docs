@@ -19,6 +19,7 @@ body {
   line-height: 1.5;
   font-weight: 400;
   background-color: #fdfdfd;
+  text-align: justify;
 }
 
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: 400; }
@@ -99,7 +100,7 @@ table td {
 .wrap:after { content:""; display:table; }
 .wrap:after { clear: both; }
 .wrap {
-  max-width: 800px;
+  max-width: 1000px;
   padding: 0 30px;
   margin: 0 auto;
   zoom: 1;
@@ -211,6 +212,7 @@ table td {
   width: 12em;
   position: relative;
   right: -1em;
+  text-align: left;
 }
 
 .sidebar h4 {
