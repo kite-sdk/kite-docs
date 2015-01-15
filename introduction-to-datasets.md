@@ -11,11 +11,13 @@ To define a dataset, Kite minimally requires a [URI](#uris) and a [schema](#sche
 
 Kite identifies datasets by URI. The URI you provide tells Kite how and where to store data. For example, a dataset created with the URI `dataset:hdfs:/user/cloudera/datasets/movies` is stored in HDFS.
 
-The default storage _scheme_ (as opposed to a _[schema](#schemas)_, described below) is Hive. If you omit the scheme in your URI, your dataset is stored in Hive. For example, the URI `movies` is equivalent to `dataset:hive:/movies`. A dataset you create with this URI is stored as a table in Hive's `default` database.
+URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive). You can also retrieve the values using the `Datasets.list` method.
 
-Dataset URIs cannot contain periods (.).
+Often, the name and namespace provide a location that could be an HDFS path.
 
-You can create datasets in Hive, HDFS, HBase, or as local files. See [Dataset and View URIs]({{site.baseurl}}/URIs.html).
+To ensure compatibility with underlying systems, names and namespaces in URIs must be mode of alphanumeric characters or underscore (_) and cannot start with a number.
+
+You can create datasets in Hive, HDFS, HBase, or as local files. There are several URI patterns available and additional options.See [Dataset and View URIs]({{site.baseurl}}/URIs.html).
 
 ## Schemas
 
@@ -29,8 +31,8 @@ A schema defines the field names and datatypes for a dataset. Kite relies on an 
   "fields":[
     {"name":"id","type":"int"},
     {"name":"title","type":"string"},
-    {"name":"releaseDate","type":"string"},
-    {"name":"imdbUrl","type":"string"}
+    {"name":"release_date","type":"string"},
+    {"name":"imdb_url","type":"string"}
   ]
 }
 ```
@@ -47,56 +49,70 @@ The goal is to get the schema into `.avsc` format. The following links provide e
 [cli-schema-from-class]: {{site.baseurl}}/cli-reference.html#obj-schema
 [cli-schema-from-csv]: {{site.baseurl}}/cli-reference.html#csv-schema
 
+## Partitions
+
+Partitions define logical categories for data storage. For example, you might most often retrieve your data using time-based queries. You can define a partitioning strategy by year, month, day, and hour. When you look for data from January 8, 2015, your search engine only has to look in the data partition `/year=2015/month=1/day=8`. By using partitions that correspond to your most common queries, your data searches run more quickly.
+
+Partitioning is optional, because there are times when partitioning is not the most efficient solution. However, you should always consider partitioning as a best practice when planning your dataset.
+
+When using the CLI, you define your partition strategy in [JSON format][json-format] and apply it when you create your dataset. See [Partitioned Datasets][partition-strategy].
+
+When using the API, you define your dataset in the `DatasetDescriptor.Builder`. See [Partition Builder][partition-builder].
+
+For example, you can use the CLI command `partition-config` to define a partition strategy using name:value pairs to specify that the dataset should be partitioned on a timestamp (`ts`) field by year, month, and day.
+
+```
+user@work:~$ kite-dataset partition-config ts:year ts:month ts:day -s rating.avsc
+```
+The result is a partition definition in JSON format. You can use the `-o` option to out put the result and store it in a .json file.
+
+```JSON
+[ {
+  "name" : "year",
+  "source" : "ts",
+  "type" : "year"
+}, {
+  "name" : "month",
+  "source" : "ts",
+  "type" : "month"
+}, {
+  "name" : "day",
+  "source" : "ts",
+  "type" : "day"
+} ]
+```
+
+[json-format]: {{site.baseurl}}/Partition-Strategy-Format.html
+[partition-strategy]: {{site.baseurl}}/Partitioned-Datasets.html#partition-strategies
+[partition-builder]: {{site.baseurl}}/API-Overview.html#partition-strategy
+
 ## Configuration Options
 
 While you need only a URI and schema to create a dataset, you can enhance the performance of your dataset with additional configuration.
 
-### Partitions
-
-Partitions define logical categories for data storage. For example, you might most often retrieve your data using time-based queries. You can define a partitioning strategy by year, month, day, and hour. When you look for data from January 8, 2015 between 8:00 and 9:00 a.m., your search engine only has to look in the data partition `/2015/1/8/8`. By using partitions that correspond to your most common queries, your data searches run more quickly.
-
-You define your partition strategy in [JSON format][json-format] and apply it when you create your dataset. See [Partitioned Datasets][partition-strategy].
-
-[json-format]: {{site.baseurl}}/Partition-Strategy-Format.html
-[partition-strategy]: {{site.baseurl}}/Partitioned-Datasets.html
-
-
 ### Column Mapping
 
-Column mapping allows you to configure how your records should be stored in HBase for maximum performance and efficiency. You define column mapping in JSON format in a data-centric way. Kite stores and retrieves the data correctly. See [Column Mapping][column-mapping].
+Column mapping allows you to configure how your records should be stored in HBase for maximum performance and efficiency. You define column mapping in JSON format in a data-centric way. Kite stores and retrieves the data correctly. 
+
+See [Column Mapping][column-mapping]. See also the [CLI mapping-config command][cli-mapping-config].
 
 [column-mapping]: {{site.baseurl}}/Column-Mapping.html
+[cli-mapping-config]: {{site.baseurl}}/cli-reference.html#mapping-config
 
 ### Properties
 
-You can add custom settings to dataset properties at creation time using the `--set` option. For example, you might create the dataset _users_ using a cache size of 20 (rather than the default cache size of 10):
+You can add custom settings to dataset properties at creation time using the `--set` option. For example, in the CLI you might create the dataset _users_ using a cache size of 20 (rather than the default cache size of 10):
 
 ```
 kite-dataset create users --schema user.avsc --set kite.writer.cache-size=20
 ```
 
-You can also define key-value pairs to use as custom properties in your application by appending the option `--set prop.name=value`.
+You can also create custom properties for your own applications. See [Using Kite Properties]({{site.baseurl}}/using-kite-properties.html).
 
-## Working with Datasets
+## Next Steps
 
-Datasets you create using Kite are no different than any other Hadoop dataset. For example, you can query the data with Hive and Impala. You can use commands in the Kite CLI and API for additional manipulation and analysis.
+The example [Using the Kite Command Line Interface to Create a Dataset]({{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html) demonstrates many of the features described above, and shows you how to create your own Hadoop dataset using only three commands.
 
-### Loading Data from CSV
-
-You can load comma separated value records into a dataset using the command line interface function [csv-import][csv-import].
-
-[csv-import]: {{site.baseurl}}/cli-reference.html#csv-import
-
-### Showing Your Data
-
-For quick verification that your data has loaded properly, you can retrieve the top _n_ records in your dataset using the command line interface function [show][cli-show].
-
-You can query your dataset using Hive and Impala in Hue, by using Impala from a terminal command line, or however you typically interact with datasets in Hadoop.
-
-You can also retrieve a subset of the records in your dataset by defining a view. See [Dataset and View URIs][dataset-uris].
-
-[cli-show]: {{site.baseurl}}/cli-reference.html#show
-[dataset-uris]: {{site.baseurl}}/URIs.html
 ---
 
 #### Notes:
