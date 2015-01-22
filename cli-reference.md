@@ -78,6 +78,15 @@ The schema produced by this command is a record based on the first few lines of 
 
 Field schemas are set by inspecting the first non-empty value in each field. Fields are nullable unless the field's name is passed using `--require`. Nullable fields default to `null`.
 
+The type is determined by the following rules:
+* If the data is numeric and has a decimal point, the type is `double`
+* If the data is numeric and has no decimal point, the type is `long`
+* Otherwise, the type is `string`
+
+See [CSV format details][csv-format].
+
+[csv-format]: {{site.baseurl}}/read-only-formats.html#csv
+
 ### Syntax
 
 ```
