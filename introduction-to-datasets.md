@@ -19,7 +19,9 @@ You can create datasets in Hive, HDFS, HBase, or as local files. There are sever
 
 ## Schemas
 
-A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. For example, this is the schema definition for a table using four columns from the `movies` dataset.[<sup>1</sup>](#notes)
+A schema defines the field names and datatypes for a dataset. Kite relies on an Apache Avro schema definition for each dataset. The Kite team made this choice because Avro supports all three data models exposed in Kite (generic, reflect, specific) and also works with Parquet format.
+
+For example, this is the schema definition for a table using four columns from the `movies` dataset.[<sup>1</sup>](#notes)
 
 ```json
 {
@@ -88,11 +90,11 @@ The result is a partition definition in JSON format. You can use the `-o` option
 
 ## Configuration Options
 
-While you need only a URI and schema to create a dataset, you can enhance the performance of your dataset with additional configuration.
+While you need only a URI and schema to create a dataset, you can use properties for additional control over how Kite reads or writes your data.
 
 ### Column Mapping
 
-Column mapping allows you to configure how your records should be stored in HBase for maximum performance and efficiency. You define column mapping in JSON format in a data-centric way. Kite stores and retrieves the data correctly. 
+HBase requires that you use column mapping to configure how your records should be stored. You define column mapping in JSON format in a data-centric way. Kite stores and retrieves the data correctly. 
 
 See [Column Mapping][column-mapping]. See also the [CLI mapping-config command][cli-mapping-config].
 
@@ -101,7 +103,9 @@ See [Column Mapping][column-mapping]. See also the [CLI mapping-config command][
 
 ### Properties
 
-You can add custom settings to dataset properties at creation time using the `--set` option. For example, in the CLI you might create the dataset _users_ using a cache size of 20 (rather than the default cache size of 10):
+You can add custom settings to dataset properties at creation time.
+
+For example, Kite's default cache size is 10. This is the number of files that are open at any one time; each file represents a partition in the dataset written to by your application. In the CLI, you can use the `--set` option to increase the cache size of 20:
 
 ```
 kite-dataset create users --schema user.avsc --set kite.writer.cache-size=20
