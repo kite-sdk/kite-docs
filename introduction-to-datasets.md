@@ -11,13 +11,11 @@ To define a dataset, Kite minimally requires a [URI](#uris) and a [schema](#sche
 
 Kite identifies datasets by URI. The URI you provide tells Kite how and where to store data. For example, a dataset created with the URI `dataset:hdfs:/user/cloudera/datasets/movies` is stored in HDFS.
 
-URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive). You can also retrieve the values using the `Datasets.list` method.
+URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive). You can retrieve the names and namespaces for the available datasets using the [`Datasets.list`](http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/Datasets.html#list(java.net.URI)) method.
 
-Often, the name and namespace provide a location that could be an HDFS path.
+To ensure compatibility with Hive and other underlying systems, names and namespaces in URIs must be mode of alphanumeric characters or underscore (\_) and cannot start with a number.
 
-To ensure compatibility with underlying systems, names and namespaces in URIs must be mode of alphanumeric characters or underscore (_) and cannot start with a number.
-
-You can create datasets in Hive, HDFS, HBase, or as local files. There are several URI patterns available and additional options.See [Dataset and View URIs]({{site.baseurl}}/URIs.html).
+You can create datasets in Hive, HDFS, HBase, or as local files. There are several URI patterns available and additional options. See [Dataset and View URIs]({{site.baseurl}}/URIs.html).
 
 ## Schemas
 
@@ -37,7 +35,7 @@ A schema defines the field names and datatypes for a dataset. Kite relies on an 
 }
 ```
 
-The goal is to get the schema into `.avsc` format. The following links provide examples for inferring schemas from data files or Java classes.
+The following links provide examples for inferring schemas from data files or Java classes.
 
 | Java API                                                      | Command Line Interface |
 | --------                                                      | ---------------------- |
@@ -51,19 +49,20 @@ The goal is to get the schema into `.avsc` format. The following links provide e
 
 ## Partitions
 
-Partitions define logical categories for data storage. For example, you might most often retrieve your data using time-based queries. You can define a partitioning strategy by year, month, day, and hour. When you look for data from January 8, 2015, your search engine only has to look in the data partition `/year=2015/month=1/day=8`. By using partitions that correspond to your most common queries, your data searches run more quickly.
+Partitions define logical divisions for data storage. For example, you might most often work with data using time-based queries. You can define a partitioning strategy by year, month, and day. When you are using data from January 8, 2015, Hadoop only has to access data stored in the partition `/year=2015/month=1/day=8`. By using partitions that correspond to your most common queries, your applications run more quickly.
 
 Partitioning is optional, because there are times when partitioning is not the most efficient solution. However, you should always consider partitioning as a best practice when planning your dataset.
 
-When using the CLI, you define your partition strategy in [JSON format][json-format] and apply it when you create your dataset. See [Partitioned Datasets][partition-strategy].
+You define your partition strategy in [JSON format][json-format] and apply it when you create your dataset. See [Partitioned Datasets][partition-strategy].
 
-When using the API, you define your dataset in the `DatasetDescriptor.Builder`. See [Partition Builder][partition-builder].
+When using the API, you define your dataset in the [`DatasetDescriptor.Builder`](http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html#partitionStrategy(java.io.File)). 
 
-For example, you can use the CLI command `partition-config` to define a partition strategy using name:value pairs to specify that the dataset should be partitioned on a timestamp (`ts`) field by year, month, and day.
+For example, you can use the CLI command [`partition-config`][cli-partition-config] to define a partition strategy using name:value pairs to specify that the dataset should be partitioned on a timestamp (`ts`) field by year, month, and day.
 
 ```
 user@work:~$ kite-dataset partition-config ts:year ts:month ts:day -s rating.avsc
 ```
+
 The result is a partition definition in JSON format. You can use the `-o` option to out put the result and store it in a .json file.
 
 ```JSON
@@ -85,6 +84,7 @@ The result is a partition definition in JSON format. You can use the `-o` option
 [json-format]: {{site.baseurl}}/Partition-Strategy-Format.html
 [partition-strategy]: {{site.baseurl}}/Partitioned-Datasets.html#partition-strategies
 [partition-builder]: {{site.baseurl}}/API-Overview.html#partition-strategy
+[cli-partition-config]: {{site.baseurl}}/cli-reference.html#partition-config
 
 ## Configuration Options
 

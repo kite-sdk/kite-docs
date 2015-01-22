@@ -9,12 +9,17 @@ Kite gives you the option of changing settings of existing system properties to 
 
 There are several dataset properties that affect how files are written. These settings are especially relevant for Parquet because it buffers records in memory. 
 
+### kite.write.cache-size
+
 `kite.write.cache-size` controls the number of files kept open by an HDFS or Hive dataset writer.
 
 Writers open one file per partition to which they write records. When the writer receives a record that goes in a new partition (one for which there isn't an open file) it creates a new file in that partition. If the number of open files exceeds the cache size, Kite closes the file that was used least recently.
 
+### parquet.block.size
+
 Kite passes descriptor properties to the underlying file formats. For example, Parquet defines `parquet.block.size`, which is approximately the amount of data that is buffered before writing a group of records (a "row group"). `parquet.block.size` defaults to 128MB.
 
+#### Avoiding Parquet OutOfMemory Exceptions
 The amount of data kept in memory for each file could be up to the Parquet block size in bytes. That means that the upper bound for a writer's memory consumption is `parquet.block.size` * `kite.writer.cache-size`. It is important that this number doesn't exceed a reasonable portion of the heap memory allocated to the process, or else the write could fail with an `OutOfMemoryException`. You can set these properties on your datasets with [`DatasetDescriptor.Builder.property`][dataset-descriptor-builder] when using the API, or with the `--set` option from the command line.
 
 ```
