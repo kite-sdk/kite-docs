@@ -9,6 +9,8 @@ Kite gives you the option of changing settings of existing system properties to 
 
 There are several dataset properties that affect how files are written. These settings are especially relevant for Parquet because it buffers records in memory. 
 
+You can set properties on your datasets with [`DatasetDescriptor.Builder.property`][dataset-descriptor-builder] when using the API, or with the `--set` option from the command line.
+
 ### kite.write.cache-size
 
 `kite.write.cache-size` controls the number of files kept open by an HDFS or Hive dataset writer.
@@ -20,7 +22,8 @@ Writers open one file per partition to which they write records. When the writer
 Kite passes descriptor properties to the underlying file formats. For example, Parquet defines `parquet.block.size`, which is approximately the amount of data that is buffered before writing a group of records (a "row group"). `parquet.block.size` defaults to 128MB.
 
 #### Avoiding Parquet OutOfMemory Exceptions
-The amount of data kept in memory for each file could be up to the Parquet block size in bytes. That means that the upper bound for a writer's memory consumption is `parquet.block.size` * `kite.writer.cache-size`. It is important that this number doesn't exceed a reasonable portion of the heap memory allocated to the process, or else the write could fail with an `OutOfMemoryException`. You can set these properties on your datasets with [`DatasetDescriptor.Builder.property`][dataset-descriptor-builder] when using the API, or with the `--set` option from the command line.
+
+The amount of data kept in memory for each file could be up to the Parquet block size in bytes. That means that the upper bound for a writer's memory consumption is `parquet.block.size` * `kite.writer.cache-size`. It is important that this number doesn't exceed a reasonable portion of the heap memory allocated to the process, or else the write could fail with an `OutOfMemoryException`. 
 
 ```
 kite-dataset update <uri> --set kite.writer.cache-size=2
@@ -30,7 +33,7 @@ Note that Cloudera does not recommend decreasing the `parquet.block.size`.
 
 ## Creating Custom Properties
 
-In addition to setting existing system properties, you can create your own key-value pairs to use as custom properties in your application. When using the  [CLI create command]({{site.baseurl}}/cli-reference.html#create), you add custom properties with the option `--set prop.name=value`.
+In addition to setting existing system properties, you can create your own key-value pairs to use as custom properties in your application. When using the  CLI [`create`]({{site.baseurl}}/cli-reference.html#create) or [`update`]({{site.baseurl}}/cli-reference.html#update)command, you add custom properties with the option `--set prop.name=value`.
 
 When using the Kite API, you can add properties using [DatasetDescriptor.Builder.property][dataset-descriptor-builder].
 
