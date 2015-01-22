@@ -27,8 +27,10 @@ Each command is described below. See [Using the Kite CLI to Create a Dataset][cl
 * [schema](#schema) : view the schema for an existing dataset.
 * [info](#info): show metadata for a dataset.
 * [show](#show): show the first _n_ records of a dataset.
-* [csv-schema](#csv-schema): create a schema from a CSV data file.
-* [csv-import](#csv-import): import a CSV data file.
+* [csv-schema](#csv-schema): create a schema from a CSV data sample.
+* [csv-import](#csv-import): import CSV data.
+* [json-schema](#json-schema): create a schema from a JSON data sample.
+* [json-import](#json-import): import JSON data.
 * [obj-schema](#obj-schema): create a schema from a Java object.
 * [partition-config](#partition-config): create a partition strategy for a schema.
 * [mapping-config](#mapping-config): create a mapping strategy for a schema.
@@ -117,6 +119,75 @@ Write the schema to sample.avsc:
 
 ```
 {{site.dataset-command}} csv-schema sample.csv --class Sample -o sample.avsc
+```
+
+----
+
+[Back to the Top](#top)
+
+----
+
+## json-schema
+
+Build a schema from a JSON data sample.
+
+This command produces a Schema by inspecting the first few JSON objects in the data sample. Each JSON object is converted to a Schema that describes it, and the final Schema is the result of merging each sample object's Schema.
+
+The following two-object data sample, for example
+
+```JSON
+{ "id": 1, "color": "green", "shade": "dark" }
+{ "id": 2, "color": "red" }
+```
+
+Produces the following merged Schema
+
+```JSON
+{
+  "type" : "record",
+  "name" : "Sample",
+  "fields" : [ {
+    "name" : "id",
+    "type" : "int"
+  }, {
+    "name" : "color",
+    "type" : "string"
+  }, {
+    "name" : "shade",
+    "type" : [ "null", "string" ],
+    "default" : null
+  } ]
+}
+```
+
+See [JSON format details][json-format].
+
+[json-format]: {{site.baseurl}}/read-only-formats.html#json
+
+### Syntax
+
+```
+{{site.dataset-command}} [-v] json-schema <sample json path> [command options]
+```
+
+### Options
+
+| `--class,`<br />`--record-name` | A class name or record name for the schema result. This value is **required**. |
+| `-o, --output`           | Save schema avsc to path. |
+| `--minimize`             | Minimize schema file size by eliminating white space. |
+
+### Examples
+
+Print an inferred schema for `samples.json` to standard out
+
+```
+{{site.dataset-command}} json-schema samples.json --record-name Sample
+```
+
+Write an inferred schema to `sample.avsc`
+
+```
+{{site.dataset-command}} json-schema samples.json --record-name Sample -o sample.avsc
 ```
 
 ----
@@ -305,6 +376,8 @@ Kite matches the CSV header to the target record schema's fields by name. If a h
 
 As Kite constructs each record, it validates values using the target field's schema. Invalid values (in numeric fields) and null values (in required fields) cause exceptions. Kite handles empty strings as null values for numeric fields.
 
+See [CSV format details][csv-format].
+
 ### Syntax
 
 ```
@@ -313,11 +386,15 @@ As Kite constructs each record, it validates values using the target field's sch
 
 ### Options
 
-| `--no-header` | Use this option when the CSV data file does not have header information in the first line.<br />Fields are given the default names *field_0*, *field_1,...field_n*. |
-| `--skip-lines` | Lines to skip before CSV start (default: 0) |
-| `--delimiter` | Delimiter character. Default is comma (,). |
-| `--escape` | Escape character. Default is backslash (\\). |
-| `--quote` | Quote character. Default is double quote ("). |
+| `--no-header`     | Use this option when the CSV data file does not have header information in the first line.<br />Fields are given the default names *field_0*, *field_1,...field_n*. |
+| `--skip-lines`    | Lines to skip before CSV start (default: 0) |
+| `--delimiter`     | Delimiter character. Default is comma (,). |
+| `--escape`        | Escape character. Default is backslash (\\). |
+| `--quote`         | Quote character. Default is double quote ("). |
+| `--num-writers`   | The number of writer processes to use |
+| `--no-compaction` | Copy to output directly, without compacting the data |
+| `--jar`           | Add a jar to the runtime classpath |
+| `--transform`     | A transform DoFn class name |
 
 ### Examples
 
@@ -326,6 +403,63 @@ Copy the records from `sample.csv` to a Hive dataset named "sample":
 ```
 {{site.dataset-command}} csv-import path/to/sample.csv sample
 ```
+
+----
+
+[Back to the Top](#top)
+
+----
+
+## json-import
+
+Copy JSON objects into a dataset
+
+Kite uses the target dataset's Schema to validate and store the JSON objects.
+
+* All values must match the type specified in the target Schema
+* JSON objects will match both record and map Schemas
+* When converting a JSON object with a record Schema:
+  * Only the record's fields are used, other key-value pairs are ignored
+  * All fields must be present or have a default value in the record Schema
+* When converting a JSON object with a map Schema, all key-value pairs are used
+
+Invalid values, missing record fields, and other problems cause exceptions.
+
+See [JSON format details][json-format].
+
+### Syntax
+
+```
+{{site.dataset-command}} [-v] json-import <json path> <dataset name> [command options]
+```
+
+### Options
+
+| `--num-writers`   | The number of writer processes to use |
+| `--no-compaction` | Copy to output directly, without compacting the data |
+| `--jar`           | Add a jar to the runtime classpath |
+| `--transform`     | A transform DoFn class name |
+
+### Examples
+
+Copy the records from `sample.json` to dataset `sample`
+
+```
+{{site.dataset-command}} json-import path/to/sample.json sample
+```
+
+Copy the records from `sample.json` to a dataset URI
+
+```
+{{site.dataset-command}} json-import path/to/sample.json dataset:hdfs:/user/me/datasets/sample
+```
+
+Copy the records from an HDFS directory to `sample`
+
+```
+{{site.dataset-command}} json-import hdfs:/data/path/samples/ sample
+```
+
 
 ----
 

@@ -10,6 +10,7 @@ In addition to Avro and Parquet, Kite can read from some other common data forma
 Kite can read CSV files that contain well-formed CSV.
 
 Well-formed CSV:
+
 * Must not contain the newline or delimiter characters in unquoted data fields.
 * Can contain newline and delimiter characters in a data field if the field is quoted
 * Can contain the quote and escape characters in a data field if they are escaped
@@ -19,6 +20,7 @@ The delimiter, quote character, and escape character are configurable. CSV can c
 Kite does not support nested structures within CSV data and will handle it as a string.
 
 See also:
+
 * [`csv-schema`][cli-csv-schema] for inferring an Avro Schema from a CSV data sample
 * [`csv-import`][cli-csv-import] for importing CSV data into an Avro or Parquet dataset
 
@@ -31,11 +33,10 @@ Kite can read JSON files that contain concatenated or whitespace-separated JSON 
 
 Kite does not implement special support for [Avro's JSON encoding][avro-json].
 
-<!-- Uncomment when json-schema and json-import are added.
 See also:
+
 * [`json-schema`][cli-json-schema] for inferring an Avro Schema from a JSON data sample
 * [`json-import`][cli-json-import] for importing JSON data into an Avro or Parquet dataset
--->
 
 [json-spec]: http://json.org/
 [cli-json-schema]: {{site.baseurl}}/cli-reference.html#json-schema
