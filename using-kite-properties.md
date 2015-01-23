@@ -33,8 +33,10 @@ Note that Cloudera does not recommend decreasing the `parquet.block.size`.
 
 ## Creating Custom Properties
 
-In addition to setting existing system properties, you can create your own key-value pairs to use as custom properties in your application. When using the  CLI [`create`]({{site.baseurl}}/cli-reference.html#create) or [`update`]({{site.baseurl}}/cli-reference.html#update)command, you add custom properties with the option `--set prop.name=value`.
+In addition to setting existing system properties, you can create your own key-value pairs to use as custom properties in your application. When using the  CLI [`create`][cli-reference-create] or [`update`][cli-reference-update] command, you add custom properties with the option `--set prop.name=value`.
 
 When using the Kite API, you can add properties using [DatasetDescriptor.Builder.property][dataset-descriptor-builder].
 
-[dataset-descriptor-builder]: http://kitesdk.org/docs/current/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html#property(java.lang.String,%20java.lang.String).
+[cli-reference-create]:{{site.baseurl}}/cli-reference.html#create
+[cli-reference-update]:{{site.baseurl}}/cli-reference.html#update
+[dataset-descriptor-builder]:{{site.baseurl}}/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html#property(java.lang.String,%20java.lang.String)
