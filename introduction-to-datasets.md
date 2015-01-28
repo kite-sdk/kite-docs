@@ -9,16 +9,16 @@ To define a dataset, Kite minimally requires a [URI](#uris) and a [schema](#sche
 
 ## URIs
 
-Kite identifies datasets by URI. The URI you provide tells Kite how and where to store data. For example, a dataset created with the URI `dataset:hdfs:/user/cloudera/datasets/movies` is stored in the `user/cloudera/datasets/movies` directory in HDFS.
+Kite identifies datasets by URI. The URI you provide tells Kite how and where to store data. For example, a dataset created with the URI `dataset:hdfs:/user/cloudera/datasets/movies` is stored in the `/user/cloudera/datasets/movies` directory in HDFS.
 
-URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive). You can retrieve the names and namespaces for the valid datasets underneath the repository URI using the [`Datasets.list`][datasets-list] method.
+URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive).
 
 To ensure compatibility with Hive and other underlying systems, names and namespaces in URIs must be mode of alphanumeric characters or underscore (\_) and cannot start with a number.
 
-You can create datasets in Hive, HDFS, HBase, or as local files. There are several URI patterns available and additional options. See [Dataset and View URIs][dataset-and-view-uris].
+You can create datasets in Hive, HDFS, HBase, or as local files. There are several URI patterns available and additional options. See [Dataset and View URIs][uris].
 
-[datasets-list]: {{site.baseurl}}/apidocs/org/kitesdk/data/Datasets.html#list(java.net.URI)
-[dataset-and-view-uris]:{{site.baseurl}}/URIs.html
+[list]: {{site.baseurl}}/apidocs/org/kitesdk/data/Datasets.html#list(java.net.URI)
+[uris]:{{site.baseurl}}/URIs.html
 
 ## Schemas
 
@@ -58,11 +58,11 @@ Partitions define logical divisions for data storage. For example, you might mos
 
 Partitioning is optional, because there are times when partitioning is not the most efficient solution. However, you should always consider partitioning as a best practice when planning your dataset.
 
-You define your partition strategy in JSON format and apply it when you create your dataset. See [Partitioned Datasets][partition-strategy].
+You define your partition strategy in [partition strategy JSON format][psjf] and apply it when you create your dataset. See [Partitioned Datasets][ps].
 
-When using the API, you define your dataset in the [`DatasetDescriptor.Builder`][datasetdescriptor-builder]. 
+When using the API, you define your dataset in the [`DatasetDescriptor.Builder`][ddb]. 
 
-For example, you can use the CLI command [`partition-config`][cli-partition-config] to define a partition strategy using name:value pairs to specify that the dataset should be partitioned on a timestamp (`ts`) field by year, month, and day.
+For example, you can use the CLI command [`partition-config`][clipc] to define a partition strategy using name:value pairs to specify that the dataset should be partitioned on a timestamp (`ts`) field by year, month, and day.
 
 ```
 user@work:~$ kite-dataset partition-config ts:year ts:month ts:day -s rating.avsc
@@ -85,10 +85,11 @@ The result is a partition definition in JSON format. You can use the `-o` option
   "type" : "day"
 } ]
 ```
-[datasetdescriptor-builder]:{{site.baseurl}}/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html#partitionStrategy(java.io.File)
-[partition-strategy]: {{site.baseurl}}/Partitioned-Datasets.html#partition-strategies
-[partition-builder]: {{site.baseurl}}/API-Overview.html#partition-strategy
-[cli-partition-config]: {{site.baseurl}}/cli-reference.html#partition-config
+
+[ddb]:{{site.baseurl}}/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html#partitionStrategy(java.io.File)
+[ps]: {{site.baseurl}}/Partitioned-Datasets.html#partition-strategies
+[clipc]: {{site.baseurl}}/cli-reference.html#partition-config
+[psjf]: {{site.baseurl}}/Partition-Strategy-Format.html
 
 ## Configuration Options
 
@@ -98,10 +99,10 @@ While you need only a URI and schema to create a dataset, you can use properties
 
 HBase requires that you use column mapping to configure how your records should be stored. You define column mapping in JSON format in a data-centric way. Kite stores and retrieves the data correctly. 
 
-See [Column Mapping][column-mapping]. See also the [CLI mapping-config command][cli-mapping-config].
+See [Column Mapping][cm]. See also the [CLI mapping-config command][climc].
 
-[column-mapping]: {{site.baseurl}}/Column-Mapping.html
-[cli-mapping-config]: {{site.baseurl}}/cli-reference.html#mapping-config
+[cm]: {{site.baseurl}}/Column-Mapping.html
+[climc]: {{site.baseurl}}/cli-reference.html#mapping-config
 
 ### Properties
 
@@ -113,15 +114,15 @@ For example, Kite's default cache size is 10. This is the number of files that a
 kite-dataset create users --schema user.avsc --set kite.writer.cache-size=20
 ```
 
-You can also create custom properties for your own applications. See [Using Kite Properties][using-kite-properties].
+You can also create custom properties for your own applications. See [Using Kite Properties][useprop].
 
-[using-kite-properties]:{{site.baseurl}}/using-kite-properties.html
+[useprop]:{{site.baseurl}}/using-kite-properties.html
 
 ## Next Steps
 
-The example [Using the Kite Command Line Interface to Create a Dataset][using-the-kite-cli-to-create-a-dataset] demonstrates many of the features described above, and shows you how to create your own Hadoop dataset using only three commands.
+The example [Using the Kite Command Line Interface to Create a Dataset][usecli] demonstrates many of the features described above, and shows you how to create your own Hadoop dataset using only three commands.
 
-[using-the-kite-cli-to-create-a-dataset]:{{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
+[usecli]:{{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
 
 ---
 
