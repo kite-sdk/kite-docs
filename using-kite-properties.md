@@ -31,7 +31,7 @@ The amount of data kept in memory for each file could be up to the Parquet block
 kite-dataset update <uri> --set kite.writer.cache-size=2
 ```
 
-The recommended way to avoid out of memory errors is to write to fewer files. To help with that, [CrunchDatasets.partition][cd-partition] methods restructure the parallel collection so that all of the entities stored in a given partition are processed by the same writer.
+The recommended way to avoid out of memory exceptions is to write to fewer files. To help with that, [CrunchDatasets.partition][cd-partition] methods restructure the parallel collection so that all of the entities stored in a given partition are processed by the same writer.
 
 [cd-partition]:{{site.baseurl}}/apidocs/org/kitesdk/data/crunch/CrunchDatasets.html#partition(org.apache.crunch.PCollection,%20org.kitesdk.data.Dataset)
 
