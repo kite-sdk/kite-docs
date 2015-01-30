@@ -7,10 +7,10 @@ A dataset is a collection of records, similar to a relational database table. Re
 
 To define a dataset, Kite minimally requires a [URI](#uris) and a [schema](#schemas).
 
-When using the CLI, you define your dataset using the [`create`][create] command. When using the API, you define your dataset using [`DatasetDescriptor.Builder`][dataset-desc-bldr].
+When using the CLI, you define your dataset using the [`create`][create] command. When using the API, you define your dataset using the [Datasets.create][datasets-create] method.
 
 [create]:{{site.baseurl}}/cli-reference.html#create
-[dataset-desc-bldr]:{{site.baseurl}}/apidocs/org/kitesdk/data/DatasetDescriptor.Builder.html#partitionStrategy(java.io.File)
+[datasets-create]:{{site.baseurl}}/apidocs/org/kitesdk/data/Datasets.html#create(java.net.URI,%20org.kitesdk.data.DatasetDescriptor)
 
 ## URIs
 

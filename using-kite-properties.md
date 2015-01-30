@@ -13,7 +13,7 @@ You can set properties on your datasets with [`DatasetDescriptor.Builder.propert
 
 ### kite.write.cache-size
 
-`kite.write.cache-size` controls the number of files kept open by an HDFS or Hive dataset writer.
+`kite.write.cache-size` controls the number of files kept open by an HDFS or Hive dataset writer. The default cache size is 10.
 
 Writers open one file per partition to which they write records. When the writer receives a record that goes in a new partition (one for which there isn't an open file) it creates a new file in that partition. If the number of open files exceeds the cache size, Kite closes the file that was used least recently.
 
@@ -31,7 +31,7 @@ The amount of data kept in memory for each file could be up to the Parquet block
 kite-dataset update <uri> --set kite.writer.cache-size=2
 ```
 
-The recommended way to avoid out of memory exceptions is to write to fewer files. To help with that, [CrunchDatasets.partition][cd-partition] methods restructure the parallel collection so that all of the entities stored in a given partition are processed by the same writer.
+The recommended way to avoid out of memory exceptions is to write to fewer files. To help with that, [CrunchDatasets.partition][cd-partition] methods restructure the collected data so that all of the records stored in a given partition are processed by the same writer.
 
 [cd-partition]:{{site.baseurl}}/apidocs/org/kitesdk/data/crunch/CrunchDatasets.html#partition(org.apache.crunch.PCollection,%20org.kitesdk.data.Dataset)
 
