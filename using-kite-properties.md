@@ -3,7 +3,7 @@ layout: page
 title: Using Kite Properties
 ---
 
-Kite gives you the option of changing settings of existing system properties to enhance performance. You also have the option of creating custom properties.
+Kite gives you the option of changing settings of existing system properties to enhance performance. You also have the option of creating custom properties for additional control over how Kite reads or writes your data.
 
 ## Setting Kite Properties
 
@@ -17,6 +17,8 @@ You can set properties on your datasets with [`DatasetDescriptor.Builder.propert
 
 Writers open one file per partition to which they write records. When the writer receives a record that goes in a new partition (one for which there isn't an open file) it creates a new file in that partition. If the number of open files exceeds the cache size, Kite closes the file that was used least recently.
 
+For example, you might have an application writing a year's worth of data to year/month partitions. There are 12 partitions, but only 10 files open at the same time. The application must constantly close and open files, which slows down your writes. If you increase the writer cache to 12, you can have files for all 12 months open at once.
+
 ### parquet.block.size
 
 Kite passes descriptor properties to the underlying file formats. For example, Parquet defines `parquet.block.size`, which is approximately the amount of data that is buffered before writing a group of records (a "row group"). `parquet.block.size` defaults to 128MB.
@@ -29,7 +31,9 @@ The amount of data kept in memory for each file could be up to the Parquet block
 kite-dataset update <uri> --set kite.writer.cache-size=2
 ```
 
-Note that Cloudera does not recommend decreasing the `parquet.block.size`.
+The recommended way to avoid out of memory errors is to write to fewer files. To help with that, [CrunchDatasets.partition][cd-partition] methods restructure the parallel collection so that all of the entities stored in a given partition are processed by the same writer.
+
+[cd-partition]:{{site.baseurl}}/apidocs/org/kitesdk/data/crunch/CrunchDatasets.html#partition(org.apache.crunch.PCollection,%20org.kitesdk.data.Dataset)
 
 ## Creating Custom Properties
 
