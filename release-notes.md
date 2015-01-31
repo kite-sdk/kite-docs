@@ -6,6 +6,17 @@ title: 'Kite SDK Release Notes'
 All past Kite releases are documented on this page. Upcoming release dates can be found in
 [JIRA](https://issues.cloudera.org/browse/CDK#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel).
 
+## Version TBD
+
+Release date: TBD
+
+Version TBD contains the following notable changes:
+
+* Morphlines Library
+    * Upgraded kite-morphlines-solr-* to solr-4.10.3
+    * Upgraded kite-morphlines-tika-* to tika-1.5 (in sync with solr-4.10.3)
+    * Avoid NPE in geoIP morphline command if IP is not found (Santiago Mola via whoschek)
+
 ## Version 0.17.1
 
 Release date: 9 December 2014
