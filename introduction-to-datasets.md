@@ -14,13 +14,19 @@ When using the CLI, you define your dataset using the [`create`][create] command
 
 ## URIs
 
-Kite identifies datasets by URI. The URI you provide tells Kite how and where to store data. For example, a dataset created with the URI `dataset:hdfs:/user/cloudera/animals/donkeys` is stored in the `/user/cloudera/animals/donkeys` directory in HDFS, with _animals_ as the namespace and _donkeys_ as the dataset name.
+Kite identifies datasets by URI. The URI you provide tells Kite how and where to store data. For example, a dataset created with the URI `dataset:hdfs:/user/cloudera/animals/donkeys` is stored in the `/user/cloudera/animals/donkeys` directory in HDFS.
 
-URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive). The name and namespace are typically the last two values in a URI. For example, the URI `dataset:hive:animals/donkeys` creates a dataset named _donkeys_ in the _animals_ namespace.
+### Names and Namespaces 
+
+URIs also define a name and namespace for your dataset. Kite uses these values when the underlying system has the same concept (for example, Hive). The name and namespace are typically the last two values in a URI. For example, if you create a dataset using the URI `dataset:hive:animals/donkeys`, Kite stores a Hive dataset named _donkeys_ in the _animals_ namespace. If you create a dataset using the URI `dataset:hdfs:/user/cloudera/animals/donkeys`, Kite stores an HDFS dataset named _donkeys_ in the _animals_ namespace.
 
 To ensure compatibility with Hive and other underlying systems, names and namespaces in URIs must be mode of alphanumeric characters or underscore (\_) and cannot start with a number.
 
-You can create datasets in Hive, HDFS, HBase, or as local files. There are several URI patterns available and additional options. See [Dataset and View URIs][uris].
+### URI Schemes
+
+You can create datasets using the schemes _Hive_, _HDFS_, _HBase_, or as local files. There are several URI patterns available and additional options. See [Dataset and View URIs][uris].
+
+Note that a URI _scheme_, which describes the storage location type, is different than a dataset _schema_, which describes the format of records in the dataset.
 
 [list]: {{site.baseurl}}/apidocs/org/kitesdk/data/Datasets.html#list(java.net.URI)
 [uris]:{{site.baseurl}}/URIs.html
@@ -59,9 +65,9 @@ The following links provide examples for inferring schemas from data files or Ja
 
 ## Partitions
 
-Partitions define logical divisions for data storage. For example, you might most often work with data using time-based queries. You can define a partitioning strategy by year, month, and day. When you are using data from January 8, 2015, Hadoop only has to access data stored in the partition `/year=2015/month=1/day=8`. By using partitions that correspond to your most common queries, your applications run more quickly.
+Partitions define optional logical divisions for data storage. For example, you might most often work with data using time-based queries. You can define a partitioning strategy by year, month, and day. When you are using data from January 8, 2015, Hadoop only has to access data stored in the partition `/year=2015/month=1/day=8`. By using partitions that correspond to your most common queries, your applications run more quickly.
 
-Partitioning is optional, because there are times when partitioning is not the most efficient solution. However, you should always consider partitioning as a best practice when planning your dataset.
+Partitioning is optional because there are times when partitioning is not the most efficient solution. However, you should always consider partitioning as a best practice when planning your dataset.
 
 Kite validates your partition strategy using the dataset schema. This catches problems early. For example, if you mistakenly type in your partition definition _timestmap_, validation catches the typo because the schema has a _timestamp_ column. Kite also validates that field types can be partitioned on the selected value. For example, you can't extract a year from a string.
 
@@ -114,7 +120,7 @@ See [Column Mapping][column-mapping]. See also the [CLI mapping-config command][
 
 You can add custom settings to dataset properties at creation time for additional control over how Kite reads or writes your data.
 
-For example, Kite's default cache size is 10. This is the number of files that are open at any one time; each file represents a partition in the dataset written to by your application. In the CLI, you can use the `--set` option to increase the cache size of 20:
+For example, Kite's default cache size is 10. This is the number of files that are open at any one time; each file represents a partition in the dataset written to by your application. In the CLI, you can use the `--set` option to increase the cache size of 20.
 
 ```
 kite-dataset create users --schema user.avsc --set kite.writer.cache-size=20

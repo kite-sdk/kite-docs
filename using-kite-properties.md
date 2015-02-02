@@ -25,7 +25,7 @@ Kite passes descriptor properties to the underlying file formats. For example, P
 
 #### Avoiding Parquet OutOfMemory Exceptions
 
-The amount of data kept in memory for each file could be up to the Parquet block size in bytes. That means that the upper bound for a writer's memory consumption is `parquet.block.size` * `kite.writer.cache-size`. It is important that this number doesn't exceed a reasonable portion of the heap memory allocated to the process, or else the write could fail with an `OutOfMemoryException`. 
+The amount of data kept in memory for each file could be up to the Parquet block size in bytes. That means that the upper bound for a writer's memory consumption is `parquet.block.size` multiplied by the `kite.writer.cache-size`. It is important that this number doesn't exceed a reasonable portion of the heap memory allocated to the process, or else the write could fail with an `OutOfMemoryException`. 
 
 ```
 kite-dataset update <uri> --set kite.writer.cache-size=2
