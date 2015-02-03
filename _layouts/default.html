@@ -8,6 +8,23 @@
     {% include header.html %}
 
     <div class="page-content">
+      {% if page.sidebar != 'hidden' %}
+      <div class="sidebar">
+      {% for group in site.data.sidebar %}
+        <h4>{{group.topic}}</h4>
+        <ul>
+          {% for link in group.pages %}
+          {% if ((link.alias == page.title) || (link.title == page.title)) %}
+          <li><b>{{link.title}}</b></li>
+          {% else %}
+          <li><a href="{{site.baseurl}}/{{link.file}}">{{link.title}}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      {% endfor %}
+      </div>
+      {% endif %}
+
       <div class="wrap">
       {{ content }}
       </div>
