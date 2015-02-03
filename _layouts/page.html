@@ -7,23 +7,6 @@ layout: default
     <h1>{{ page.title }}</h1>
   </header>
 
-  {% if page.sidebar != 'hidden' %}
-  <div class="sidebar">
-  {% for group in site.data.sidebar %}
-    <h4>{{group.topic}}</h4>
-    <ul>
-      {% for link in group.pages %}
-      {% if ((link.alias == page.title) || (link.title == page.title)) %}
-      <li><b>{{link.title}}</b></li>
-      {% else %}
-      <li><a href="{{site.baseurl}}/{{link.file}}">{{link.title}}</a></li>
-      {% endif %}
-      {% endfor %}
-    </ul>
-  {% endfor %}
-  </div>
-  {% endif %}
-
   <article class="post-content">
   {{ content }}
   </article>
