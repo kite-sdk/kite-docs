@@ -14,7 +14,7 @@ If you haven't already, make sure you've completed [Lab 2: Create a movies datas
 
 ## Data preparation
 
-In this lab, you will use the MovieLens ratings dataset from lab 2.
+In this lab, you will use the MovieLens ratings data from lab 2.
 
 The ratings in `u.data` need a slight transformation before they are immediately usable. Run the following commands to produce `ratings.csv`.
 
