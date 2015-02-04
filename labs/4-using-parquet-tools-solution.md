@@ -11,7 +11,7 @@ This is the solution page for [Lab 4: Using parquet-tools][lab-4].
 List the files in your Hive dataset
 
 ```
-hdfs dfs -ls hdfs:/user/hive/warehouse/movies
+hadoop fs -ls hdfs:/user/hive/warehouse/movies
 ```
 
 ```
@@ -19,10 +19,10 @@ Found 1 items
 -rw-r--r--   1 cloudera hive      77314 2015-02-03 17:26 /user/hive/warehouse/movies/72bc5d73-000f-4f16-ae03-fa14eeb74c38.parquet
 ```
 
-Use the `hdfs` command to copy the `.parquet` file to the local file system.
+Use the `hadoop` command to copy the `.parquet` file to the local file system.
 
 ```
-hdfs dfs -copyToLocal /user/hive/warehouse/movies/72bc5d73-000f-4f16-ae03-fa14eeb74c38.parquet movies.parquet
+hadoop fs -copyToLocal /user/hive/warehouse/movies/72bc5d73-000f-4f16-ae03-fa14eeb74c38.parquet movies.parquet
 ```
 
 ### 1. Dump the file's schema

@@ -17,7 +17,7 @@ If you haven't already, make sure you've completed [Lab 2: Create a movies datas
 Start by listing the contents of the dataset you created in lab 2:
 
 ```
-hdfs dfs -ls hdfs:/user/cloudera/example/movies
+hadoop fs -ls hdfs:/user/cloudera/example/movies
 ```
 
 You should see two entries: an Avro data file with the movies you loaded with Kite, and a metadata folder that has metadata for the overall dataset.
@@ -28,10 +28,10 @@ drwxr-xr-x   - cloudera cloudera          0 2015-02-03 14:19 hdfs:///user/cloude
 -rw-r--r--   1 cloudera cloudera      73090 2015-02-03 14:20 hdfs:///user/cloudera/example/movies/a0f892e6-74e5-4098-bfe3-68e2b119046f.avro
 ```
 
-In this lab, you will use `avro-tools` to inspect the Avro data file from your dataset, which will have a different UUID name. Use the `hdfs` command to copy the `.avro` file to the local file system.
+In this lab, you will use `avro-tools` to inspect the Avro data file from your dataset, which will have a different UUID name. Use the `hadoop` command to copy the `.avro` file to the local file system.
 
 ```
-hdfs dfs -copyToLocal /user/cloudera/example/movies/a0f892e6-74e5-4098-bfe3-68e2b119046f.avro movies.avro
+hadoop fs -copyToLocal /user/cloudera/example/movies/a0f892e6-74e5-4098-bfe3-68e2b119046f.avro movies.avro
 ```
 
 ## Inspect an Avro data file

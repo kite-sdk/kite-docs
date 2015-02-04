@@ -36,7 +36,7 @@ You can verify the data import using either the `show` command.
 Start by listing the contents of the dataset you created above, which is in the Hive warehouse directory:
 
 ```
-hdfs dfs -ls hdfs:/user/hive/warehouse/movies
+hadoop fs -ls hdfs:/user/hive/warehouse/movies
 ```
 
 ```
@@ -44,10 +44,10 @@ Found 1 items
 -rw-r--r--   1 cloudera hive      77314 2015-02-03 17:26 /user/hive/warehouse/movies/72bc5d73-000f-4f16-ae03-fa14eeb74c38.parquet
 ```
 
-Use the `hdfs` command to copy the `.parquet` file to the local file system.
+Use the `hadoop` command to copy the `.parquet` file to the local file system.
 
 ```
-hdfs dfs -copyToLocal /user/hive/warehouse/movies/72bc5d73-000f-4f16-ae03-fa14eeb74c38.parquet movies.parquet
+hadoop fs -copyToLocal /user/hive/warehouse/movies/72bc5d73-000f-4f16-ae03-fa14eeb74c38.parquet movies.parquet
 ```
 
 ## Inspect a Parquet data file

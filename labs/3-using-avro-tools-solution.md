@@ -11,7 +11,7 @@ This is the solution page for [Lab 3: Using avro-tools][lab-3].
 List the files in your dataset
 
 ```
-hdfs dfs -ls hdfs:/user/cloudera/example/movies
+hadoop fs -ls hdfs:/user/cloudera/example/movies
 ```
 
 ```
@@ -20,10 +20,10 @@ drwxr-xr-x   - cloudera cloudera          0 2015-02-03 14:19 hdfs:///user/cloude
 -rw-r--r--   1 cloudera cloudera      73090 2015-02-03 14:20 hdfs:///user/cloudera/example/movies/a0f892e6-74e5-4098-bfe3-68e2b119046f.avro
 ```
 
-Use the `hdfs` command to copy the `.avro` file to the local file system.
+Use the `hadoop` command to copy the `.avro` file to the local file system.
 
 ```
-hdfs dfs -copyToLocal /user/cloudera/example/movies/a0f892e6-74e5-4098-bfe3-68e2b119046f.avro movies.avro
+hadoop fs -copyToLocal /user/cloudera/example/movies/a0f892e6-74e5-4098-bfe3-68e2b119046f.avro movies.avro
 ```
 
 ### 1. Dump the file's header key-value metadata

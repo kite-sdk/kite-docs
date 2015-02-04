@@ -102,7 +102,7 @@ kite-dataset csv-import ratings.csv ratings.avsc
 You can see the partition structure with this [HDFS tree hack][tree-hack]:
 
 ```
-hdfs dfs -ls -R /user/hive/warehouse/ratings | awk '{print $8}' | sed -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
+hadoop fs -ls -R /user/hive/warehouse/ratings | awk '{print $8}' | sed -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
 ```
 ```
  |-------year=1997
