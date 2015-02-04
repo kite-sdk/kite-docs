@@ -96,7 +96,7 @@ The `info` command also shows a partition strategy when one is configured.
 ### 4. Import the ratings data
 
 ```
-kite-dataset csv-import ratings.csv ratings.avsc
+kite-dataset csv-import ratings.csv ratings
 ```
 
 You can see the partition structure with this [HDFS tree hack][tree-hack]:
