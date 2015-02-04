@@ -11,7 +11,7 @@ This is the solution page for [Lab 2: Create a movies dataset][lab-2].
 ```
 curl http://files.grouplens.org/datasets/movielens/ml-100k.zip -o ml-100k.zip
 unzip ml-100k.zip
-cd ml-100k.zip
+cd ml-100k
 ```
 
 [movielens]: http://grouplens.org/datasets/movielens/
