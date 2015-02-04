@@ -31,7 +31,7 @@ kite-dataset csv-import u.item --no-header --delimiter '|' dataset:hive:movies
 
 You can verify the data import using either the `show` command.
 
-## Copy a Paruet file from HDFS
+## Copy a Parquet file from HDFS
 
 Start by listing the contents of the dataset you created above, which is in the Hive warehouse directory:
 
