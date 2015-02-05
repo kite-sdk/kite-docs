@@ -29,7 +29,7 @@ sudo cp flume.conf /etc/flume-ng/conf/flume.conf
 sudo /etc/init.d/flume-ng-agent restart
 ```
 
-Flume's log should show successful start-up messages for the source and sink:
+Flume's log (`/var/log/flume-ng/flume.log`) should show successful start-up messages for the source and sink:
 
 ```
 ...

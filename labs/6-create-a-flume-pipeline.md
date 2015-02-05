@@ -98,7 +98,7 @@ impala-shell -q 'invalidate metadata'
 ## Next
 
 * [View the solution][lab-6-solution]
-* Move on to the next lab: [Create a Flume pipeline][lab-7]
+* Move on to the next lab: [Analyze ratings with Crunch][lab-7]
 
 [lab-2]: 2-create-a-movies-dataset.html
 [lab-5]: 5-create-a-partitioned-dataset.html

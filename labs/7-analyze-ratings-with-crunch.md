@@ -32,7 +32,7 @@ Build the Crunch job with Maven:
 
 ```
 cd /home/cloudera/ratings-crunch
-checkout bimodal
+git checkout bimodal
 mvn clean package
 ```
 
