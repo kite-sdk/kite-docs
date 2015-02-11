@@ -6,16 +6,24 @@ title: 'Kite SDK Release Notes'
 All past Kite releases are documented on this page. Upcoming release dates can be found in
 [JIRA](https://issues.cloudera.org/browse/CDK#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel).
 
-## Version TBD
+## Version 0.18.0
 
-Release date: TBD
+Release date: 11 February 2015
 
-Version TBD contains the following notable changes:
+Version 0.18.0 contains the following notable changes:
 
+* There is a new `kite-dataset` command, `tar-import`, for importing the contents of a tarfile into a dataset.
+* The `delete` command can now delete the data contained in a view.
+* The `csv-schema` and `csv-import` commands now take a `--header` argument for specifying the CSV header.
+* The restriction on filesystem dataset names is now enforced: attempting to create a dataset with a non-alphanumeric
+ name (underscores are valid too) results in an error.
 * Morphlines Library
     * Upgraded kite-morphlines-solr-* to solr-4.10.3
     * Upgraded kite-morphlines-tika-* to tika-1.5 (in sync with solr-4.10.3)
     * Avoid NPE in geoIP morphline command if IP is not found (Santiago Mola via whoschek)
+
+The full [change log](https://issues.cloudera.org/secure/ReleaseNote.jspa?projectId=10143&amp;version=10800)
+is available from JIRA.
 
 ## Version 0.17.1
 
