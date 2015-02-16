@@ -31,8 +31,8 @@ The Crunch job you will run in this lab uses a MapReduce round to produce the ra
 Build the Crunch job with Maven:
 
 ```
-cd /home/cloudera/ratings-crunch
-git checkout bimodal
+git clone https://github.com/rdblue/ratings-crunch.git
+cd ratings-crunch
 mvn clean package
 ```
 

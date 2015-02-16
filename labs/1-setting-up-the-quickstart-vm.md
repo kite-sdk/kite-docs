@@ -6,11 +6,13 @@ layout: page
 
 In this lab, you will get the QuickStart VM running on your laptop.
 
-Most of you have already downloaded a copy of the VM, but there are thumb drives with images if anyone needs them.
-
 **Please do not download the VM over the conference wireless!**
 
 (If you're not at a conference right now, you can [download the VM from Cloudera][qsvm].)
+
+Most of you have already downloaded a copy of the VM, but there are thumb drives with images if anyone needs them.
+
+**Please return the thumb drives after you've copied the image**
 
 [qsvm]: http://www.cloudera.com/content/cloudera/en/downloads/quickstart_vms/cdh-5-3-x.html
 
@@ -74,7 +76,25 @@ Troubleshooting suggestions:
 
 [vbox]: https://www.virtualbox.org/wiki/Downloads
 
-### 2. Explore Hue
+### 2. Update the Kite CLI
+
+Kite is a set of high-level tools for working with data in Hadoop.
+
+```
+curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.17.1/kite-tools-0.17.1-binary.jar -o kite-dataset
+chmod +x kite-dataset
+sudo mv kite-dataset /usr/lib/kite/bin/
+```
+
+You can check that this worked by running:
+
+```
+kite-dataset --version
+```
+
+The version should be 0.17.1.
+
+### 3. Explore Hue
 
 While we make sure everyone has the VM running, try out [Hue][hue]!
 

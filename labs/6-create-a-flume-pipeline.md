@@ -60,7 +60,8 @@ You can verify that there were no start-up errors by looking at the Flume log, `
 Build the ratings web application with Maven:
 
 ```
-cd /home/cloudera/ratings-app
+git clone https://github.com/rdblue/ratings-app.git
+cd ratings-app
 mvn package
 ```
 
