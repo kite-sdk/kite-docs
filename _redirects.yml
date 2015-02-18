@@ -110,3 +110,6 @@ kite-morphlines/kite-morphlines-all/dependency-info.html: ../../dependencies/kit
 kite-morphlines/kite-morphlines-all/dependencies.html: ../../dependencies/kite-morphlines-all.html#Project_Dependencies
 kite-morphlines/kite-morphlines-all-except-solr/dependency-info.html: ../../dependencies/kite-morphlines-all-except-solr.html#Dependency_Information
 kite-morphlines/kite-morphlines-all-except-solr/dependencies.html: ../../dependencies/kite-morphlines-all-except-solr.html#Project_Dependencies
+
+# labs
+labs: labs/1-setting-up-the-quickstart-vm.html
