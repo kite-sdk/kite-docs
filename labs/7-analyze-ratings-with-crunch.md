@@ -28,11 +28,13 @@ The Crunch job you will run in this lab uses a MapReduce round to produce the ra
 
 ### 1. Build and run the Crunch job
 
-Build the Crunch job with Maven:
+Build the Crunch job with Maven.
+
+**If you are using the lab VM, this repository is already downloaded for you; skip the clone step.**
 
 ```
-git clone https://github.com/rdblue/ratings-crunch.git
-cd ratings-crunch
+git clone https://github.com/rdblue/ratings-crunch.git ~/ratings-crunch
+cd ~/ratings-crunch
 mvn clean package
 ```
 

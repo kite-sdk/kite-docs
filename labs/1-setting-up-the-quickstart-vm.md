@@ -78,7 +78,15 @@ Troubleshooting suggestions:
 
 ### 2. Update the Kite CLI
 
-Kite is a set of high-level tools for working with data in Hadoop.
+**If you are using the VM linked from the conference site or copied from thumb drives, this step isn't needed.**
+
+Check that the version of `kite-dataset` is 0.17.1 by running:
+
+```
+kite-dataset --version
+```
+
+You can update the version of Kite tools in the VM with these commands:
 
 ```
 curl http://central.maven.org/maven2/org/kitesdk/kite-tools/0.17.1/kite-tools-0.17.1-binary.jar -o kite-dataset
@@ -86,13 +94,7 @@ chmod +x kite-dataset
 sudo mv kite-dataset /usr/lib/kite/bin/
 ```
 
-You can check that this worked by running:
-
-```
-kite-dataset --version
-```
-
-The version should be 0.17.1.
+The version should now be 0.17.1.
 
 ### 3. Explore Hue
 

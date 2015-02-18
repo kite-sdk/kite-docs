@@ -74,6 +74,13 @@ You might need to refer to the [online reference][cli-csv-import] or built-in he
 kite-dataset help csv-import
 ```
 
+_Hints_:
+
+* You need to use `--no-header` to tell Kite there is no data header
+* Remember to set the delimiter character correctly
+
+If your imported data has only null values, check that you've followed these hints!
+
 [cli-csv-import]: http://kitesdk.org/docs/0.17.1/cli-reference.html#csv-import
 
 ## Next

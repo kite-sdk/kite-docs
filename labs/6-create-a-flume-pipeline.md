@@ -57,11 +57,13 @@ You can verify that there were no start-up errors by looking at the Flume log, `
 
 ### 3. Build and run the ratings application
 
-Build the ratings web application with Maven:
+Build the ratings web application with Maven.
+
+**If you are using the lab VM, this repository is already downloaded for you; skip the clone step.**
 
 ```
-git clone https://github.com/rdblue/ratings-app.git
-cd ratings-app
+git clone https://github.com/rdblue/ratings-app.git ~/ratings-app
+cd ~/ratings-app
 mvn package
 ```
 
