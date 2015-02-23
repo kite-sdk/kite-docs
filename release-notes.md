@@ -6,6 +6,19 @@ title: 'Kite SDK Release Notes'
 All past Kite releases are documented on this page. Upcoming release dates can be found in
 [JIRA](https://issues.cloudera.org/browse/CDK#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel).
 
+## Version 1.0.0
+
+Release date: 23 February 2015
+
+Version 1.0.0 contains the following notable changes:
+
+* All deprecated classes and methods have been removed from the data modules.
+* Avro schemas are now stored in HDFS for Hive datasets. This overcomes the 4K limit on schema size, as well as providing better schema evolution checking since all versions of the schema are stored. See [CDK-969](https://issues.cloudera.org/browse/CDK-969)
+* Removing a partition from a dataset now removes the partition from the Hive metastore (see [CDK-924](https://issues.cloudera.org/browse/CDK-924)).
+
+The full [change log](https://issues.cloudera.org/secure/ReleaseNote.jspa?projectId=10143&amp;version=10513)
+is available from JIRA.
+
 ## Version 0.18.0
 
 Release date: 11 February 2015
