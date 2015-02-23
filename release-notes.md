@@ -13,6 +13,13 @@ Release date: 23 February 2015
 Version 1.0.0 contains the following notable changes:
 
 * All deprecated classes and methods have been removed from the data modules.
+* `DatasetWriter` no longer has a `flush()` or a `sync()` method (see [CDK-892](https://issues.cloudera.org/browse/CDK-892)). Some (but not all) implementations of `DatasetWriter` implement the `org.kitesdk.data.Flushable` or `org.kitesdk.data.Syncable` interfaces, so you need to use the following idiom to flush the stream. (Calling `sync()` is similar.)
+```
+DatasetWriter<Record> writer = ...
+if (writer instanceof Flushable) {
+  ((Flushable) writer).flush();
+}
+```
 * Avro schemas are now stored in HDFS for Hive datasets. This overcomes the 4K limit on schema size, as well as providing better schema evolution checking since all versions of the schema are stored. See [CDK-969](https://issues.cloudera.org/browse/CDK-969)
 * Removing a partition from a dataset now removes the partition from the Hive metastore (see [CDK-924](https://issues.cloudera.org/browse/CDK-924)).
 
