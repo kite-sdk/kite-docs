@@ -10,7 +10,7 @@ This is the solution page for [Lab 5: Create a partitioned dataset][lab-5].
 
 ```
 echo "timestamp,user_id,movie_id,rating" > ratings.csv
-cat u.data | awk '{ print $4 "000," $1 "," $2 "," $3 }' | sort >> ratings.csv
+awk '{ print $4 "000," $1 "," $2 "," $3 }' u.data | sort -n >> ratings.csv
 ```
 
 Your `ratings.csv` file should now look like this:
