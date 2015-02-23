@@ -12,10 +12,10 @@ contributing_url: "https://github.com/kite-sdk/kite/wiki/How-to-contribute"
 examples_url: "https://github.com/kite-sdk/kite-examples"
 
 # version-specific
-baseurl: "/docs/0.17.1"
-version: "0.17.1"
-javadoc_url: "/docs/0.17.1/apidocs/index.html"
-jdiff_url: "/docs/0.17.1/jdiff/changes.html"
+baseurl: "/docs/0.18.0"
+version: "0.18.0"
+javadoc_url: "/docs/0.18.0/apidocs/index.html"
+jdiff_url: "/docs/0.18.0/jdiff/changes.html"
 
 dataset-command: "kite-dataset"
 
