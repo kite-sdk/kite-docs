@@ -5,8 +5,8 @@
       alias: What is Kite?
       file: Kite-SDK-Guide.html
     - title: Datasets Overview
-      alias: Kite Data Module Overview
-      file: Kite-Data-Module-Overview.html
+      alias: Introduction to Datasets
+      file: introduction-to-datasets.html
 - topic: Kite CLI
   pages:
     - title: Installing the CLI
