@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Dataset and View URIs
+title: Dataset, View, and Repository URIs
 ---
 
-Datasets are identified by URI. As a general rule, you can use a URI any time you would specify a dataset or view. If you attempt to perform an action on a view that is not allowed, the action fails. For example, if you try to delete a view using `Datasets.delete()`, the command fails, because you can only delete datasets, not views of the dataset, when using the Datasets API. 
+Datasets, views, and repositories are identified by URI. As a general rule, you can use a URI any time you would specify a dataset or view. If you attempt to perform an action on a view that is not allowed, the action fails.
 
 ## Dataset URIs
 
@@ -114,4 +114,10 @@ See [Interval Notation][interval-notation] for more examples of defining ranges 
 
 [interval-notation]: {{site.baseurl}}/Interval-Notation.html
 
+## Repository URIs
 
+Repository URI patterns always begin with the `repo:` prefix. In the Kite Dataset API, you use a repository URI with the [`Datasets.list`][list] method to retrieve a list of valid datasets. 
+
+For example, to list the dataset URIs for the Hive repository, use `Datasets.list("repo:hive");`.
+
+[list]: {{site.baseurl}}/apidocs/org/kitesdk/data/Datasets.html#list
