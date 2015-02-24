@@ -22,6 +22,8 @@ if (writer instanceof Flushable) {
 ```
 * Avro schemas are now stored in HDFS for Hive datasets. This overcomes the 4K limit on schema size, as well as providing better schema evolution checking since all versions of the schema are stored. See [CDK-969](https://issues.cloudera.org/browse/CDK-969)
 * Removing a partition from a dataset now removes the partition from the Hive metastore (see [CDK-924](https://issues.cloudera.org/browse/CDK-924)).
+* Morphlines Library
+    * Added support for [nested documents](kite-morphlines/morphlinesReferenceGuide.html#loadSolrChildDocuments) aka child documents to loadSolr morphline command.
 
 The full [change log](https://issues.cloudera.org/secure/ReleaseNote.jspa?projectId=10143&amp;version=10513)
 is available from JIRA.
