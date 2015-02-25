@@ -73,7 +73,7 @@ datasets/
   </div>
 </div>
 
-[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about Kite datasets][kite-data-overview]
+[<i class="fa fa-chevron-right"></i>&nbsp; Learn more about Kite datasets][intro-to-datasets]
 
 ## Configuration-based transformation
 
@@ -83,7 +83,7 @@ Kite morphlines is a flexible way to express data transformations as configurati
 
 [kite-cli]: {{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
 [kite-api]: {{site.baseurl}}/API-Overview.html
-[kite-data-overview]: {{site.baseurl}}/Kite-Data-Module-Overview.html
+[intro-to-datasets]: {{site.baseurl}}/introduction-to-datasets.html
 [kite-config]: {{site.baseurl}}/configuraton-formats.html
 [morphlines-intro]: {{site.baseurl}}/morphlines/
 [morphlines-reference]: {{site.baseurl}}/morphlines/morphlines-reference-guide.html
