@@ -9,7 +9,7 @@ release_notes.html: release-notes.html
 inferschemafromavro.html: Inferring-a-Schema-from-an-Avro-Data-File.html
 inferschemafromobject.html: Inferring-a-Schema-from-a-Java-Class.html
 kitedatasetcli.html: Kite-Dataset-Command-Line-Interface.html
-overview.html: Kite-Data-Module-Overview.html
+overview.html: introduction-to-datasets.html
 usingkiteclicreatedataset.html: Using-the-Kite-CLI-to-Create-a-Dataset.html
 
 # relocation from docs/current/guide/ to docs/current/
@@ -22,7 +22,7 @@ guide/Inferring-a-Schema-from-a-Java-Class: ../../Inferring-a-Schema-from-a-Java
 guide/Inferring-a-Schema-from-an-Avro-Data-File: ../../Inferring-a-Schema-from-an-Avro-Data-File.html
 guide/Install-Kite: ../../Install-Kite.html
 guide/Interval-Notation: ../../Interval-Notation.html
-guide/Kite-Data-Module-Overview: ../../Kite-Data-Module-Overview.html
+guide/Kite-Data-Module-Overview: ../../introduction-to-datasets.html
 guide/Kite-Dataset-Command-Line-Interface: ../../cli-reference.html
 guide/Kite-SDK-Guide: ../../Kite-SDK-Guide.html
 guide/lifecycle: ../../lifecycle.html
