@@ -84,7 +84,7 @@ For convenience, save `standard_event.json` to the same directory where you inst
 
 ## Creating the Events Dataset Using the Kite CLI
 
-Create the _events_ dataset using the HDFS scheme. You define the scheme using a URI with the prefix `dataset:hdfs:` followed by the dataset path in HDFS.
+Create the _events_ dataset using the default Hive scheme.
 
 To create the _events_ dataset:
 
@@ -92,7 +92,7 @@ To create the _events_ dataset:
 1. Use the `create` command to create the dataset.
 
 ```
-kite-dataset create dataset:hdfs:/tmp/data/default/events \
+kite-dataset create events \
              --schema standard_event.avsc \
              --partition-by standard_event.json
 ```

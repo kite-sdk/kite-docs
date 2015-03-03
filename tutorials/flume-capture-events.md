@@ -152,7 +152,7 @@ Follow these steps to build the web application, start the Tomcat server, and th
 1. In a web browser, enter the URL [`http://quickstart.cloudera:8034/demo-logging-webapp/`][logging-app].
 1. On the web form, enter any user ID and a message, and then click **Send** to create a web event. 
 
-The Flume agent receives the events over inter-process communication (IPC), and the agent writes the events to the HDFS file sink. Each time you send a message, Log4j writes a new `INFO` line in the terminal window.
+The Flume agent receives the events over inter-process communication (IPC), and the agent writes the events to the Hive file sink. Each time you send a message, Log4j writes a new `INFO` line in the terminal window.
 
 View the records in Hadoop using the Hue File Browser.
 
