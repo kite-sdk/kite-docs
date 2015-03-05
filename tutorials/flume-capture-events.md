@@ -11,10 +11,10 @@ This example shows how you can send log information via Flume to your Hadoop dat
 
 ## Configuring Flume
 
-These are the steps to configure Flume to channel log information directly to the `events` dataset.
+These are the steps to configure Flume to channel log information directly to the `events` dataset. You first generate the configuration information using the Kite command-line interface, copy the results, paste them in the Flume configuration file, and then restart Flume.
 
 1. In a terminal window, type `kite-dataset flume-config --channel-type memory events`.
-1. Copy the results.
+1. Copy the output from the terminal window.
 1. Open Cloudera Manager.
 1. Under __Status__, click the link to __Flume__.
 1. Choose the __Configuration__ tab.
@@ -24,11 +24,11 @@ These are the steps to configure Flume to channel log information directly to th
 1. Click __Save Changes__.
 1. From the __Actions__ menu, choose __Restart__, and confirm the action.
 
-Flume is configured to receive events from Log4j and record them in the `events` dataset.
+Flume is now configured to receive logging events and record them in the `events` dataset.
 
 ## Creating Web Application Pages
 
-These JSP and servlet examples let you create message events to be captured by Flume.
+These JSP and servlet examples create message events that can be captured by Flume.
 
 ## index.jsp
 
