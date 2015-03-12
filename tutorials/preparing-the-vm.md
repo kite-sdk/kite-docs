@@ -2,28 +2,33 @@
 layout: page
 title: Preparing the Virtual Machine
 ---
+## Purpose
+This lesson describes the steps for configuring a virtual machine to run Kite example code on a Cloudera Quickstart VM.
 
-Complete the following steps to run Kite example code on a Cloudera Quickstart VM.
+### Result
+Your VM is ready for you to install and run sample programs from the Kite SDK Examples project.
 
-* Install a VirtualBox or VMWare [Cloudera QuickStart VM][getvm] version 5.2 or later.
-* In that VM, run the following command from a terminal window. This command clones a local copy of Kite code examples you can build and run.
+## Installing the VM and Kite Examples
 
-```bash
-git clone https://github.com/kite-sdk/kite-examples.git
-```
+1. Install a VirtualBox or VMWare [Cloudera QuickStart VM][getvm] version 5.2 or later.
+1. In that VM, run the following command from a terminal window. This command clones a local copy of Kite code examples you can build and run.
 
-* If you haven't already done so, download the [`kite-dataset` CLI JAR][install-cli].
+     ```bash
+     git clone https://github.com/kite-sdk/kite-examples.git
+     ```
+
+1. If you haven't already done so, install the [Kite CLI][install-cli].
 
 [getvm]: http://www.cloudera.com/content/support/en/downloads/quickstart_vms.html
 [install-cli]:{{site.baseurl}}/Install-Kite.html
 
 ## Configuring the VM
 
-Some Kite examples require Flume. If you use Cloudera Manager, Flume user impersonation is configured for you. If do not use Cloudera Manager, you must enable Flume user impersonation.
+Some Kite examples require Flume. If you use Cloudera Manager, Flume user impersonation is configured for you. If do not use Cloudera Manager, you must update Flume user impersonation in `core-site.xml`.
 
 ### Enabling Flume User Impersonation
 
-Flume impersonates the dataset owner to write to your dataset, much like the Unix `sudo` utility. See [Configuring Flume's Security Properties](http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Security-Guide/cdh5sg_flume_security_props.html#topic_4_2_1_unique_1).
+To write to your dataset, Flume impersonates the dataset owner, much like the Unix `sudo` utility. See [Configuring Flume's Security Properties](http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Security-Guide/cdh5sg_flume_security_props.html#topic_4_2_1_unique_1).
 
 Add the following XML snippet to your `/etc/hadoop/conf/core-site.xml` file.
 
@@ -76,7 +81,7 @@ All usernames/passwords for the VM are `cloudera`/`cloudera`.
 
 * __How do I fix "VTx" errors?__
   1. Reboot your computer and enter BIOS.
-  1. Find the _Virtualization_ settings (usually under _Security_), and enable all of the virtualization options.
+  1. Find the _Virtualization_ settings (usually under _Security_), and enable all virtualization options.
 
 * __How do I get my mouse back?__
   * If your mouse/keyboard is stuck in the VM (captured), you can usually release it by pressing the right `CTRL` key. If you don't have one (or if that didn't work), click the release key in the lower-right corner of the VirtualBox window.

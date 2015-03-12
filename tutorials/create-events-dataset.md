@@ -2,12 +2,23 @@
 layout: page
 title: Creating the Events Dataset
 ---
+## Purpose
 
-This lesson shows you how to create a dataset suitable for storing standard event records. You define a dataset schema, a partition strategy, and a URI that specifies the storage scheme.
+This lesson shows you how to create a dataset suitable for storing standard event records, as defined in [The Unified Logging Infrastructure for Data Analytics at Twitter][paper]. You define a dataset schema, a partition strategy, and a URI that specifies the storage scheme.
+
+[paper]:http://vldb.org/pvldb/vol5/p1771_georgelee_vldb2012.pdf
+
+### Prerequisites
+
+A VM or cluster with CDH installed.
+
+### Result
+
+You create `dataset:hive:events`, where you can store standard event objects. You can use the dataset with several Kite tutorials that demonstrate data capture, storage, and analysis.
 
 ## Defining the Schema
 
-The `standard_event.avsc` schema is self-describing, thanks to the _doc_ property for each of the fields. The fields store the `user_id` for the person who initiated the event, the user's IP address, and when the event occurred.
+The `standard_event.avsc` schema is self-describing, with a _doc_ property for each field. StandardEvent records store the `user_id` for the person who initiates an event, the user's IP address, and a timestamp for when the event occurred.
 
 ### standard_event.avsc
 
@@ -52,15 +63,13 @@ The `standard_event.avsc` schema is self-describing, thanks to the _doc_ propert
 }
 ```
 
-For convenience, save `standard_event.avsc` to the same directory where you installed the kite-dataset executable JAR.
-
 ## Defining the Partition Strategy
 
-Analytics for the `events` dataset are time-based. Partitioning the dataset on the `timestamp` field allows Kite to go directly to the files for a particular day, ignoring files outside the chosen time period. Partition strategies are defined in JSON format. See [Partition Strategy JSON Format][partition-strategies].
+Analytics for the `events` dataset are time-based. Partitioning the dataset on the `timestamp` field allows Kite to go directly to the files for a particular day, ignoring files outside the time period. Partition strategies are defined in JSON format. See [Partition Strategy JSON Format][partition-strategies].
 
-The following code sample defines a strategy that partitions a dataset by _year_, _month_, and _day_, based on a _timestamp_ field.
+The following sample defines a strategy that partitions a dataset by _year_, _month_, and _day_, based on a _timestamp_ field.
 
-### standard_event.json
+### partition_year_month_day.json
 
 ```
 [ {
@@ -78,8 +87,6 @@ The following code sample defines a strategy that partitions a dataset by _year_
 } ]
 ```
 
-For convenience, save `standard_event.json` to the same directory where you installed the `kite-dataset` executable JAR.
-
 [partition-strategies]:{{site.baseurl}}/Partition-Strategy-Format.html
 
 ## Creating the Events Dataset Using the Kite CLI
@@ -88,21 +95,15 @@ Create the _events_ dataset using the default Hive scheme.
 
 To create the _events_ dataset:
 
-1. Open a terminal window and navigate to the directory where you saved the schema file.
-1. Use the `create` command to create the dataset.
+1. Open a terminal window.
+1. Use the `create` command to create the dataset. This example assumes that you stored the schema and partition definitions in your home directory. Substitute the correct path if you stored them in a different location.
 
 ```
 kite-dataset create events \
-             --schema standard_event.avsc \
-             --partition-by standard_event.json
+             --schema ~/standard_event.avsc \
+             --partition-by ~/partition_year_month_day.json
 ```
 
-Use Hue to look at the schema and confirm that the dataset is ready to use.
+Use [Hue][hue] to confirm that the dataset appears in your table list and is ready to use.
 
-[http://quickstart.cloudera:8888/filebrowser/view//tmp/data/default/events/.metadata/schema.avsc](http://quickstart.cloudera:8888/filebrowser/view//tmp/data/default/events/.metadata/schema.avsc)
-
-## Next Steps
-
-You've created a dataset to store events captured as they happen. Now you can run a web application to create records in your new dataset. See [Capturing Events with Flume][capture-events].
-
-[capture-events]:{{site.baseurl}}/tutorials/flume-capture-events.html
+[hue]:http://quickstart.cloudera:8888/beeswax/execute#query
