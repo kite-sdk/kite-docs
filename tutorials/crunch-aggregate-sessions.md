@@ -112,8 +112,7 @@ The following is the complete code listing for AggregateEvents, with comments in
 ### AggregateEvents.java
 
 ```Java
-
-package org.kitesdk.examples.demo;
+package org.kitesdk.examples.tutorials.crunch;
 
 import java.io.Serializable;
 import java.net.URI;
