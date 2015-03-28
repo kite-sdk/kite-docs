@@ -29,7 +29,7 @@ If the version number doesn't match the version you downloaded, you have two opt
 1. Replace the installed version of `{{site.dataset-command}}`.
   a. Download `{{site.dataset-command}}` (in this example, it is downloaded to the `~/` directory).
   b. Replace the old version of `{{site.dataset-command}}` in the existing location.
-    1. For packages, use `sudo cp ~/{{site.dataset-command}}/usr/lib/kite/bin/{{site.dataset-command}}`.
-    1. For parcels, use `sudo cp ~/{{site.dataset-command}}/opt/cloudera/parcels/lib/kite/bin/{{site.dataset-command}}`.
+    1. For packages, use `sudo cp ~/{{site.dataset-command}} /usr/lib/kite/bin/{{site.dataset-command}}`.
+    1. For parcels, use `sudo cp ~/{{site.dataset-command}} /opt/cloudera/parcels/lib/kite/bin/{{site.dataset-command}}`.
   
     c. To verify that the correct version is in use, enter the command `{{site.dataset-command}} --version`.
