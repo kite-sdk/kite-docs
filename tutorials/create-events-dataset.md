@@ -4,13 +4,21 @@ title: Creating the Events Dataset
 ---
 ## Purpose
 
-This lesson shows you how to create a dataset suitable for storing standard event records, as defined in [The Unified Logging Infrastructure for Data Analytics at Twitter][paper]. You define a dataset schema, a partition strategy, and a URI that specifies the storage scheme.
+This lesson shows you how to create a dataset suitable for storing standard event records, as defined in [The Unified Logging Infrastructure for Data Analytics at Twitter][paper]. You define a [dataset schema][schema], a [partition strategy][partstrat], and a URI that specifies the storage [scheme][scheme], then use [`kite-dataset create`][create] to make a Hive dataset.
 
 [paper]:http://vldb.org/pvldb/vol5/p1771_georgelee_vldb2012.pdf
+[schema]:{{site.baseurl}}/introduction-to-datasets.html#schemas
+[partstrat]:{{site.baseurl}}/Partitioned-Datasets.html#partition-strategies
+[scheme]:{{site.baseurl}}/introduction-to-datasets.html#uri-schemes
+[create]:{{site.baseurl}}/cli-reference.html#create
 
 ### Prerequisites
 
-A VM or cluster with CDH installed.
+* A [Quickstart VM][prepare] or instance of CDH 5.2 or later.
+* The [kite-dataset][kite-dataset] command.
+
+[prepare]:{{site.baseurl}}/tutorials/preparing-the-vm.html
+[kite-dataset]:{{site.baseurl}}/Install-Kite.html
 
 ### Result
 
