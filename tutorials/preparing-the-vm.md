@@ -6,31 +6,62 @@ title: Preparing the Virtual Machine
 This lesson describes the steps for configuring a virtual machine to run Kite example code on a Cloudera Quickstart VM.
 
 ### Result
-Your VM is ready for you to install and run sample programs from the Kite SDK Examples project.
+Your VM is ready for you to run sample programs from the Kite SDK Examples project.
 
 ## Installing the VM and Kite Examples
 
-1. Install a VirtualBox or VMWare [Cloudera QuickStart VM][getvm] version 5.2 or later.
-1. In that VM, run the following command from a terminal window. This command clones a local copy of Kite code examples you can build and run.
+Install an Oracle VirtualBox or VMWare Fusion [Cloudera QuickStart VM][getvm] version 5.2 or later.
+
+Before you launch the VM, decide whether to use Cloudera Manager. If you choose to use Cloudera Manager, you'll need to allocate additional memory and processing resources to your VM. The advantages of using Cloudera Manager are that it provides a visual interface for monitoring the health of your system, it configures by default most of the settings for using Kite examples, and it makes it easier for you to perform additional optional configurations.
+
+### Configuring the VM for Cloudera Manager
+
+If you use Cloudera Manager, you must increase the VM memory allocation and the number of CPUs.
+
+#### Adding Memory and CPUs in a VirtualBox VM
+
+1. In VirtualBox Manager, select your VM instance and click __Settings__.
+1. Select the __System__ tab.
+1. On the __Motherboard__ page, set the __Base Memory__ slider to _8192 MB_.
+1. Click the __Processor__ page tab.
+1. Set the __Processor(s)__ slider to _2_.
+1. Click __OK__.
+
+#### Adding Memory and CPUs in a VMware Fusion VM
+
+1. From the VMware Fusion menu bar, select __Window > Virtual Machine Library__.
+1. Select your virtual machine and click __Settings__.
+1. In the __Settings__ window, in the __System Settings__ section, select __Processors & Memory__.
+1. Set the amount of memory to allocate to the VM to _8192 MB_ using the slider control.
+1. Expand __Advanced Options__, and set the number of CPUs to _2_.
+1. Click __OK__.
+
+### Downloading Resources to the VM
+
+1. Start your VM.
+1. In the VM, run the following command from a terminal window. This command clones a local copy of Kite code examples you can build and run.
 
      ```bash
      git clone https://github.com/kite-sdk/kite-examples.git
      ```
 
-1. If you haven't already done so, install the [Kite CLI][install-cli].
+1. Install the [Kite CLI][install-cli] command.
 
 [getvm]: http://www.cloudera.com/content/support/en/downloads/quickstart_vms.html
 [install-cli]:{{site.baseurl}}/Install-Kite.html
 
 ## Configuring the VM
 
-Some Kite examples require Flume. If you use Cloudera Manager, Flume user impersonation is configured for you. If do not use Cloudera Manager, you must update Flume user impersonation in `core-site.xml`.
+Some Kite examples require Flume. To write to your dataset, Flume impersonates the dataset owner, much like the Unix `sudo` utility. See [Configuring Flume's Security Properties](http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Security-Guide/cdh5sg_flume_security_props.html#topic_4_2_1_unique_1).
+If you use Cloudera Manager, Flume user impersonation is configured for you. If don't use Cloudera Manager, you must update Flume user impersonation in `core-site.xml`.
+
+### Starting Cloudera Manager
+
+To run Cloudera Manager, double-click the __Launch Cloudera Manager__ icon on the VM desktop. Flume user impersonation is enabled by default.
 
 ### Enabling Flume User Impersonation
 
-To write to your dataset, Flume impersonates the dataset owner, much like the Unix `sudo` utility. See [Configuring Flume's Security Properties](http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/CDH5-Security-Guide/cdh5sg_flume_security_props.html#topic_4_2_1_unique_1).
-
-Add the following XML snippet to your `/etc/hadoop/conf/core-site.xml` file.
+If choose not to use Cloudera Manager, add the following XML snippet to your `/etc/hadoop/conf/core-site.xml` file.
 
 ```
 <property>
