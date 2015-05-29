@@ -32,7 +32,7 @@
 - topic: Reference
   pages:
     - title: Kite URIs
-      alias: Dataset and View URIs
+      alias: Dataset, View, and Repository URIs
       file: URIs.html
     - title: Schema Evolution
       alias: Schema Evolution

@@ -23,7 +23,7 @@ You can use a view as the input for a MapReduce job or read its content directly
 [javadoc-view-reader]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#newReader()
 [def-immutable]: https://jsr-305.googlecode.com/svn/trunk/javadoc/javax/annotation/concurrent/Immutable.html
 
-## Refining a View
+## Refining a View: Selecting Records
 
 You create a view by adding a constraint to an existing view or dataset using one of the following methods.
 
@@ -62,7 +62,20 @@ If the ratings dataset is partitioned by `time`, then the view will automaticall
 [javadoc-view-to]: {{site.baseurl}}/apidocs/org/kitesdk/data/RefinableView.html#to(java.lang.String,%20java.lang.Comparable)
 [javadoc-view-to-before]: {{site.baseurl}}/apidocs/org/kitesdk/data/RefinableView.html#toBefore(java.lang.String,%20java.lang.Comparable)
 
-## Loading a View
+## Using Different Classes and Schemas: Selecting Columns
+
+By default, views will use Avro's `GenericRecord` type when returning records. You can set the type that will be constructed by calling [`View#asType(Class)`][javadoc-as-type] and passing a class that is compatible with the dataset's schema. Kite will automatically set the read schema based on the type you pass.
+
+You can also set the read schema and still use generic records by calling [`View#asSchema(Schema)`][javadoc-as-schema] with your read schema.
+
+Both `asType` and `asSchema` will load only the requested data fields from the dataset. Selecting fields avoids spending extra time deserializing some fields in Avro and enables Parquet to skip large portions of the underlying data. This can be used to drastically improve read speeds.
+
+[javadoc-as-type]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#asType(java.lang.Class)
+[javadoc-as-schema]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#asSchema(org.apache.avro.Schema)
+
+## Working with Views
+
+### Loading a View
 
 In addition to creating a view with the API, you can load a view from a [view URI][view-uris]. A view URIs is analogous to a dataset URI, where the scheme is `view:` instead of `dataset:` and constraints are added as query arguments.
 
@@ -74,39 +87,39 @@ View<Record> ratings = Datasets.load("view:hive:ratings?user_id=125");
 
 [view-uris]: {{site.baseurl}}/URIs.html#view-uris
 
-## Inspecting a View
+### Inspecting a View
 
 In some use cases, it might not be necessary to return a set of values, but only verify that values do or do not exist. For example, you might want to only submit a MapReduce job if there are values that would be processed. These methods allow you to inspect a view at runtime.
 
-### isEmpty
+#### isEmpty
 
 The [`isEmpty`][javadoc-view-isempty] method returns whether your `View` contains any records at all.
 
 [javadoc-view-isempty]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#isEmpty()
 
-### getUri
+#### getUri
 
 The [`getUri`][javadoc-view-geturi] method returns a URI for a `View` that can be passed to `Datasets.load`.
 
 [javadoc-view-geturi]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#getUri()
 
-### includes
+#### includes
 
 The [`includes`][javadoc-view-includes] method returns whether an entity matches a view's constraints. That is, whether the record would be included in this `View` if it were present in the `Dataset`.
 
 [javadoc-view-includes]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#includes(E)
 
-## Working with Records in a View
+### Working with Records in a View
 
 You can interact with records in a view the way you would work with records in a full dataset. You can use `newReader` and `newWriter` to get the same reader or writer objects, but they are restricted to operations on the view. 
 
-### newReader
+#### newReader
 
 The [`newReader`][javadoc-view-newreader] method creates an appropriate `DatasetReader` that returns only records that match the view's constraints.
 
 [javadoc-view-newreader]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#newReader()
 
-### newWriter
+#### newWriter
 
 The [`newWriter`][javadoc-view-newwriter] method creates an appropriate `DatasetWriter` that will write only records that match the view's constraints. For more information, see [Writing to Views][writing-to-views].
 
@@ -115,7 +128,7 @@ See [Restricted Views][restricted-views].
 [javadoc-view-newwriter]: {{site.baseurl}}/apidocs/org/kitesdk/data/View.html#newWriter()
 [writing-to-views]: {{site.baseurl}}/writing-to-views.html
 
-### deleteAll
+#### deleteAll
 
 The [`deleteAll`][javadoc-view-deleteall] method deletes all entities in the dataset that match the view's constraints.
 

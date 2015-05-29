@@ -55,13 +55,15 @@ The following links provide examples for inferring schemas from data files or Ja
 
 | Java API                                                      | Command Line Interface |
 | --------                                                      | ---------------------- |
-| [Inferring a schema from a Java Class][api-schema-from-class] | [Inferring a schema from a Java class][cli-schema-from-class] |
 | [Using the schema of an Avro data file][api-schema-from-data] | [Inferring a schema from a CSV file][cli-schema-from-csv] |
+|                                                               | [Inferring a schema from a JSON file][cli-schema-from-json] |
+| [Inferring a schema from a Java Class][api-schema-from-class] | [Inferring a schema from a Java class][cli-schema-from-class] |
 
 [api-schema-from-class]: {{site.baseurl}}/Inferring-a-Schema-from-a-Java-Class.html
 [api-schema-from-data]: {{site.baseurl}}/Inferring-a-Schema-from-an-Avro-Data-File.html
 [cli-schema-from-class]: {{site.baseurl}}/cli-reference.html#obj-schema
 [cli-schema-from-csv]: {{site.baseurl}}/cli-reference.html#csv-schema
+[cli-schema-from-json]: {{site.baseurl}}/cli-reference.html#json-schema
 
 ## Partition Strategies
 
