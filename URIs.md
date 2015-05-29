@@ -9,12 +9,13 @@ Datasets, views, and repositories are identified by URI. As a general rule, you 
 
 You construct a dataset URI using one of the following patterns, depending on your chosen dataset scheme.
 
-| Scheme | Pattern
----------|--------
-| <a href="#hive">*Hive*</a> |`dataset:hive:<namespace>/<dataset>`
-| <a href="#hdfs">*HDFS*</a> | `dataset:hdfs:/<path>/<namespace>/<dataset-name>`
-| <a href="#local">*Local FS*</a> | `dataset:file:/<path>/<namespace>/<dataset-name>`
-| <a href="#hbase">*HBase*</a> | `dataset:hbase:<zookeeper>/<dataset-name>`
+| Scheme               | Pattern
+|----------------------|---------
+| [*Hive*](#hive)      | `dataset:hive:<namespace>/<dataset>`
+| [*HDFS*](#hdfs)      | `dataset:hdfs:/<path>/<namespace>/<dataset-name>`
+| [*S3*](#s3)          | `dataset:s3a://<bucket>/<namespace>/<dataset-name>`<br />`dataset:s3n://<bucket>/<path>/<namespace>/<dataset-name>`
+| [*Local FS*](#local) | `dataset:file:/<path>/<namespace>/<dataset-name>`
+| [*HBase*](#hbase)    | `dataset:hbase:<zookeeper>/<dataset-name>`
 
 Dataset patterns always begin with the `dataset:` prefix. Any of these patterns can be modified to create a <a href="#view">View URI</a>.
 
@@ -43,6 +44,7 @@ dataset:hive:namespace/dataset?location=/path/to/data/dir
 ### HDFS
 
 The URI for a dataset in HDFS uses the following pattern. You provide a path to the dataset.
+
 ```
 dataset:hdfs:/<path>/<namespace>/<dataset-name>
 ```
@@ -55,9 +57,20 @@ The host and port are required if your Hadoop configuration files aren't on your
 dataset:hdfs://<host>[:port]/<path>/<namespace>/<dataset-name>
 ```
 
+### S3
+
+Kite supports datasets stored in S3 using both `s3a` and `s3n` [file system schemes][s3-schemes]. The URI host is used to pass a S3 bucket name.
+
+S3 credentials should be set in the environment configuration using the right property for the FS scheme:
+
+* `s3a`: use `fs.s3a.access.key` for id and `fs.s3a.secret.key` for key
+* `s3n`: use `fs.s3n.awsAccessKeyId` for id and `fs.s3n.awsSecretAccessKey` for key
+
+[s3-schemes]: https://wiki.apache.org/hadoop/AmazonS3
+
 <a name="local" />
 
-### Local File System Datasets
+### Local File System
 
 The local file system dataset URI follows a pattern similar to the HDFS URI, with the `file:` scheme.
 
@@ -116,8 +129,18 @@ See [Interval Notation][interval-notation] for more examples of defining ranges 
 
 ## Repository URIs
 
-Repository URI patterns always begin with the `repo:` prefix. In the Kite Dataset API, you use a repository URI with the [`Datasets.list`][list] method to retrieve a list of valid datasets. 
+Repository URI patterns always begin with the `repo:` prefix and leave out table and namespace options that are in dataset or view URIs.
+
+| Scheme     | Pattern
+|------------|---------
+| *Hive*     | `repo:hive`
+| *HDFS*     | `repo:hdfs:/<path>`
+| *Local FS* | `repo:file:/<path>`
+| *HBase*    | `repo:hbase:<zookeeper>`
+
+In the Kite Dataset API, you use a repository URI with the [`Datasets.list`][list] method to retrieve a list of valid datasets. You can also pass a repository URI to the CLI [list][cli-list] command.
 
 For example, to list the dataset URIs for the Hive repository, use `Datasets.list("repo:hive");`.
 
 [list]: {{site.baseurl}}/apidocs/org/kitesdk/data/Datasets.html#list
+[cli-list]: {{site.baseurl}}/cli-reference.html#list

@@ -253,7 +253,9 @@ Lists available dataset URIs.
 
 An optional repository URI can be given to list datasets in repositories other than Hive.
 
-Repository URIs start with "repo:" and leave out table and namespace options that are in dataset or view URIs.
+[Repository URIs][repo-uris] start with "repo:" and leave out table and namespace options that are in dataset or view URIs.
+
+[repo-uris]: {{site.baseurl}}/URIs.html#repository-uris
 
 ### Syntax
 

@@ -50,7 +50,7 @@ $ {{site.dataset-command}} csv-schema movies.csv --class movies -o movies.avsc
 
 The schema `movies.avsc` describes fields for _id_ number and the _title_ of the movie.
 
-```
+```json
 {
   "type" : "record",
   "name" : "movie",
@@ -95,7 +95,7 @@ In this case, the default value is _null_. Note that you don't put quotation mar
 
 The source code for this file is `movies2.avsc`.
 
-```
+```json
 {
   "type" : "record",
   "name" : "movies",
@@ -151,7 +151,7 @@ What a complete and satisfying movies dataset. But not so fast. Your director re
 
 Update the schema definition, changing the _rating_ field datatype from _long_ to _double_. The source code for this file is `movies3.avsc`.
 
-```
+```json
 {
   "type" : "record",
   "name" : "movies",
