@@ -49,9 +49,6 @@
     - title: Column Mapping
       alias: Column Mapping
       file: Column-Mapping.html
-    - title: Dataset Lifecycle
-      alias: Kite Dataset Lifecycle
-      file: lifecycle.html
     - title: Maven Plugin
       alias: Maven Plugin Goals
       file: maven

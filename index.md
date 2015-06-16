@@ -22,7 +22,7 @@ Added 1000000 records to dataset "ratings"
 
 Kite's command-line interface helps you manage datasets with pre-built tasks like creating datasets, migrating schemas, and loading data. It also helps you configure Kite and other Hadoop projects.
 
-[<i class="fa fa-chevron-right"></i>&nbsp; Get started with Kite's CSV tutorial][kite-cli]
+[<i class="fa fa-chevron-right"></i>&nbsp; Install the Kite command-line tools][kite-install] or [start Kite's CSV tutorial][kite-cli]
 
 <div class="right">
 {% highlight java %}
@@ -81,6 +81,7 @@ Kite morphlines is a flexible way to express data transformations as configurati
 
 [<i class="fa fa-chevron-right"></i>&nbsp; Go to the Morphlines introduction][morphlines-intro] or [reference guide][morphlines-reference]
 
+[kite-install]: {{site.baseurl}}/Install-Kite.html
 [kite-cli]: {{site.baseurl}}/Using-the-Kite-CLI-to-Create-a-Dataset.html
 [kite-api]: {{site.baseurl}}/API-Overview.html
 [intro-to-datasets]: {{site.baseurl}}/introduction-to-datasets.html
