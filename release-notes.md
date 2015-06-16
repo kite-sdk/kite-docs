@@ -6,6 +6,26 @@ title: 'Kite SDK Release Notes'
 All past Kite releases are documented on this page. Upcoming release dates can be found in
 [JIRA](https://issues.cloudera.org/browse/CDK#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel).
 
+## Version 1.1.0
+
+Release date: 16 June 2015
+
+Version 1.1.0 contains the following notable changes:
+
+* Extended the "create" command to automatically detect schema and partitioning of existing data
+* Added a "compact" command to the CLI that will merge small files in place via a MapReduce job
+* Updated copy, transform, and compact to create a configurable number of files in each partition
+* Fixed out-of-memory errors when writing large files with the CLI
+* Added Kite URI handler for Oozie
+* Added support for datasets stored in S3
+* Added `asSchema` and `asType` methods to the API to allow setting the reader schema and type
+* Added `isReady` and `signalReady` to views for signaling when a view is ready for processing
+* Added a "list" CLI command
+* Added partition view to represent a view of a dataset partition
+* Added a new partitioner for fixed-size ranges
+* Removed the hadoop-1 test profile
+* Fixed copy to or from a Hive table on Kerberos-enabled clusters
+
 ## Version 1.0.0
 
 Release date: 23 February 2015
