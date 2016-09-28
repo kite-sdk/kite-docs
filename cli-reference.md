@@ -64,12 +64,17 @@ To show the values for these variables at runtime, set the  `debug=` option to _
 debug=true {{site.dataset-command}} info users
 ```
 
-Use the `flags=` option to pass arguments to the internal Hadoop jar command. For example:
+Use the `flags=` option to pass arguments to the internal Hadoop jar command (before class name). For example:
 
 ```
-flags="-Xmx512m" {{site.dataset-command}} info users`
+flags="<arg>" {{site.dataset-command}} info users
 ```
 
+Use the `config=` option to pass arguments to the internal Hadopp jar command (after class name). For example:
+
+```
+config="-D <property=value>" {{site.dataset-command}} info users
+```
 ----
 
 [Back to the Top](#top)
