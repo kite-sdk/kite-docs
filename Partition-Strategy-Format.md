@@ -14,15 +14,16 @@ Each definition can be thought of as a function run on the entity's source to pr
 
 The available types are:
 
-| Type       | Source               | Produces                    | Requirements |
-| ----       | ------               | --------                    | ------------ |
-| `year`     | a timestamp          | year, like 2014             | must be a long[<sup>1</sup>](#notes) |
-| `month`    | a timestamp          | month, 1-12                 | must be a long |
-| `day`      | a timestamp          | day of the month, 1-31      | must be a long |
-| `hour`     | a timestamp          | hour in the day, 0-23       | must be a long |
-| `minute`   | a timestamp          | minute in the hour, 0-59    | must be a long |
-| `identity` | any string or number | the source value, unchanged | must be a string or numeric |
-| `hash`     | any object           | int hash of the value, 0-B  | requires B, `buckets` integer attribute[<sup>2</sup>](#notes) |
+| Type         | Source               | Produces                    | Requirements |
+| ----         | ------               | --------                    | ------------ |
+| `year`       | a timestamp          | year, like 2014             | must be a long[<sup>1</sup>](#notes) |
+| `month`      | a timestamp          | month, 1-12                 | must be a long |
+| `day`        | a timestamp          | day of the month, 1-31      | must be a long |
+| `hour`       | a timestamp          | hour in the day, 0-23       | must be a long |
+| `minute`     | a timestamp          | minute in the hour, 0-59    | must be a long |
+| `dateFormat` | a timestamp          | string for the soure timestamp | requires SimpleDateFormat `format` attribute [<sup>2</sup>](#notes)|
+| `identity`   | any string or number | the source value, unchanged | must be a string or numeric |
+| `hash`       | any object           | int hash of the value, 0-B  | requires B, `buckets` integer attribute[<sup>3</sup>](#notes) |
 
 A field definition can optionally provide a `name` attribute, which is used to reference the partition field. HDFS datasets use this name when creating partition paths. If the name attribute is missing, it is defaulted based on the partition type and source field name.
 
@@ -68,7 +69,8 @@ You access record values using dot notation. For example, `location.latitude`.
 
 ### Notes:
 1. Source timestamps must be [long][avro-types] fields. The value encodes the number of milliseconds since unix epoch, as in Joda Time's [Instant][timestamp] and Java's Date.
-2. The `buckets` attribute is required for `hash` partitions and controls the number of partitions into which the entities should be pseudo-randomly distributed.
+2. The `format` attribute is required for `format` partitions and controls how the source timestamp is formatted into a string.
+3. The `buckets` attribute is required for `hash` partitions and controls the number of partitions into which the entities should be pseudo-randomly distributed.
 
 [json]: http://www.json.org/
 [avro-types]: http://avro.apache.org/docs/1.7.6/spec.html#schema_primitive
